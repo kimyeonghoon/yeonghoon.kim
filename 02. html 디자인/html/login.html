@@ -11,6 +11,49 @@
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <!-- Bootstrap CSS 4.5,2 -->
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#loginBtn").on("click", function() {
+			if($("#mailInput").val() == '' || $("#mailInput").val() == null) {
+				$("[name='inputCheck']").val("1");
+				modalPopup();
+			} else if($("#passwordInput").val() == '' || $("#passwordInput").val() == null) {
+				$("[name='inputCheck']").val("2");
+				modalPopup();
+			} else {
+				$("#loginCheck").attr("loginCheckAjax");
+				alert("로그인 체크 아작스");
+			}
+		});
+	});
+
+	function modalPopup() {
+		var html = "";
+		$("#notifyModal").remove();
+		html += "<div class=\"modal fade\" id=\"notifyModal\">";
+		html += "<div class=\"modal-dialog modal-lg\">";
+		html += "<div class=\"modal-content\">";
+		html += "<div class=\"modal-header\">";
+		html += "<h4 class=\"modal-title\">알림</h4>";
+		html += "</div>";
+		html += "<div class=\"modal-body\">";
+		if($("[name='inputCheck']").val() == "1") {
+			html += "메일을 입력해주세요."
+		} else if($("[name='inputCheck']").val() == "2") {
+			html += "패스워드를 입력해주세요."
+		}
+		html += "</div>";
+		html += "<div class=\"modal-footer\">";
+		html += "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">닫기</button>";
+		html += "</div>";
+		html += "</div>";
+		html += "</div>";
+		html += "</div>";
+		$("#contentsArea").prepend(html);
+		$("#notifyModal").modal("show");
+	}
+	
+</script>
 <style type="text/css">
 	.contents_area {
 		height: 500px;
@@ -62,12 +105,30 @@
 			</div>
 		</nav>
 		<!-- 본문 영역 -->
-		<div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area">
-			<div>yeonghoon.kim</div>
-			<div>
-				<div>이메일주소</div>
-				<div>패스워드</div>
-				<div>로그인버튼</div>
+		<div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area" id="contentsArea">
+			<div class="row">
+				<div class="col-xl-4 col-lg-3 col-md-2 col-sm-1"></div>
+				<div class="col-xl-4 col-lg-6 col-md-8 col-sm-10 shadow card">
+					<div class="card-body">
+						<form action="#" method="post" id="loginCheck">
+						<input type="hidden" name="inputCheck" />
+							<div class="input-group" style="padding-bottom: 15px">
+								<div class="input-group-prepend">
+									<span class="input-group-text">MAIL</span>
+								</div>
+								<input type="text" class="form-control" id="mailInput" placeholder="이메일을 입력해주세요.">
+							</div>
+							<div class="input-group" style="padding-bottom: 15px">
+								<div class="input-group-prepend">
+									<span class="input-group-text">PASS</span>
+								</div>
+								<input type="password" class="form-control" id="passwordInput" placeholder="패스워드를 입력해주세요.">
+							</div>
+							<div class="btn btn-dark" style="display: block" id="loginBtn">로그인</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-3 col-md-2 col-sm-10"></div>
 			</div>
 		</div>
 		<!-- 푸터 영역 -->
