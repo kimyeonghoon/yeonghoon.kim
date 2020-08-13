@@ -12,11 +12,6 @@
 <!-- Bootstrap CSS 4.5,2 -->
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 <title>yeonghoon.kim :: 회원가입</title>
-<style type="text/css">
-	.contents_area {
-		height: 500px;
-	}
-</style>
 </head>
 <body>
 	<div class="container">
@@ -62,8 +57,66 @@
 			</div>
 		</nav>
 		<!-- 본문 영역 -->
-		<div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area">
-			회원가입 본문 영역
+		<div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area" id="contentsArea">
+			<div class="row">
+				<div class="col-xl-3 col-lg-3 col-md-2 col-sm-1"></div>
+				<div class="col-xl-6 col-lg-6 col-md-8 col-sm-10 card border-0">
+					<div class="card-header bg-dark text-light font-weight-bold">
+						회원가입
+					</div>
+					<div class="card-body border">
+						<form action="#" method="post" id="joinCheck">
+							<div class="form-group row">
+								<label class="col-sm-4 text-sm-right font-weight-bold">이메일</label>
+								<div class="col-sm-8">
+									<input type="email" id="emailInput" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 text-sm-right font-weight-bold">비밀번호</label>
+								<div class="col-sm-8">
+									<input type="password" id="passwordInput" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 text-sm-right font-weight-bold">비밀번호 확인</label>
+								<div class="col-sm-8">
+									<input type="password" id="passwordCheckInput" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 text-sm-right font-weight-bold">닉네임</label>
+								<div class="col-sm-8">
+									<input type="text" id="nicknameInput" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 text-sm-right font-weight-bold">주소</label>
+								<div class="col-sm-8">
+									<input type="text" id="addressInput" class="form-control" disabled="disabled" />
+									<input type="text" id="addressInput" class="form-control" disabled="disabled" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 text-sm-right font-weight-bold">성별</label>
+								<div class="col-sm-8">
+									<div class="form-check-inline">
+										<label class="form-check-label">
+											<input type="radio" class="form-check-input" name="gender" value="m" />남자
+										</label> 
+									</div>
+									<div class="form-check-inline">
+										<label class="form-check-label">
+											<input type="radio" class="form-check-input" name="gender" value="f" />여자
+										</label> 
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-xl-3 col-lg-3 col-md-2 col-sm-10"></div>
+			</div>
 		</div>
 		<!-- 푸터 영역 -->
 		<div class="p-3 border border-dark bg-light">
