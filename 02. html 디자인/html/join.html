@@ -11,6 +11,43 @@
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <!-- Bootstrap CSS 4.5,2 -->
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+<!-- 다음지도 주소 API -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$("#searchAddress").on("click", function(){
+			$("#addressSearchForm").addClass("p-4 bg-secondary");
+			searchAddress();
+		});
+	});
+	
+	function searchAddress() {
+		new daum.Postcode({
+		    oncomplete: function(data) {
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                $("#addressInput").val(addr);
+                if($("#addressInput").val() != null || $("#addressInput").val() != "") {
+                	$("#detailAddressInput").removeAttr("disabled");
+				}
+			$("#addressSearchForm").removeClass("p-4 bg-secondary");
+		    },
+		    width : '100%'
+		}).embed(addressSearchForm);
+	}
+	
+</script>
 <title>yeonghoon.kim :: 회원가입</title>
 </head>
 <body>
@@ -61,7 +98,7 @@
 			<div class="row">
 				<div class="col-xl-3 col-lg-3 col-md-2 col-sm-1"></div>
 				<div class="col-xl-6 col-lg-6 col-md-8 col-sm-10 card border-0">
-					<div class="card-header bg-dark text-light font-weight-bold">
+					<div class="card-header bg-secondary text-light font-weight-bold">
 						회원가입
 					</div>
 					<div class="card-body border">
@@ -91,10 +128,12 @@
 								</div>
 							</div>
 							<div class="form-group row">
+								<div id="addressSearchForm" class="embed-responsive"></div>
 								<label class="col-sm-4 text-sm-right font-weight-bold">주소</label>
 								<div class="col-sm-8">
+									<button type="button" class="btn btn-secondary" id="searchAddress">주소 검색</button>
 									<input type="text" id="addressInput" class="form-control" disabled="disabled" />
-									<input type="text" id="addressInput" class="form-control" disabled="disabled" />
+									<input type="text" id="detailAddressInput" class="form-control" disabled="disabled" />
 								</div>
 							</div>
 							<div class="form-group row">
@@ -109,6 +148,28 @@
 										<label class="form-check-label">
 											<input type="radio" class="form-check-input" name="gender" value="f" />여자
 										</label> 
+									</div>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 text-sm-right font-weight-bold">전화번호</label>
+								<div class="col-sm-8">
+									<div class="form-check-inline row">
+										<span class="col-sm-4">
+											<select class="form-control">
+												<option value="010">010</option>
+												<option value="011">011</option>
+												<option value="016">016</option>
+												<option value="017">017</option>
+												<option value="019">019</option>
+											</select>
+										</span>
+										<span class="col-sm-4"> 
+											<input type="text" class="form-control" maxlength="4" />
+										</span>
+										<span class="col-sm-4">
+											<input type="text" class="form-control" maxlength="4" />
+										</span>
 									</div>
 								</div>
 							</div>
