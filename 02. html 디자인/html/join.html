@@ -14,14 +14,98 @@
 <!-- 다음지도 주소 API -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
-
 	$(document).ready(function() {
-		$("#searchAddress").on("click", function(){
+		// 주소 검색 버튼 클릭 이벤트
+		$("#searchAddress").on("click", function() {
 			$("#addressSearchForm").addClass("p-4 bg-secondary");
 			searchAddress();
 		});
+		
+		// 회원가입 버튼 클릭 이벤트
+		$("#joinBtn").on("click", function() {
+			if($("#emailInput").val() == '' || $("#emailInput").val() == null) {
+				$("[name='popupCheck']").val("0");
+				modalPopup();
+			} else if($("#passwordInput").val() == '' || $("#passwordInput").val() == null) {
+				$("[name='popupCheck']").val("1");
+				modalPopup();
+			} else if($("#passwordCheckInput").val() == '' || $("#passwordCheckInput").val() == null) {
+				$("[name='popupCheck']").val("2");
+				modalPopup();
+			} else if($("#passwordInput").val() != $("#passwordCheckInput").val()) {
+				$("[name='popupCheck']").val("3");
+				modalPopup();
+			} else if($("#nicknameInput").val() == '' || $("#nicknameInput").val() == null) {
+				$("[name='popupCheck']").val("4");
+				modalPopup();
+			} else if($("#addressInput").val() == '' || $("#addressInput").val() == null) {
+				$("[name='popupCheck']").val("5");
+				modalPopup();
+			} else if($("#detailAddressInput").val() == '' || $("#detailAddressInput").val() == null) {
+				$("[name='popupCheck']").val("6");
+				modalPopup();
+			} else if($("input:radio[name=gender]").is(":checked") == false) {
+				$("[name='popupCheck']").val("7");
+				modalPopup();
+			} else if($("#telFirstNo").val() == '' || $("#telFirstNo").val() == null || $("#telFirstNo").val() == 'notSelected') {
+				$("[name='popupCheck']").val("8");
+				modalPopup();
+			} else if($("#telNo").val() == '' || $("#telNo").val() == null || $("#telNo").val() == 'notSelected') {
+				$("[name='popupCheck']").val("9");
+				modalPopup();
+			} else {
+				$("#joinCheck").attr("joinCheckAjax");
+				alert("회원가입 체크 아작스");
+			}
+		});
 	});
 	
+	// 팝업창 생성
+	function modalPopup() {
+		// 기존 모달 삭제
+		$("#notifyModal").remove();
+		var html = "";
+		html += "<div class=\"modal fade\" id=\"notifyModal\">";
+		html += "<div class=\"modal-dialog modal-sm p-3 \">";
+		html += "<div class=\"modal-content\">";
+		html += "<div class=\"modal-header\">";
+		html += "<h4 class=\"modal-title\">알림</h4>";
+		html += "</div>";
+		html += "<div class=\"modal-body\">";
+		switch ($("[name='popupCheck']").val()) {
+			case "0": html += "이메일을 입력해주세요.";
+					  break;
+			case "1": html += "비밀번호를 입력해주세요.";
+					  break;
+			case "2": html += "비밀번호확인을 입력해주세요.";
+					  break;
+			case "3": html += "비밀번호가 일치하지 않습니다.";
+					  break;
+			case "4": html += "닉네임을 입력해주세요.";
+					  break;
+			case "5": html += "주소를 검색해주세요.";
+					  break;
+			case "6": html += "상세주소를 입력해주세요.";
+					  break;
+			case "7": html += "성별을 선택해주세요.";
+					  break;
+			case "8": html += "전화번호 앞자리를 선택해주세요.";
+					  break;
+			case "9": html += "전화번호 뒷자리를 입력해주세요.";
+					  break;
+		}
+		html += "</div>";
+		html += "<div class=\"modal-footer\">";
+		html += "<button type=\"button\" class=\"btn btn-dark\" data-dismiss=\"modal\">닫기</button>";
+		html += "</div>";
+		html += "</div>";
+		html += "</div>";
+		html += "</div>";
+		$("#contentsArea").prepend(html);
+		$("#notifyModal").modal("show");
+	}
+	
+	// 다음 주소 API
 	function searchAddress() {
 		new daum.Postcode({
 		    oncomplete: function(data) {
@@ -102,6 +186,7 @@
 						회원가입
 					</div>
 					<div class="card-body border">
+						<input type="hidden" name="popupCheck" />
 						<form action="#" method="post" id="joinCheck">
 							<div class="form-group row">
 								<label class="col-sm-4 text-sm-right font-weight-bold">이메일</label>
@@ -156,16 +241,35 @@
 								<div class="col-sm-8">
 									<div class="form-check-inline row">
 										<span class="col-sm-4">
-											<select class="form-control">
+											<select class="form-control" id="telFirstNo">
+												<option value="notSelected" selected="selected">국번</option>
 												<option value="010">010</option>
 												<option value="011">011</option>
 												<option value="016">016</option>
 												<option value="017">017</option>
+												<option value="018">018</option>
 												<option value="019">019</option>
+												<option value="02">02</option>
+												<option value="031">031</option>
+												<option value="032">032</option>
+												<option value="033">033</option>
+												<option value="041">041</option>
+												<option value="042">042</option>
+												<option value="043">043</option>
+												<option value="044">044</option>
+												<option value="051">051</option>
+												<option value="052">052</option>
+												<option value="053">053</option>
+												<option value="054">054</option>
+												<option value="055">055</option>
+												<option value="061">061</option>
+												<option value="062">062</option>
+												<option value="063">063</option>
+												<option value="064">064</option>
 											</select>
 										</span>
 										<span class="col-sm-8"> 
-											<input type="text" class="form-control" maxlength="8" />
+											<input type="text" class="form-control" id="telNo" maxlength="8" />
 										</span>
 									</div>
 								</div>
