@@ -11,6 +11,26 @@
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <!-- Bootstrap CSS 4.5,2 -->
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+<!-- ckeditor -->
+<script src="../ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		// CKEDITOR 붙이기기
+		CKEDITOR.replace("content", {
+			language : "ko",
+			enterMode : "2",
+			resize_enabled : false,
+			width : "100%",
+			height : "100%"
+		});
+		
+		// 취소 버튼 클릭 이벤트
+		$("#cancelBtn").on("click", function() {
+			location.href="board.html"
+		});
+	});
+
+</script>
 <title>yeonghoon.kim :: 게시판</title>
 <style type="text/css">
 </style>
@@ -67,79 +87,22 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<td class="font-weight-bold">작성일</td>
-						<td>2020-08-18</td>
-					</tr>
-					<tr>
 						<td class="font-weight-bold">작성자</td>
 						<td>김영훈</td>
 					</tr>
 					<tr>
 						<td class="font-weight-bold">제목</td>
-						<td>어쩌구저쩌구가나다라마바사아자</td>
+						<td><input type="text" class="form-control"></td>
 					</tr>
 					<tr class="table-secondary">
 						<td class="p-3" colspan="2">
-							동해물과 백두산이 마르고 닳도록
-							하느님이 보우하사 우리나라만세
-							무궁화 삼천리 화려강산
-							대한사람 대한으로 길이보전하세						
-						</td>
-					</tr>
-					<tr>
-						<td class="font-weight-bold">
-							<div>댓글 작성자</div>
-							<div>[<a href="#">&#x1F6E0;</a>] / [<a href="#">&#x1F5D1;</a>]</div>
-						</td>
-						<td>
-							<div class="text-right text-secondary">2020-08-18 17:48</div>
-							댓글 내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-						</td>
-					</tr>
-					<tr>
-						<td class="font-weight-bold">
-							<div>댓글 작성자</div>
-							<div>[<a href="#">&#x1F6E0;</a>] / [<a href="#">&#x1F5D1;</a>]</div>
-						</td>
-						<td>
-							<div class="text-right text-secondary">2020-08-18 17:48</div>
-							댓글 내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-						</td>
-					</tr>
-					<tr>
-						<td class="font-weight-bold">
-							<div>댓글 작성자</div>
-							<div>[<a href="#">&#x1F6E0;</a>] / [<a href="#">&#x1F5D1;</a>]</div>
-						</td>
-						<td>
-							<div class="text-right text-secondary">2020-08-18 17:48</div>
-							댓글 내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-						</td>
-					</tr>
-					<tr>
-						<td class="font-weight-bold">
-							<div>댓글 작성자</div>
-							<div>[<a href="#">&#x1F6E0;</a>] / [<a href="#">&#x1F5D1;</a>]</div>
-						</td>
-						<td>
-							<div class="text-right text-secondary">2020-08-18 17:48</div>
-							댓글 내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<div>
-								<textarea rows="3" style="width: 100%"></textarea>
-								<div class="btn btn-secondary float-right">댓글 등록</div>
-							</div>
+							<textarea id="content"></textarea>					
 						</td>
 					</tr>
 				</tbody>
 			</table>
-			<div class="btn btn-secondary mr-2" style="display: inline-block;">수정</div>
-			<div class="btn btn-secondary" style="display: inline-block;">삭제</div>
-			<div class="btn btn-secondary float-right" style="display: inline-block;">목록</div>
-			
+			<div class="btn btn-secondary" style="display: inline-block;">등록</div>
+			<div id="cancelBtn" class="btn btn-secondary float-right" style="display: inline-block;">취소</div>
 		</div>
 		<!-- 푸터 영역 -->
 		<div class="p-3 border border-dark bg-light">

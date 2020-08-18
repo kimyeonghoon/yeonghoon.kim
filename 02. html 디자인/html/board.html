@@ -11,12 +11,19 @@
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <!-- Bootstrap CSS 4.5,2 -->
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+<script type="text/javascript">
+	$(document).ready(function() {
+		// 등록 버튼 클릭 이벤트
+		$("#addBtn").on("click", function() {
+			location.href="board_add.html"
+		});
+	});
+</script>
 <title>yeonghoon.kim :: 게시판</title>
 <style type="text/css">
 .page-link {
 	color: black;
 }
-
 </style>
 </head>
 <body>
@@ -136,7 +143,7 @@
 			</table>
 			<div>
 				<div>
-					<div class="btn btn-secondary d-inline-block float-right">등록</div>
+					<div id="addBtn" class="btn btn-secondary d-inline-block float-right">등록</div>
 					<ul class="pagination justify-content-center">
 						<li class="page-item disabled"><a class="page-link" href="http://google.com">이전</a></li>
 						<li class="page-item"><a class="page-link" href="#">1</a></li>
