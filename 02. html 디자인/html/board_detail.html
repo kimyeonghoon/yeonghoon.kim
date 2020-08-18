@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- jQuery 3.5.1 -->
+<script src="../jquery/jquery-3.5.1.slim.min.js"></script>
+<!-- popper.js 1.16.1 -->
+<script src="../jquery/popper.min.js"></script>
+<!-- Bootstrap JS 4.5.2 -->
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<!-- Bootstrap CSS 4.5,2 -->
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+<title>yeonghoon.kim :: 게시판</title>
+<style type="text/css">
+</style>
+</head>
+<body>
+	<div class="container">
+		<nav class="navbar bg-dark navbar-dark navbar-expand-md sticky-top">
+			<!-- 메인 -->
+			<a href="main.html" class="navbar-brand font-weight-bold">
+				yeonghoon.kim
+			</a>
+			<!-- 네비바 토글 버튼 -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<!-- 메뉴 -->
+			<div class="collapse navbar-collapse font-weight-bold" id="navMenu">
+				<!-- 좌측메뉴 -->
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a href="profile.html" class="nav-link">프로필</a>
+					</li>
+					<!-- 2단 메뉴(드롭다운) -->
+					<li class="nav-item dropdown">
+						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">포트폴리오</a>
+						<div class="dropdown-menu">
+							<a href="portpolio1.html" class="dropdown-item">[학원프로젝트] VanillaERP</a>
+							<a href="portpolio2.html" class="dropdown-item">[개인프로젝트] yeonghoon.kim</a>
+						</div>
+					<li class="nav-item active">
+						<a href="board.html" class="nav-link">게시판</a>
+					</li>
+					<li class="nav-item">
+						<a href="gallary.html" class="nav-link">갤러리</a>
+					</li>
+				</ul>
+				<!-- 우측 매뉴 -->
+				<ul class="navbar-nav ml-auto font-weight-bold">
+					<li class="nav-item">
+						<a href="login.html" class="nav-link text-warning">로그인</a>
+					</li>
+					<li class="nav-item">
+						<a href="join.html" class="nav-link text-danger">회원가입</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<!-- 본문 영역 -->
+		<div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area">
+			<table class="table table-sm table-borderless border">
+				<colgroup>
+					<col width="25%"></col>
+					<col width="*"></col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<td class="font-weight-bold">작성일</td>
+						<td>2020-08-18</td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">작성자</td>
+						<td>김영훈</td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">제목</td>
+						<td>어쩌구저쩌구가나다라마바사아자</td>
+					</tr>
+					<tr class="table-secondary">
+						<td class="p-3" colspan="2">
+							동해물과 백두산이 마르고 닳도록
+							하느님이 보우하사 우리나라만세
+							무궁화 삼천리 화려강산
+							대한사람 대한으로 길이보전하세						
+						</td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">
+							<div>댓글 작성자</div>
+							<div>[<a href="#">&#x1F6E0;</a>] / [<a href="#">&#x1F5D1;</a>]</div>
+						</td>
+						<td>
+							<div class="text-right text-secondary">2020-08-18 17:48</div>
+							댓글 내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+						</td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">
+							<div>댓글 작성자</div>
+							<div>[<a href="#">&#x1F6E0;</a>] / [<a href="#">&#x1F5D1;</a>]</div>
+						</td>
+						<td>
+							<div class="text-right text-secondary">2020-08-18 17:48</div>
+							댓글 내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+						</td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">
+							<div>댓글 작성자</div>
+							<div>[<a href="#">&#x1F6E0;</a>] / [<a href="#">&#x1F5D1;</a>]</div>
+						</td>
+						<td>
+							<div class="text-right text-secondary">2020-08-18 17:48</div>
+							댓글 내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+						</td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">
+							<div>댓글 작성자</div>
+							<div>[<a href="#">&#x1F6E0;</a>] / [<a href="#">&#x1F5D1;</a>]</div>
+						</td>
+						<td>
+							<div class="text-right text-secondary">2020-08-18 17:48</div>
+							댓글 내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div>
+								<textarea rows="3" style="width: 100%"></textarea>
+								<div class="btn btn-secondary float-right">댓글 등록</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="btn btn-secondary" style="display: inline-block;">목록</div>
+			<div class="btn btn-secondary ml-3" style="display: inline-block;">게시글 수정</div>
+			
+		</div>
+		<!-- 푸터 영역 -->
+		<div class="p-3 border border-dark bg-light">
+			<div>
+				<table>
+					<colgroup>
+						<col width="30%">
+						<col width="*">
+					</colgroup>
+					<tbody>
+						<tr>
+							<td class="font-weight-bold">[Mail]</td>
+							<td>me@yeonghoon.kim</td>
+						</tr>
+						<tr>
+							<td class="font-weight-bold">[GitHub]</td>
+							<td>https://github.com/kimyeonghoon</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
