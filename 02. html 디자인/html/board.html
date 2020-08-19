@@ -17,6 +17,14 @@
 		$("#addBtn").on("click", function() {
 			location.href="board_add.html"
 		});
+		
+		$("tr").on("click", function() {
+			if($(this).attr("data-bNo") != null) {
+				location.href="board_detail.html";			
+			} else {
+				return false;
+			}
+		});
 	});
 </script>
 <title>yeonghoon.kim :: 게시판</title>
@@ -104,36 +112,36 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr data-bNo="10">
 						<td class="d-none d-xl-table-cell">10</td>
 						<td class="text-left">가나다라마바사아아아아아아아ㅏㅏㅏㅏㅏ</td>
 						<td class="d-none d-xl-table-cell">김영훈</td>
 						<td>2020-08-17</td>
 						<td class="d-none d-xl-table-cell">300</td>
 					</tr>
-					<tr>
-						<td class="d-none d-xl-table-cell">10</td>
+					<tr data-bNo="9">
+						<td class="d-none d-xl-table-cell">9</td>
 						<td class="text-left">가나다라마바사아아아아아아아ㅏㅏㅏㅏㅏ</td>
 						<td class="d-none d-xl-table-cell">김영훈</td>
 						<td>2020-08-17</td>
 						<td class="d-none d-xl-table-cell">300</td>
 					</tr>
-					<tr>
-						<td class="d-none d-xl-table-cell">10</td>
+					<tr data-bNo="8">
+						<td class="d-none d-xl-table-cell">8</td>
 						<td class="text-left">가나다라마바사아아아아아아아ㅏㅏㅏㅏㅏ</td>
 						<td class="d-none d-xl-table-cell">김영훈</td>
 						<td>2020-08-17</td>
 						<td class="d-none d-xl-table-cell">300</td>
 					</tr>
-					<tr>
-						<td class="d-none d-xl-table-cell">10</td>
+					<tr data-bNo="7">
+						<td class="d-none d-xl-table-cell">7</td>
 						<td class="text-left">가나다라마바사아아아아아아아ㅏㅏㅏㅏㅏ</td>
 						<td class="d-none d-xl-table-cell">김영훈</td>
 						<td>2020-08-17</td>
 						<td class="d-none d-xl-table-cell">300</td>
 					</tr>
-					<tr>
-						<td class="d-none d-xl-table-cell">10</td>
+					<tr data-bNo="6">
+						<td class="d-none d-xl-table-cell">6</td>
 						<td class="text-left">가나다라마바사아아아아아아아ㅏㅏㅏㅏㅏ</td>
 						<td class="d-none d-xl-table-cell">김영훈</td>
 						<td>2020-08-17</td>
