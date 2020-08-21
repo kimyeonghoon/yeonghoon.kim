@@ -11,12 +11,12 @@
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <!-- Bootstrap CSS 4.5,2 -->
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-<style type="text/css">
-	.contents_area {
-		height: 500px;
-	}
-</style>
 <title>yeonghoon.kim :: 프로필</title>
+<style type="text/css">
+a {
+	color: black;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -63,18 +63,86 @@
 		</nav>
 		<!-- 본문 영역 -->
 		<div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area">
-			프로필 본문 영역
+			<div class="container">
+				<div class="d-flex justify-content-center">
+					<img src="../image/img_avatar1.png" style="width: 150px; height: 180px;">
+				</div>
+				<p class="text-center font-weight-bold pt-3">김영훈(남, 1987년, 34세)</p>
+				<table class="table table-borderless table-sm d-flex justify-content-center">
+					<colgroup>
+						<col width="25%"></col>
+						<col width="*"></col>
+					</colgroup>
+					<tbody>
+						<tr>
+							<td class="font-weight-bold">주소</td>
+							<td>서울특별시 금천구 독산동</td>
+						</tr>
+						<tr>
+							<td class="font-weight-bold">학력</td>
+							<td>동아대학교(4년) 사학과 졸업</td>
+						</tr>
+						<tr>
+							<td class="font-weight-bold">경력</td>
+							<td>인프라엔지니어 4년 5개월</td>
+						</tr>
+						<tr>
+							<td class="font-weight-bold">자격증</td>
+							<td>정보처리기사 외 3</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="accordion">
+				<div class="card">
+					<div class="card-header font-weight-bold bg-secondary">
+						<a class="card-link text-light" data-toggle="collapse" href="#a10">경력</a>
+					</div>
+					<div class="collapse show" id="a10" data-parent="#accordion">
+						<div class="card-body">
+							<p>동해물과 백두산이 마르고 닳도록</p>
+							<p>하느님이 보우하사 우리나라 만세</p>
+							<p>무궁화 삼천리 화려강산</p>
+							<p>대한사람 대한으로 길이보전하세</p>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header">
+						<a class="card-link" data-toggle="collapse" href="#a20">교육</a>
+					</div>
+					<div class="collapse" id="a20" data-parent="#accordion">
+						<div class="card-body">
+							<p>동해물과 백두산이 마르고 닳도록</p>
+							<p>하느님이 보우하사 우리나라 만세</p>
+							<p>무궁화 삼천리 화려강산</p>
+							<p>대한사람 대한으로 길이보전하세</p>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header">
+						<a class="card-link" data-toggle="collapse" href="#a30">자격증</a>
+					</div>
+					<div class="collapse" id="a30" data-parent="#accordion">
+						<div class="card-body">
+							<p>동해물과 백두산이 마르고 닳도록</p>
+							<p>하느님이 보우하사 우리나라 만세</p>
+							<p>무궁화 삼천리 화려강산</p>
+							<p>대한사람 대한으로 길이보전하세</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<!-- 푸터 영역 -->
 		<div class="p-3 border border-dark bg-light">
 			<div>
 				<table>
-					<thead>
-						<colgroup>
-							<col width="30%">
-							<col width="*">
-						</colgroup>
-					</thead>
+					<colgroup>
+						<col width="30%">
+						<col width="*">
+					</colgroup>
 					<tbody>
 						<tr>
 							<td class="font-weight-bold">[Mail]</td>
