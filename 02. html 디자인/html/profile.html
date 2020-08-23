@@ -16,7 +16,12 @@
 <title>yeonghoon.kim :: 프로필</title>
 <script type="text/javascript">
 	$(document).ready(function() {
+		// 프로필 초기화
 		init_profile();
+		
+		$("#briefHistoryModifyBtn").on("click", function(){
+			modalPopup(1);
+		});
 	});
 </script>
 <style type="text/css">
@@ -69,36 +74,40 @@ a {
 			</div>
 		</nav>
 		<!-- 본문 영역 -->
-		<div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area">
+		<div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area" id="contentsArea">
 			<div class="container">
-				<div class="d-flex justify-content-center">
-					<img src="../image/img_avatar1.png" style="width: 150px; height: 180px;">
+				<!-- 약력  -->
+				<div>
+					<div class="d-flex justify-content-center">
+					<div id="briefHistoryModifyBtn" class="btn btn-secondary" style="display: block">약력수정</div>
+						<img src="../image/img_avatar1.png" style="width: 150px; height: 180px;">
+					</div>
+					<p class="text-center font-weight-bold pt-3">김영훈(남, 1987년, 34세)</p>
+					<table class="table table-borderless table-sm d-flex justify-content-center">
+						<colgroup>
+							<col width="25%"></col>
+							<col width="*"></col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td class="font-weight-bold">주소</td>
+								<td>서울특별시 금천구 독산동</td>
+							</tr>
+							<tr>
+								<td class="font-weight-bold">학력</td>
+								<td>동아대학교(4년) 사학과 졸업</td>
+							</tr>
+							<tr>
+								<td class="font-weight-bold">경력</td>
+								<td>인프라엔지니어 4년 5개월</td>
+							</tr>
+							<tr>
+								<td class="font-weight-bold">자격증</td>
+								<td>정보처리기사 외 3</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				<p class="text-center font-weight-bold pt-3">김영훈(남, 1987년, 34세)</p>
-				<table class="table table-borderless table-sm d-flex justify-content-center">
-					<colgroup>
-						<col width="25%"></col>
-						<col width="*"></col>
-					</colgroup>
-					<tbody>
-						<tr>
-							<td class="font-weight-bold">주소</td>
-							<td>서울특별시 금천구 독산동</td>
-						</tr>
-						<tr>
-							<td class="font-weight-bold">학력</td>
-							<td>동아대학교(4년) 사학과 졸업</td>
-						</tr>
-						<tr>
-							<td class="font-weight-bold">경력</td>
-							<td>인프라엔지니어 4년 5개월</td>
-						</tr>
-						<tr>
-							<td class="font-weight-bold">자격증</td>
-							<td>정보처리기사 외 3</td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
 			<div id="accordion">
 				<div class="card">
