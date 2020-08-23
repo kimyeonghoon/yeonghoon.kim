@@ -9,23 +9,14 @@
 <script src="../jquery/popper.min.js"></script>
 <!-- Bootstrap JS 4.5.2 -->
 <script src="../bootstrap/js/bootstrap.min.js"></script>
+<!-- profile.js -->
+<script src="../script/profile.js"></script>
 <!-- Bootstrap CSS 4.5,2 -->
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 <title>yeonghoon.kim :: 프로필</title>
 <script type="text/javascript">
-	var businessCard1 = "<img src='../image/giftm.jpg' width='100%' />";
-	var businessCard2 = "<img src='../image/smileserv.jpg' width='100%' />";
-	
 	$(document).ready(function() {
-		$("#businessCard1").popover({
-			content: businessCard1, html: true
-		});
-		$("#businessCard2").popover({
-			content: businessCard2, html: true
-		});
-		
-		businessCard1 = null;
-		businessCard2 = null;
+		init_profile();
 	});
 </script>
 <style type="text/css">
@@ -125,21 +116,22 @@ a {
 									<tbody>
 										<tr class="border border-top-0 border-left-0 border-right-0">
 											<td>
-												<h5>2006. 03 ~ 2013. 02</h5>
-												<span class="text-primary">졸업</span>
+												<H6>2006. 03 ~ 2013. 02</H6>
+												<span class="text-primary" id="dongauniv" data-toggle="popover" data-trigger="hover">졸업 &#x1F4C7;</span>
 											</td>
 											<td>
-												<h5>동아대학교 사학과</h5>
+												<H6>동아대학교 사학과</H6>
 												<span class="text-secondary">평점 : 3.0 / 4.5</span>
 											</td>
 										</tr>
 										<tr>
 											<td>
-												<h5>2003. 03 ~ 2006. 02</h5>
+												<H6>2003. 03 ~ 2006. 02</H6>
 												<span class="text-primary">졸업</span>
 											</td>
 											<td>
-												<h5>오천고등학교</h5>
+												<H6>오천고등학교</H6>
+												<span class="text-secondary">인문계열</span>
 											</td>
 										</tr>
 									</tbody>
@@ -163,76 +155,77 @@ a {
 									<tbody>
 										<tr class="border border-top-0 border-left-0 border-right-0">
 											<td>
-												<h5>기프트엠</h5>
+												<H6>기프트엠</H6>
 												<h6>2019. 01 ~ 2019. 12</h6>
 												<span class="text-primary" id="businessCard1" data-toggle="popover" data-trigger="hover">1년 &#x1F4C7;</span>
 											</td>
 											<td>
-												<h5>개발팀</h5>
+												<H6>개발팀</H6>
 												<h6 class="text-primary mb-5">주요 업무 : 인프라 관리 및 정보보호 관리</h6>
 											</td>
 										</tr>
 										<tr class="border border-top-0 border-left-0 border-right-0">
 											<td>
-												<h5>스마일서브</h5>
+												<H6>스마일서브</H6>
 												<h6>2015. 07 ~ 2018. 11</h6>
 												<span class="text-primary" id="businessCard2" data-toggle="popover" data-trigger="hover">3년 5개월 &#x1F4C7;</span>
 											</td>
 											<td>
-												<h5>제2연구소(2018. 07 ~ 2018. 11)</h5>
+												<H6>제2연구소(2018. 07 ~ 2018. 11)</H6>
 												<h6 class="text-primary mb-5">주요 업무 : 웹호스팅 기술지원 및 서버 운영</h6>
-												<h5>웹호스팅팀(2018. 01 ~ 2018. 06)</h5>
+												<H6>웹호스팅팀(2018. 01 ~ 2018. 06)</H6>
 												<h6 class="text-primary mb-5">주요 업무 : 웹호스팅 기술지원 및 서버 운영, 공공기관 클라우드 개발 초기 인프라 구축</h6>
-												<h5>기술지원팀(2015. 07 ~ 2017. 12)</h5>
+												<H6>기술지원팀(2015. 07 ~ 2017. 12)</H6>
 												<h6 class="text-primary mb-5">주요 업무 : 호스팅 기술지원, IDC 보안 관제, 네트워크 장애처리</h6>
 											</td>
 										</tr>
 										<tr class="border border-top-0 border-left-0 border-right-0">
 											<td>
-												<h5>경력기술서</h5>
+												<H6>경력기술서</H6>
 											</td>
 											<td>
-												<h5>기프트엠</h5>
+												<H6>기프트엠</H6>
 												<h6 class="text-primary">개발팀(2019. 01 ~ 2019. 12)</h6>
 												<div class="text-secondary">
-													<p>- 웹하드(쉐어박스, 파일함, 미투디스크) 인프라 운영</p>
-													<p>- IDC 인프라 자산 관리</p>
-													<p>- 시스템 구축 및 관리(윈도우, CentOS, Apache, Nginx, PHP, MySQL, SVN, SSL, 도메인, proftpd, sphinx, raid)</p>
-													<p>- 시스템 모니터링 및 자동화(nagios, ansible)</p>
-													<p>- 시스템 장애 대응 처리</p>
-													<p>- 신규 개발 관련 인프라 구축(kvm 가상화)</p>
-													<p>- 사내 방화벽 관리(FortiGate-300D)</p>
-													<p>- ISMS 심사 대응(보안 조치 및 문서작업)</p>
+													- 웹하드(쉐어박스, 파일함, 미투디스크) 인프라 운영<br/>
+													- IDC 인프라 자산 관리<br/>
+													- 시스템 구축 및 관리(윈도우, CentOS, Apache, Nginx, PHP, MySQL, SVN, SSL, 도메인, proftpd, sphinx, raid)<br/>
+													- 시스템 모니터링 및 자동화(nagios, ansible)<br/>
+													- 시스템 장애 대응 처리<br/>
+													- 신규 개발 관련 인프라 구축(kvm 가상화)<br/>
+													- 사내 방화벽 관리(FortiGate-300D)<br/>
+													- ISMS 심사 대응(보안 조치 및 문서작업)<br/>
 												</div>
+												<br/>
 												<hr/>
-												<h5>스마일서브</h5>
+												<H6>스마일서브</H6>
 												<h6 class="text-primary">제2연구소(2018. 07 ~ 2018. 11)</h6>
 												<div class="text-secondary">
-													<p>- 아이비호스팅, iwinv 웹호스팅 서비스 운영(Apache, PHP, MySQL, BIND, SSL, 도메인)</p>
-													<p>- 웹호스팅 고객 응대(문의사항 처리, 사이트 이전, DB 마이그레이션 등)</p>
-													<p>- 서버 모니터링 및 장애 대응</p>
-													<p>- 서버 로그 분석</p>
+													- 아이비호스팅, iwinv 웹호스팅 서비스 운영(Apache, PHP, MySQL, BIND, SSL, 도메인)<br/>
+													- 웹호스팅 고객 응대(문의사항 처리, 사이트 이전, DB 마이그레이션 등)<br/>
+													- 서버 모니터링 및 장애 대응<br/>
+													- 서버 로그 분석<br/>
 												</div>
 												<h6 class="text-primary mt-5">웹호스팅팀(2018. 01 ~ 2018. 06)</h6>
 												<div class="text-secondary">
-													<p>- 아이비호스팅, iwinv 웹호스팅 서비스 운영(Apache, PHP, MySQL, BIND, QMAIL, SSL, 도메인)</p>
-													<p>- 웹호스팅 고객 응대(문의사항 처리, 사이트 이전, DB 마이그레이션 등)</p>
-													<p>- 서버 모니터링 및 장애 대응</p>
-													<p>- 서버 로그 분석</p>
-													<p>- 프로젝트 초기 인프라 구축(서버 초기 세팅 및 프로그램 설치, 서버 이중화)</p>
-													<p>- 프로그램 초기 세팅 및 설정(16대 - Apache, PHP, MySQL, PDNS, Sendmail, MongoDB, Node.js)</p>
-													<p>- 서버 이중화 설정(bonding, MySQL Replication, Corosync, DRBD)</p>
-													<p>- TLS 통신 설정(MySQL, MongoDB, Sendmail)</p>
+													- 아이비호스팅, iwinv 웹호스팅 서비스 운영(Apache, PHP, MySQL, BIND, QMAIL, SSL, 도메인)<br/>
+													- 웹호스팅 고객 응대(문의사항 처리, 사이트 이전, DB 마이그레이션 등)<br/>
+													- 서버 모니터링 및 장애 대응<br/>
+													- 서버 로그 분석<br/>
+													- 프로젝트 초기 인프라 구축(서버 초기 세팅 및 프로그램 설치, 서버 이중화)<br/>
+													- 프로그램 초기 세팅 및 설정(16대 - Apache, PHP, MySQL, PDNS, Sendmail, MongoDB, Node.js)<br/>
+													- 서버 이중화 설정(bonding, MySQL Replication, Corosync, DRBD)<br/>
+													- TLS 통신 설정(MySQL, MongoDB, Sendmail)<br/>
 												</div>
 												<h6 class="text-primary mt-5">기술지원팀(2015. 07 ~ 2017. 12)</h6>
 												<div class="text-secondary">
-													<p>- cloudv, iwinv 서버 부분 기술지원</p>
-													<p>- 서버 조립 및 OS 설치(CentOS, Ubuntu, Windows Server)</p>
-													<p>- 프로그램 설치 및 설정(Apache, Nginx, IIS, PHP, Tomcat, MySQL, MariaDB, MS-SQL, Sendmail, Dovecot, BIND, PDNS 등)</p>
-													<p>- 간단한 shell script 작성(백업, 모니터링 스크립트 등)</p>
-													<p>- 고객 서버 장애처리(하드웨어 교체, 시스템 점검, 시스템 복구)</p>
-													<p>- PLANET, Edgecore L2, L3 스위치 세팅</p>
-													<p>- 해킹 사고 및 DDoS 탐지 및 대응</p>
+													- cloudv, iwinv 서버 부분 기술지원<br/>
+													- 서버 조립 및 OS 설치(CentOS, Ubuntu, Windows Server)<br/>
+													- 프로그램 설치 및 설정(Apache, Nginx, IIS, PHP, Tomcat, MySQL, MariaDB, MS-SQL, Sendmail, Dovecot, BIND, PDNS 등)<br/>
+													- 간단한 shell script 작성(백업, 모니터링 스크립트 등)<br/>
+													- 고객 서버 장애처리(하드웨어 교체, 시스템 점검, 시스템 복구)<br/>
+													- PLANET, Edgecore L2, L3 스위치 세팅<br/>
+													- 해킹 사고 및 DDoS 탐지 및 대응<br/>
 												</div> 
 											</td>
 										</tr>
@@ -244,14 +237,97 @@ a {
 				</div>
 				<div class="card">
 					<div class="card-header font-weight-bold bg-secondary">
-						<a class="card-link text-light" data-toggle="collapse" href="#a30">보유스킬</a>
+						<a class="card-link text-light" data-toggle="collapse" href="#a30">보유기술</a>
 					</div>
 					<div class="collapse" id="a30" data-parent="#accordion">
-						<div class="card-body bg-light p-0">
-							<p>동해물과 백두산이 마르고 닳도록</p>
-							<p>하느님이 보우하사 우리나라 만세</p>
-							<p>무궁화 삼천리 화려강산</p>
-							<p>대한사람 대한으로 길이보전하세</p>
+						<div class="card-body p-0">
+							<div class="card">
+								<table class="card-body table table-sm table-borderless bg-light m-0">
+									<colgroup>
+										<col width="40%"></col>
+										<col width="*"></col>
+									</colgroup>
+									<tbody>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<H6>언어</H6>
+											</td>
+											<td class="text-secondary">
+												Java<br/>
+												Javascript<br/>
+												HTML<br/>CSS
+											</td>
+										</tr>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<h6>프레임워크 / Library</h6>
+											</td>
+											<td class="text-secondary">
+												Spring<br/>
+												Bootstrap<br/>
+												MyBatis
+											</td>
+										</tr>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<h6>라이브러리</h6>
+											</td>
+											<td class="text-secondary">
+												jQuery<br/>
+												jQueryUI
+											</td>
+										</tr>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<h6>데이터베이스</h6>
+											</td>
+											<td class="text-secondary">
+												Oracle<br/>
+												MariaDB
+											</td>
+										</tr>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<h6>서버</h6>
+											</td>
+											<td class="text-secondary">
+												Tomcat<br/>
+												Nginx<br/>
+												Apache
+											</td>
+										</tr>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<h6>형상관리</h6>
+											</td>
+											<td class="text-secondary">
+												Git<br/>
+												Subversion
+											</td>
+										</tr>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<h6>API</h6>
+											</td>
+											<td class="text-secondary">
+												카카오 우편번호 서비스
+											</td>
+										</tr>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<h6>그외 사용 도구</h6>
+											</td>
+											<td class="text-secondary">
+												Eclipse<br/>
+												SQLDeveloper<br/>
+												HeidiSQL<br/>
+												TortoiseSVN<br/>
+												Git for Windows
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -260,11 +336,51 @@ a {
 						<a class="card-link text-light" data-toggle="collapse" href="#a40">교육</a>
 					</div>
 					<div class="collapse" id="a40" data-parent="#accordion">
-						<div class="card-body bg-light p-0">
-							<p>동해물과 백두산이 마르고 닳도록</p>
-							<p>하느님이 보우하사 우리나라 만세</p>
-							<p>무궁화 삼천리 화려강산</p>
-							<p>대한사람 대한으로 길이보전하세</p>
+						<div class="card-body p-0">
+							<div class="card">
+								<table class="card-body table table-sm table-borderless bg-light m-0">
+									<colgroup>
+										<col width="40%"></col>
+										<col width="*"></col>
+									</colgroup>
+									<tbody>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<H6>2020. 02 ~ 2013. 08</H6>
+												<span class="text-primary" id="gdi" data-toggle="popover" data-trigger="hover">수료 &#x1F4C7;</span>
+											</td>
+											<td>
+												<H6>구디아카데미</H6>
+												<p class="text-primary">교육과정 : 자바기반 스마트 웹&콘텐츠 개발자 양성과정</p>
+												<div class="text-secondary">
+													1. Web Front-End (UI) : Html, CSS, JavaScript, jQuery, JSP<br/>
+													2. DataBase : Oracle DB<br/>
+													3. Web Back-End : JAVA, SpringFramework, MyBatis<br/>
+													4. Team Project
+												</div>
+											</td>
+										</tr>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<H6>2020. 02 ~ 2013. 08</H6>
+												<span class="text-primary" id="itwillbs" data-toggle="popover" data-trigger="hover">수료 &#x1F4C7;</span>
+											</td>
+											<td>
+												<H6>아이티윌 부산교육센터</H6>
+												<p class="text-primary">교육과정 : 자바기반 스마트 웹&콘텐츠 개발자 양성과정</p>
+												<div class="text-secondary">
+													1. Windows Server/Linux Server 실무 및 보안<br/>
+													2. 네트워크 인프라 솔루션(CCNA, CCNP)<br/>
+													3. 가상사설망 VPN<br/>
+													4. 오라클 데이터베이스<br/>
+													5. 실전 클라우드 가상화 구축 기술<br/>
+													6. 실무 Project<br/>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -273,11 +389,70 @@ a {
 						<a class="card-link text-light" data-toggle="collapse" href="#a50">자격증</a>
 					</div>
 					<div class="collapse" id="a50" data-parent="#accordion">
-						<div class="card-body bg-light p-0">
-							<p>동해물과 백두산이 마르고 닳도록</p>
-							<p>하느님이 보우하사 우리나라 만세</p>
-							<p>무궁화 삼천리 화려강산</p>
-							<p>대한사람 대한으로 길이보전하세</p>
+						<div class="card-body p-0">
+							<div class="card">
+								<table class="card-body table table-sm table-borderless bg-light m-0">
+									<colgroup>
+										<col width="40%"></col>
+										<col width="*"></col>
+									</colgroup>
+									<tbody>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<H6>2015. 05</H6>
+												<span class="text-primary" id="eip" data-toggle="popover" data-trigger="hover">합격 &#x1F4C7;</span>
+											</td>
+											<td>
+												<H6>정보처리기사</H6>
+												<div class="text-secondary">
+													한국산업인력공단
+												</div>
+											</td>
+										</tr>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<H6>2013. 11</H6>
+												<span class="text-primary" id="pc1" data-toggle="popover" data-trigger="hover">합격 &#x1F4C7;</span>
+											</td>
+											<td>
+												<H6>PC정비사1급</H6>
+												<div class="text-secondary">
+													한국정보통신자격협회
+												</div>
+											</td>
+										</tr>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<H6>2012. 08</H6>
+												<span class="text-primary" id="ieoa" data-toggle="popover" data-trigger="hover">합격 &#x1F4C7;</span>
+											</td>
+											<td>
+												<H6>사무자동화산업기사</H6>
+												<div class="text-secondary">
+													한국산업인력공단
+												</div>
+											</td>
+										</tr>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td>
+												<H6>2012. 08</H6>
+												<span class="text-primary" id="csisdl2" data-toggle="popover" data-trigger="hover">합격 &#x1F4C7;</span>
+											</td>
+											<td>
+												<H6>컴퓨터활용능력2급</H6>
+												<div class="text-secondary">
+													대한상공회의소
+												</div>
+											</td>
+										</tr>
+										<tr class="border border-top-0 border-left-0 border-right-0">
+											<td colspan="2">
+												<div class="text-secondary">*기타 - 1종보통운전면허, 워드프로세서1급, 전산회계1급, OCA(만료), CCNP(만료)</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
