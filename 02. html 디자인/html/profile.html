@@ -18,10 +18,55 @@
 	$(document).ready(function() {
 		// 프로필 초기화
 		init_profile();
-		
+		// 약력 수정버튼 동작
 		$("#briefHistoryModifyBtn").on("click", function(){
-			modalPopup(1);
+			modalPopup("1-2");
 		});
+		// 학력 추가버튼 동작
+		$("#educationAddBtn").on("click", function(){
+			modalPopup("2-1");
+		});
+		// 학력 수정버튼 동작
+		$("#educationModBtn").on("click", function(){
+			modalPopup("2-2");
+		});
+		// 학력 삭제버튼 동작
+		$("#educationDelBtn").on("click", function(){
+			modalPopup("2-3");
+		});
+		// 회사 추가버튼 동작
+		$("#companyAddBtn").on("click", function(){
+			modalPopup("3-1");
+		});
+		// 회사 수정버튼 동작
+		$("#companyModBtn").on("click", function(){
+			modalPopup("3-2");
+		});
+		// 회사 삭제버튼 동작
+		$("#companyDelBtn").on("click", function(){
+			modalPopup("3-3");
+		});
+		// 경력 추가버튼 동작
+		$("#careerAddBtn").on("click", function(){
+			modalPopup("3-4");
+		});
+		// 경력 수정버튼 동작
+		$("#careerModBtn").on("click", function(){
+			modalPopup("3-5");
+		});
+		// 경력 삭제버튼 동작
+		$("#careerDelBtn").on("click", function(){
+			modalPopup("3-6");
+		});
+		// 보유기술 추가버튼 동작
+		$("#skillAddBtn").on("click", function(){
+			modalPopup("4-1");
+		});
+		// 보유기술 삭제버튼 동작
+		$("#skillDelBtn").on("click", function(){
+			modalPopup("4-3");
+		});
+		
 	});
 </script>
 <style type="text/css">
@@ -79,7 +124,7 @@ a {
 				<!-- 약력  -->
 				<div>
 					<div class="d-flex justify-content-center">
-					<div id="briefHistoryModifyBtn" class="btn btn-secondary" style="display: block">약력수정</div>
+					<div id="briefHistoryModifyBtn" class="btn btn-secondary">약력수정</div>
 						<img src="../image/img_avatar1.png" style="width: 150px; height: 180px;">
 					</div>
 					<p class="text-center font-weight-bold pt-3">김영훈(남, 1987년, 34세)</p>
@@ -112,9 +157,10 @@ a {
 			<div id="accordion">
 				<div class="card">
 					<div class="card-header font-weight-bold bg-secondary">
-						<a class="card-link text-light" data-toggle="collapse" href="#a10">학력</a>
+						<a class="card-link text-light" data-toggle="collapse" href="#education">학력</a>
+						<span id="educationAddBtn" class="btn btn-light float-right">추가</span>
 					</div>
-					<div class="collapse show" id="a10" data-parent="#accordion">
+					<div class="collapse show" id="education" data-parent="#accordion">
 						<div class="card-body p-0">
 							<div class="card">
 								<table class="card-body table table-sm table-borderless bg-light m-0">
@@ -127,6 +173,8 @@ a {
 											<td>
 												<H6>2006. 03 ~ 2013. 02</H6>
 												<span class="text-primary" id="dongauniv" data-toggle="popover" data-trigger="hover">졸업 &#x1F4C7;</span>
+												<span id="educationModBtn">&#x1F6E0;</span>
+												<span id="educationDelBtn">&#x1F5D1;</span>
 											</td>
 											<td>
 												<H6>동아대학교 사학과</H6>
@@ -137,10 +185,13 @@ a {
 											<td>
 												<H6>2003. 03 ~ 2006. 02</H6>
 												<span class="text-primary">졸업</span>
+												<span>&#x1F6E0;</span>
+												<span>&#x1F5D1;</span>
 											</td>
 											<td>
 												<H6>오천고등학교</H6>
 												<span class="text-secondary">인문계열</span>
+											</td>
 											</td>
 										</tr>
 									</tbody>
@@ -152,6 +203,8 @@ a {
 				<div class="card">
 					<div class="card-header font-weight-bold bg-secondary">
 						<a class="card-link text-light" data-toggle="collapse" href="#a20">경력</a>
+						<span class="btn btn-light ml-3 float-right" id="careerAddBtn">경력추가</span>
+						<span class="btn btn-light float-right" id="companyAddBtn">회사추가</span>
 					</div>
 					<div class="collapse" id="a20" data-parent="#accordion">
 						<div class="card-body p-0">
@@ -167,9 +220,16 @@ a {
 												<H6>기프트엠</H6>
 												<h6>2019. 01 ~ 2019. 12</h6>
 												<span class="text-primary" id="businessCard1" data-toggle="popover" data-trigger="hover">1년 &#x1F4C7;</span>
+												<span id="companyModBtn">&#x1F6E0;</span>
+												<span id="companyDelBtn">&#x1F5D1;</span>
 											</td>
 											<td>
-												<H6>개발팀</H6>
+												<H6>
+													개발팀
+													<span id="careerModBtn">&#x1F6E0;</span>
+													<span id="careerDelBtn">&#x1F5D1;</span>
+												</H6>
+												
 												<h6 class="text-primary mb-5">주요 업무 : 인프라 관리 및 정보보호 관리</h6>
 											</td>
 										</tr>
@@ -178,13 +238,27 @@ a {
 												<H6>스마일서브</H6>
 												<h6>2015. 07 ~ 2018. 11</h6>
 												<span class="text-primary" id="businessCard2" data-toggle="popover" data-trigger="hover">3년 5개월 &#x1F4C7;</span>
+												<span id="companyModBtn">&#x1F6E0;</span>
+												<span id="compayDelBtn">&#x1F5D1;</span>
 											</td>
 											<td>
-												<H6>제2연구소(2018. 07 ~ 2018. 11)</H6>
+												<H6>
+													제2연구소(2018. 07 ~ 2018. 11)
+													<span>&#x1F6E0;</span>
+													<span>&#x1F5D1;</span>
+												</H6>
 												<h6 class="text-primary mb-5">주요 업무 : 웹호스팅 기술지원 및 서버 운영</h6>
-												<H6>웹호스팅팀(2018. 01 ~ 2018. 06)</H6>
+												<H6>
+													웹호스팅팀(2018. 01 ~ 2018. 06)
+													<span>&#x1F6E0;</span>
+													<span>&#x1F5D1;</span>
+												</H6>
 												<h6 class="text-primary mb-5">주요 업무 : 웹호스팅 기술지원 및 서버 운영, 공공기관 클라우드 개발 초기 인프라 구축</h6>
-												<H6>기술지원팀(2015. 07 ~ 2017. 12)</H6>
+												<H6>
+													기술지원팀(2015. 07 ~ 2017. 12)
+													<span>&#x1F6E0;</span>
+													<span>&#x1F5D1;</span>
+												</H6>
 												<h6 class="text-primary mb-5">주요 업무 : 호스팅 기술지원, IDC 보안 관제, 네트워크 장애처리</h6>
 											</td>
 										</tr>
@@ -247,6 +321,8 @@ a {
 				<div class="card">
 					<div class="card-header font-weight-bold bg-secondary">
 						<a class="card-link text-light" data-toggle="collapse" href="#a30">보유기술</a>
+						<span class="btn btn-light ml-3 float-right" id="skillDelBtn">항목 삭제</span>
+						<span class="btn btn-light float-right" id="skillAddBtn">항목 추가</span>
 					</div>
 					<div class="collapse" id="a30" data-parent="#accordion">
 						<div class="card-body p-0">
@@ -269,7 +345,7 @@ a {
 										</tr>
 										<tr class="border border-top-0 border-left-0 border-right-0">
 											<td>
-												<h6>프레임워크 / Library</h6>
+												<h6>프레임워크</h6>
 											</td>
 											<td class="text-secondary">
 												Spring<br/>
@@ -343,6 +419,7 @@ a {
 				<div class="card">
 					<div class="card-header font-weight-bold bg-secondary">
 						<a class="card-link text-light" data-toggle="collapse" href="#a40">교육</a>
+						<span class="btn btn-light float-right">추가</span>
 					</div>
 					<div class="collapse" id="a40" data-parent="#accordion">
 						<div class="card-body p-0">
@@ -355,7 +432,7 @@ a {
 									<tbody>
 										<tr class="border border-top-0 border-left-0 border-right-0">
 											<td>
-												<H6>2020. 02 ~ 2013. 08</H6>
+												<H6>2020. 02 ~ 2020. 08</H6>
 												<span class="text-primary" id="gdi" data-toggle="popover" data-trigger="hover">수료 &#x1F4C7;</span>
 											</td>
 											<td>
@@ -371,7 +448,7 @@ a {
 										</tr>
 										<tr class="border border-top-0 border-left-0 border-right-0">
 											<td>
-												<H6>2020. 02 ~ 2013. 08</H6>
+												<H6>2014. 12 ~ 2015. 07</H6>
 												<span class="text-primary" id="itwillbs" data-toggle="popover" data-trigger="hover">수료 &#x1F4C7;</span>
 											</td>
 											<td>
@@ -396,6 +473,7 @@ a {
 				<div class="card">
 					<div class="card-header font-weight-bold bg-secondary">
 						<a class="card-link text-light" data-toggle="collapse" href="#a50">자격증</a>
+						<span class="btn btn-light float-right">추가</span>
 					</div>
 					<div class="collapse" id="a50" data-parent="#accordion">
 						<div class="card-body p-0">
