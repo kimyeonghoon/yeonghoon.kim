@@ -80,6 +80,12 @@ function modalPopup(id) {
 					 break;
 		case "4-3" : html += "<h4 class=\"modal-title\">스킬 삭제</h4>";
 					 break;
+		case "5-1" : html += "<h4 class=\"modal-title\">교육 추가</h4>";
+					 break;
+		case "5-2" : html += "<h4 class=\"modal-title\">교육 수정</h4>";
+					 break;
+		case "5-3" : html += "<h4 class=\"modal-title\">교육 삭제</h4>";
+					 break;
 	}
 	html += "</div>";
 	html += "<div class=\"modal-body\">";
@@ -108,15 +114,21 @@ function modalPopup(id) {
 					break;
 		case "4-3": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">카테고리</span></div><select class=\"form-control\" id=\"categoryName\"><option value=\"0\">카테고리 선택</option><option value=\"1\">언어</option><option value=\"2\">프레임워크</option><option value=\"3\">라이브러리</option><option value=\"4\">데이터베이스</option><option value=\"5\">서버</option><option value=\"6\">형상관리</option><option value=\"7\">API</option><option value=\"8\">그외 사용도구</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">스킬명</span></div><select class=\"form-control\" id=\"skillName\"><option value=\"0\">스킬 선택</option><option value=\"1\">Java</option><option value=\"2\">Javascript</option><option value=\"3\">html</option><option value=\"4\">CSS</option></select></div>";
 					break;
+		case "5-1": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학원명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">시작년월</span></div><input type=\"text\" class=\"form-control\" id=\"startInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">종료년월</span></div><input type=\"text\" class=\"form-control\" id=\"endInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">수료</option><option value=\"2\">미수료</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육과정</span></div><input type=\"text\" class=\"form-control\" id=\"curriculumInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육내용</span></div><textarea class=\"form-control\" id=\"contentInput\"></textarea></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\"></div>";
+					break;
+		case "5-2": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학원명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">시작년월</span></div><input type=\"text\" class=\"form-control\" id=\"startInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">종료년월</span></div><input type=\"text\" class=\"form-control\" id=\"endInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">수료</option><option value=\"2\">미수료</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육과정</span></div><input type=\"text\" class=\"form-control\" id=\"curriculumInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육내용</span></div><textarea class=\"form-control\" id=\"contentInput\"></textarea></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\"></div>";
+					break;
+		case "5-3": html += "교육을 삭제하시겠습니까?";
+					break;
 	}
 	html += "</div>";
 	html += "<div class=\"modal-footer\">";
 	switch (id) {
-		case "2-1", "3-1", "3-4", "4-1": html += "<button type=\"button\" class=\"btn btn-danger\">등록</button>";
+		case "2-1", "3-1", "3-4", "4-1", "5-1": html += "<button type=\"button\" class=\"btn btn-danger\">등록</button>";
 										 break;
-		case "1-2", "2-2", "3-2", "3-5": html += "<button type=\"button\" class=\"btn btn-danger\">수정</button>"; 
+		case "1-2", "2-2", "3-2", "3-5", "5-2": html += "<button type=\"button\" class=\"btn btn-danger\">수정</button>"; 
 						   		  		 break;
-		case "2-3", "3-3", "3-6", "4-3": html += "<button type=\"button\" class=\"btn btn-danger\">삭제</button>";
+		case "2-3", "3-3", "3-6", "4-3", "5-3": html += "<button type=\"button\" class=\"btn btn-danger\">삭제</button>";
 										 break;
 	}
 	html += "<button type=\"button\" class=\"btn btn-dark\" data-dismiss=\"modal\">취소</button>";

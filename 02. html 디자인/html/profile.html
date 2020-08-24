@@ -66,6 +66,19 @@
 		$("#skillDelBtn").on("click", function(){
 			modalPopup("4-3");
 		});
+		// 교육 추가버튼 동작
+		$("#studyAddBtn").on("click", function(){
+			modalPopup("5-1");
+		});
+		// 교육 삭제버튼 동작
+		$("#studyModBtn").on("click", function(){
+			modalPopup("5-2");
+		});
+		// 교육 삭제버튼 동작
+		$("#studyDelBtn").on("click", function(){
+			modalPopup("5-3");
+		});
+		
 		
 	});
 </script>
@@ -202,11 +215,11 @@ a {
 				</div>
 				<div class="card">
 					<div class="card-header font-weight-bold bg-secondary">
-						<a class="card-link text-light" data-toggle="collapse" href="#a20">경력</a>
+						<a class="card-link text-light" data-toggle="collapse" href="#career">경력</a>
 						<span class="btn btn-light ml-3 float-right" id="careerAddBtn">경력추가</span>
 						<span class="btn btn-light float-right" id="companyAddBtn">회사추가</span>
 					</div>
-					<div class="collapse" id="a20" data-parent="#accordion">
+					<div class="collapse" id="career" data-parent="#accordion">
 						<div class="card-body p-0">
 							<div class="card">
 								<table class="card-body table table-sm table-borderless bg-light m-0">
@@ -320,11 +333,11 @@ a {
 				</div>
 				<div class="card">
 					<div class="card-header font-weight-bold bg-secondary">
-						<a class="card-link text-light" data-toggle="collapse" href="#a30">보유기술</a>
+						<a class="card-link text-light" data-toggle="collapse" href="#skill">보유기술</a>
 						<span class="btn btn-light ml-3 float-right" id="skillDelBtn">항목 삭제</span>
 						<span class="btn btn-light float-right" id="skillAddBtn">항목 추가</span>
 					</div>
-					<div class="collapse" id="a30" data-parent="#accordion">
+					<div class="collapse" id="skill" data-parent="#accordion">
 						<div class="card-body p-0">
 							<div class="card">
 								<table class="card-body table table-sm table-borderless bg-light m-0">
@@ -418,10 +431,10 @@ a {
 				</div>
 				<div class="card">
 					<div class="card-header font-weight-bold bg-secondary">
-						<a class="card-link text-light" data-toggle="collapse" href="#a40">교육</a>
-						<span class="btn btn-light float-right">추가</span>
+						<a class="card-link text-light" data-toggle="collapse" href="#study">교육</a>
+						<span class="btn btn-light float-right" id="studyAddBtn">추가</span>
 					</div>
-					<div class="collapse" id="a40" data-parent="#accordion">
+					<div class="collapse" id="study" data-parent="#accordion">
 						<div class="card-body p-0">
 							<div class="card">
 								<table class="card-body table table-sm table-borderless bg-light m-0">
@@ -434,6 +447,8 @@ a {
 											<td>
 												<H6>2020. 02 ~ 2020. 08</H6>
 												<span class="text-primary" id="gdi" data-toggle="popover" data-trigger="hover">수료 &#x1F4C7;</span>
+												<span id="studyModBtn">&#x1F6E0;</span>
+												<span id="studyDelBtn">&#x1F5D1;</span>
 											</td>
 											<td>
 												<H6>구디아카데미</H6>
@@ -450,6 +465,8 @@ a {
 											<td>
 												<H6>2014. 12 ~ 2015. 07</H6>
 												<span class="text-primary" id="itwillbs" data-toggle="popover" data-trigger="hover">수료 &#x1F4C7;</span>
+												<span>&#x1F6E0;</span>
+												<span>&#x1F5D1;</span>
 											</td>
 											<td>
 												<H6>아이티윌 부산교육센터</H6>
@@ -472,10 +489,10 @@ a {
 				</div>
 				<div class="card">
 					<div class="card-header font-weight-bold bg-secondary">
-						<a class="card-link text-light" data-toggle="collapse" href="#a50">자격증</a>
+						<a class="card-link text-light" data-toggle="collapse" href="#certification">자격증</a>
 						<span class="btn btn-light float-right">추가</span>
 					</div>
-					<div class="collapse" id="a50" data-parent="#accordion">
+					<div class="collapse" id="certification" data-parent="#accordion">
 						<div class="card-body p-0">
 							<div class="card">
 								<table class="card-body table table-sm table-borderless bg-light m-0">
