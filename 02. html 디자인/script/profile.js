@@ -48,6 +48,20 @@ function init_profile() {
 
 // 팝업창 생성
 function modalPopup(id) {
+	// 배열에 팝업 허용 값 추가(나중에 서버단으로 해당 기능 넘길 예정)
+	var arrPopupList = new Array("1-1","1-2","2-1","2-2","2-3","3-1","3-2","3-3","3-4","3-5","3-6","4-1","4-2","4-3","5-1","5-2","5-3","6-1","6-2","6-3");
+	var popupCheck = true;
+	
+	for(var i = 0; i < arrPopupList.length; i++) {
+		if(id == arrPopupList[i]) {
+			popupCheck = false;
+		}
+	}
+	
+	if(id == null || popupCheck) {
+		return false;
+	}
+	
 	// 기존 모달 삭제
 	$("#notifyModal").remove();
 	var html = "";
@@ -55,38 +69,46 @@ function modalPopup(id) {
 	html += "<div class=\"modal-dialog p-3 \">";
 	html += "<div class=\"modal-content\">";
 	html += "<div class=\"modal-header\">";
+	html += "<h4 class=\"modal-title\">";
 	switch (id) {
-		case "1-2": html += "<h4 class=\"modal-title\">약력 수정</h4>";
-				  	break;
-		case "2-1" : html += "<h4 class=\"modal-title\">학력 추가</h4>";
+		case "1-2" : html += "약력 수정";
+				    break;
+		case "2-1" : html += "학력 추가";
 					 break;
-		case "2-2" : html += "<h4 class=\"modal-title\">학력 수정</h4>";
+		case "2-2" : html += "학력 수정";
 					 break;
-		case "2-3" : html += "<h4 class=\"modal-title\">학력 삭제</h4>";
+		case "2-3" : html += "학력 삭제";
 					 break;
-		case "3-1" : html += "<h4 class=\"modal-title\">회사 추가</h4>";
+		case "3-1" : html += "회사 추가";
 					 break;
-		case "3-2" : html += "<h4 class=\"modal-title\">회사 수정</h4>";
+		case "3-2" : html += "회사 수정";
 					 break;
-		case "3-3" : html += "<h4 class=\"modal-title\">회사 삭제</h4>";
+		case "3-3" : html += "회사 삭제";
 					 break;
-		case "3-4" : html += "<h4 class=\"modal-title\">경력 추가</h4>";
+		case "3-4" : html += "경력 추가";
 					 break;
-		case "3-5" : html += "<h4 class=\"modal-title\">경력 수정</h4>";
+		case "3-5" : html += "경력 수정";
 					 break;
-		case "3-6" : html += "<h4 class=\"modal-title\">경력 삭제</h4>";
+		case "3-6" : html += "경력 삭제";
 					 break;
-		case "4-1" : html += "<h4 class=\"modal-title\">스킬 추가</h4>";
+		case "4-1" : html += "스킬 추가";
 					 break;
-		case "4-3" : html += "<h4 class=\"modal-title\">스킬 삭제</h4>";
+		case "4-3" : html += "스킬 삭제";
 					 break;
-		case "5-1" : html += "<h4 class=\"modal-title\">교육 추가</h4>";
+		case "5-1" : html += "교육 추가";
 					 break;
-		case "5-2" : html += "<h4 class=\"modal-title\">교육 수정</h4>";
+		case "5-2" : html += "교육 수정";
 					 break;
-		case "5-3" : html += "<h4 class=\"modal-title\">교육 삭제</h4>";
+		case "5-3" : html += "교육 삭제";
+					 break;
+		case "6-1" : html += "자격증 추가";
+					 break;
+		case "6-2" : html += "자격증 수정";
+					 break;
+		case "6-3" : html += "자격증 삭제";
 					 break;
 	}
+	html += "</h4>";
 	html += "</div>";
 	html += "<div class=\"modal-body\">";
 	switch (id) {
@@ -120,15 +142,21 @@ function modalPopup(id) {
 					break;
 		case "5-3": html += "교육을 삭제하시겠습니까?";
 					break;
+		case "6-1": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격증</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급기관</span></div><input type=\"text\" class=\"form-control\" id=\"certAutorityInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">합격여부</span></div><select class=\"form-control\" id=\"status\"><option value=\"0\">합격여부</option><option value=\"1\">합격</option><option value=\"2\">불합격</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급일자</span></div><input type=\"text\" class=\"form-control\" id=\"dateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\"></div>";
+					break;
+		case "6-2": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격증</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급기관</span></div><input type=\"text\" class=\"form-control\" id=\"certAutorityInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">합격여부</span></div><select class=\"form-control\" id=\"status\"><option value=\"0\">합격여부</option><option value=\"1\">합격</option><option value=\"2\">불합격</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급일자</span></div><input type=\"text\" class=\"form-control\" id=\"dateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\"></div>";
+					break;
+		case "6-3": html += "자격증을 삭제하시겠습니까?";
+					break;
 	}
 	html += "</div>";
 	html += "<div class=\"modal-footer\">";
 	switch (id) {
-		case "2-1", "3-1", "3-4", "4-1", "5-1": html += "<button type=\"button\" class=\"btn btn-danger\">등록</button>";
+		case "2-1", "3-1", "3-4", "4-1", "5-1", "6-1": html += "<button type=\"button\" class=\"btn btn-danger\">등록</button>";
 										 break;
-		case "1-2", "2-2", "3-2", "3-5", "5-2": html += "<button type=\"button\" class=\"btn btn-danger\">수정</button>"; 
+		case "1-2", "2-2", "3-2", "3-5", "5-2", "6-2": html += "<button type=\"button\" class=\"btn btn-danger\">수정</button>"; 
 						   		  		 break;
-		case "2-3", "3-3", "3-6", "4-3", "5-3": html += "<button type=\"button\" class=\"btn btn-danger\">삭제</button>";
+		case "2-3", "3-3", "3-6", "4-3", "5-3", "6-3": html += "<button type=\"button\" class=\"btn btn-danger\">삭제</button>";
 										 break;
 	}
 	html += "<button type=\"button\" class=\"btn btn-dark\" data-dismiss=\"modal\">취소</button>";

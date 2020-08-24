@@ -78,8 +78,19 @@
 		$("#studyDelBtn").on("click", function(){
 			modalPopup("5-3");
 		});
-		
-		
+		// 자격증 등록버튼 동작
+		$("#certificationAddBtn").on("click", function(){
+			modalPopup("6-1");
+		});
+		// 자격증 수정버튼 동작
+		$("#certificationModBtn").on("click", function(){
+			modalPopup("6-2");
+		});
+		// 자격증 삭제버튼 동작
+		$("#certificationDelBtn").on("click", function(){
+			modalPopup("6-3");
+		});
+
 	});
 </script>
 <style type="text/css">
@@ -204,7 +215,6 @@ a {
 											<td>
 												<H6>오천고등학교</H6>
 												<span class="text-secondary">인문계열</span>
-											</td>
 											</td>
 										</tr>
 									</tbody>
@@ -454,7 +464,7 @@ a {
 												<H6>구디아카데미</H6>
 												<p class="text-primary">교육과정 : 자바기반 스마트 웹&콘텐츠 개발자 양성과정</p>
 												<div class="text-secondary">
-													1. Web Front-End (UI) : Html, CSS, JavaScript, jQuery, JSP<br/>
+													1. Web Front-End (UI) : html, CSS, JavaScript, jQuery, JSP<br/>
 													2. DataBase : Oracle DB<br/>
 													3. Web Back-End : JAVA, SpringFramework, MyBatis<br/>
 													4. Team Project
@@ -490,7 +500,7 @@ a {
 				<div class="card">
 					<div class="card-header font-weight-bold bg-secondary">
 						<a class="card-link text-light" data-toggle="collapse" href="#certification">자격증</a>
-						<span class="btn btn-light float-right">추가</span>
+						<span class="btn btn-light float-right" id="certificationAddBtn">추가</span>
 					</div>
 					<div class="collapse" id="certification" data-parent="#accordion">
 						<div class="card-body p-0">
@@ -505,6 +515,8 @@ a {
 											<td>
 												<H6>2015. 05</H6>
 												<span class="text-primary" id="eip" data-toggle="popover" data-trigger="hover">합격 &#x1F4C7;</span>
+												<span id="certificationModBtn">&#x1F6E0;</span>
+												<span id="certificationDelBtn">&#x1F5D1;</span>
 											</td>
 											<td>
 												<H6>정보처리기사</H6>
@@ -517,6 +529,8 @@ a {
 											<td>
 												<H6>2013. 11</H6>
 												<span class="text-primary" id="pc1" data-toggle="popover" data-trigger="hover">합격 &#x1F4C7;</span>
+												<span>&#x1F6E0;</span>
+												<span>&#x1F5D1;</span>
 											</td>
 											<td>
 												<H6>PC정비사1급</H6>
@@ -529,6 +543,8 @@ a {
 											<td>
 												<H6>2012. 08</H6>
 												<span class="text-primary" id="ieoa" data-toggle="popover" data-trigger="hover">합격 &#x1F4C7;</span>
+												<span>&#x1F6E0;</span>
+												<span>&#x1F5D1;</span>
 											</td>
 											<td>
 												<H6>사무자동화산업기사</H6>
@@ -541,6 +557,8 @@ a {
 											<td>
 												<H6>2012. 08</H6>
 												<span class="text-primary" id="csisdl2" data-toggle="popover" data-trigger="hover">합격 &#x1F4C7;</span>
+												<span>&#x1F6E0;</span>
+												<span>&#x1F5D1;</span>
 											</td>
 											<td>
 												<H6>컴퓨터활용능력2급</H6>
