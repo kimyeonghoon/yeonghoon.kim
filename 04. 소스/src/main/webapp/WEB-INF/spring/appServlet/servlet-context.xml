@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!-- DispatcherServlet Context 정의 -->
+	
+	
+	<!-- Spring MVC @Controller 모델 활성화-->
+	<annotation-driven />
+
+	<!-- /resources/** - 정적리소스가 담겨지는 디렉토리
+		아래 resolver의 영향을 받지 않음.
+		(실제 경로 : webappRoot/resources) -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- /WEB-INF/views/ 아래에 있는 jsp 파일 매핑 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<context:component-scan base-package="kim.yeonghoon.www.*" />
+	
+	<!-- multipartResolver -->
+	<!-- 업로드 용량 제한 : 10MB  --> 
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10240000" />
+	</beans:bean>
+	
+	<!-- Exception Resolver -->
+	<beans:bean id="exceptionMapping" 	class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="java.lang.Exception">/exception/EXCEPTION_INFO</beans:prop>
+				<beans:prop 
+					key="kim.yeonghoon.www.exception.UserNotFoundException">
+					/exception/USER_NOT_FOUND_EXCEPTION
+				</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+</beans:beans>
