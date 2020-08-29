@@ -19,6 +19,11 @@
         <property name="password" value="${jdbc.password}" />
     </bean>
     
+    <!-- Transaction Manager -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<constructor-arg ref="dataSource" />
+	</bean>
+    
     <bean id="dataSourceLog" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
         <constructor-arg ref="dataSource" />
         <property name="logFormatter">
