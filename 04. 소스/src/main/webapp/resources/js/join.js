@@ -2,44 +2,50 @@
  * join js 파일
  */
 
-// 회원가입 버튼 클릭 이벤트
-$("#joinBtn").on("click", function() {
+// 회원가입 유효성 체크
+function validateCheck() {
+	var inputEmailcheck = emailCheck();
 	if($("#emailInput").val() == '' || $("#emailInput").val() == null) {
 		$("[name='popupCheck']").val("0");
 		modalPopup();
-	} else if($("#passwordInput").val() == '' || $("#passwordInput").val() == null) {
+	} else if(!inputEmailcheck) {
 		$("[name='popupCheck']").val("1");
 		modalPopup();
-	} else if($("#passwordCheckInput").val() == '' || $("#passwordCheckInput").val() == null) {
+	} else if($("#passwordInput").val() == '' || $("#passwordInput").val() == null) {
 		$("[name='popupCheck']").val("2");
 		modalPopup();
-	} else if($("#passwordInput").val() != $("#passwordCheckInput").val()) {
+	} else if($("#passwordCheckInput").val() == '' || $("#passwordCheckInput").val() == null) {
 		$("[name='popupCheck']").val("3");
 		modalPopup();
-	} else if($("#nicknameInput").val() == '' || $("#nicknameInput").val() == null) {
+	} else if($("#passwordInput").val() != $("#passwordCheckInput").val()) {
 		$("[name='popupCheck']").val("4");
 		modalPopup();
-	} else if($("#addressInput").val() == '' || $("#addressInput").val() == null) {
+	} else if($("#nameInput").val() == '' || $("#nameInput").val() == null) {
 		$("[name='popupCheck']").val("5");
 		modalPopup();
-	} else if($("#detailAddressInput").val() == '' || $("#detailAddressInput").val() == null) {
+	} else if($("#addressInput").val() == '' || $("#addressInput").val() == null) {
 		$("[name='popupCheck']").val("6");
 		modalPopup();
-	} else if($("input:radio[name=gender]").is(":checked") == false) {
+	} else if($("#detailAddressInput").val() == '' || $("#detailAddressInput").val() == null) {
 		$("[name='popupCheck']").val("7");
 		modalPopup();
-	} else if($("#telFirstNo").val() == '' || $("#telFirstNo").val() == null || $("#telFirstNo").val() == 'notSelected') {
+	} else if($("input:radio[name=gender]").is(":checked") == false) {
 		$("[name='popupCheck']").val("8");
 		modalPopup();
-	} else if($("#telNo").val() == '' || $("#telNo").val() == null || $("#telNo").val() == 'notSelected') {
+	} else if($("#telFirstNo").val() == '' || $("#telFirstNo").val() == null || $("#telFirstNo").val() == 'notSelected') {
 		$("[name='popupCheck']").val("9");
 		modalPopup();
+	} else if($("#telNo").val() == '' || $("#telNo").val() == null || $("#telNo").val() == 'notSelected') {
+		$("[name='popupCheck']").val("10");
+		modalPopup();
+	} else if($("#telNo").val().length < 7) {
+		$("[name='popupCheck']").val("11");
+		modalPopup();
 	} else {
-		$("#joinCheck").attr("joinCheckAjax");
-		alert("회원가입 체크 아작스");
+		$("#joinCheck").attr("action", "addUser");
+		addUser();
 	}
-});
-
+}
 
 // 팝업창 생성
 function modalPopup() {
@@ -47,7 +53,7 @@ function modalPopup() {
 	$("#notifyModal").remove();
 	var html = "";
 	html += "<div class=\"modal fade\" id=\"notifyModal\">";
-	html += "<div class=\"modal-dialog modal-sm p-3 \">";
+	html += "<div class=\"modal-dialog p-3 \">";
 	html += "<div class=\"modal-content\">";
 	html += "<div class=\"modal-header\">";
 	html += "<h4 class=\"modal-title\">알림</h4>";
@@ -56,24 +62,30 @@ function modalPopup() {
 	switch ($("[name='popupCheck']").val()) {
 		case "0": html += "이메일을 입력해주세요.";
 				  break;
-		case "1": html += "비밀번호를 입력해주세요.";
+		case "1": html += "이메일 형식이 올바르지 않습니다.";
+			   	  break;
+		case "2": html += "비밀번호를 입력해주세요.";
 				  break;
-		case "2": html += "비밀번호확인을 입력해주세요.";
+		case "3": html += "비밀번호확인을 입력해주세요.";
 				  break;
-		case "3": html += "비밀번호가 일치하지 않습니다.";
+		case "4": html += "비밀번호가 일치하지 않습니다.";
 				  break;
-		case "4": html += "닉네임을 입력해주세요.";
+		case "5": html += "이름을 입력해주세요.";
 				  break;
-		case "5": html += "주소를 검색해주세요.";
+		case "6": html += "주소를 검색해주세요.";
 				  break;
-		case "6": html += "상세주소를 입력해주세요.";
+		case "7": html += "상세주소를 입력해주세요.";
 				  break;
-		case "7": html += "성별을 선택해주세요.";
+		case "8": html += "성별을 선택해주세요.";
 				  break;
-		case "8": html += "전화번호 앞자리를 선택해주세요.";
+		case "9": html += "전화번호 앞자리를 선택해주세요.";
 				  break;
-		case "9": html += "전화번호 뒷자리를 입력해주세요.";
+		case "10": html += "전화번호 뒷자리를 입력해주세요.";
 				  break;
+		case "11": html += "전화번호를 정확히 입력해주세요.";
+		break;
+		case "x": html += "기지국 번호를 받아올 수 없습니다. 관리자에게 문의하세요.";
+		break;
 	}
 	html += "</div>";
 	html += "<div class=\"modal-footer\">";
@@ -112,4 +124,36 @@ function searchAddress() {
 	}).embed(addressSearchForm);
 }
 
+//이메일 형식 체크 함수
+function emailCheck() {
+	var emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var userInputEmail = $("#emailInput").val();
+	if(emailRegExp.test(userInputEmail)) {
+		return true;
+	} else {
+		return false;
+	}
+}
 
+// 회원가입 AJAX
+function addUser() {
+	var params = $("#joinCheck").serialize();
+	console.log(params);
+	$.ajax({
+		type : "post",			  
+		url : "addUserAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				alert("정상");
+			} else {
+				alert("비정상");		
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}

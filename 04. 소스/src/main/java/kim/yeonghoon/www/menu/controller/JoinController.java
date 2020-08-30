@@ -20,10 +20,13 @@ public class JoinController {
 	public ModelAndView join(ModelAndView mav) {
 
 		try {
+			// 기지국 번호 조회
 			List<HashMap<String,String>> list = iJoinService.getBTS();
 			mav.addObject("list", list);
+			mav.addObject("result", "telFirstNo");
 		} catch (Throwable e) {
 			e.printStackTrace();
+			mav.addObject("result", "x");
 		}
 		
 		mav.setViewName("join");

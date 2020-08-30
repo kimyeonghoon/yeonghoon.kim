@@ -3,7 +3,7 @@
     
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- jQuery 3.5.1 -->
-<script src="resources/jquery/jquery-3.5.1.slim.min.js"></script>
+<script src="resources/jquery/jquery-3.5.1.js"></script>
 <!-- popper.js 1.16.1 -->
 <script src="resources/jquery/popper.min.js"></script>
 <!-- Bootstrap JS 4.5.2 -->

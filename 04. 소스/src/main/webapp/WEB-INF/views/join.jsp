@@ -15,6 +15,17 @@
 <script src="resources/js/join.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		// 기지국 번호를 못받아올 경우(디비 문제 발생)
+		if($("#telFirstNo").attr("name") != "telFirstNo") {
+			$("[name='popupCheck']").val("x");
+			modalPopup();
+		}
+		
+		// 회원가입 버튼 클릭 이벤트
+		$("#joinBtn").on("click", function() {
+			validateCheck();
+		});
+		
 		// 주소 검색 버튼 클릭 이벤트
 		$("#searchAddress").on("click", function() {
 			$("#addressSearchForm").addClass("p-2 bg-secondary");
@@ -36,29 +47,29 @@
 			</div>
 			<div class="card-body border">
 				<input type="hidden" name="popupCheck" />
-				<form action="#" method="post" id="joinCheck">
+				<form action="#" method="post" id="joinCheck" autocomplete="off">
 					<div class="form-group row">
 						<label class="col-sm-4 text-sm-right font-weight-bold">이메일</label>
 						<div class="col-sm-8">
-							<input type="email" id="emailInput" class="form-control" />
+							<input type="email" name="emailInput" id="emailInput" class="form-control" />
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-4 text-sm-right font-weight-bold">비밀번호</label>
 						<div class="col-sm-8">
-							<input type="password" id="passwordInput" class="form-control" />
+							<input type="password" name="passwordInput" id="passwordInput" class="form-control" />
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-4 text-sm-right font-weight-bold">비밀번호 확인</label>
 						<div class="col-sm-8">
-							<input type="password" id="passwordCheckInput" class="form-control" />
+							<input type="password" name="passwordCheckInput" id="passwordCheckInput" class="form-control" />
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-4 text-sm-right font-weight-bold">닉네임</label>
+						<label class="col-sm-4 text-sm-right font-weight-bold">이름</label>
 						<div class="col-sm-8">
-							<input type="text" id="nicknameInput" class="form-control" />
+							<input type="text" name="nameInput" id="nameInput" class="form-control" />
 						</div>
 					</div>
 					<div class="form-group row">
@@ -66,8 +77,8 @@
 						<label class="col-sm-4 text-sm-right font-weight-bold">주소</label>
 						<div class="col-sm-8">
 							<button type="button" class="btn btn-secondary" id="searchAddress">주소 검색</button>
-							<input type="text" id="addressInput" class="form-control" disabled="disabled" />
-							<input type="text" id="detailAddressInput" class="form-control" disabled="disabled" />
+							<input type="text" name="addressInput" id="addressInput" class="form-control" disabled="disabled" />
+							<input type="text" name="detailAddressInput" id="detailAddressInput" class="form-control" disabled="disabled" />
 						</div>
 					</div>
 					<div class="form-group row">
@@ -90,7 +101,7 @@
 						<div class="col-sm-8">
 							<div class="form-check-inline row m-0">
 								<span class="col-sm-4 p-0">
-									<select class="form-control" id="telFirstNo">
+									<select class="form-control" id="telFirstNo" name="${result}">
 										<option value="notSelected" selected="selected">국번</option>
 										<c:forEach var="data" items="${list}">
 											<option value="${data.bts}">${data.bts}</option>
@@ -98,7 +109,7 @@
 									</select>
 								</span>
 								<span class="col-sm-8 p-0"> 
-									<input type="text" class="form-control" id="telNo" maxlength="8" />
+									<input type="text" class="form-control" name="telNo" id="telNo" maxlength="8" />
 								</span>
 							</div>
 						</div>
