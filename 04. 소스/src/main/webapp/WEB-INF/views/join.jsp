@@ -88,36 +88,16 @@
 					<div class="form-group row">
 						<label class="col-sm-4 text-sm-right font-weight-bold">전화번호</label>
 						<div class="col-sm-8">
-							<div class="form-check-inline row">
-								<span class="col-sm-4">
+							<div class="form-check-inline row m-0">
+								<span class="col-sm-4 p-0">
 									<select class="form-control" id="telFirstNo">
 										<option value="notSelected" selected="selected">국번</option>
-										<option value="010">010</option>
-										<option value="011">011</option>
-										<option value="016">016</option>
-										<option value="017">017</option>
-										<option value="018">018</option>
-										<option value="019">019</option>
-										<option value="02">02</option>
-										<option value="031">031</option>
-										<option value="032">032</option>
-										<option value="033">033</option>
-										<option value="041">041</option>
-										<option value="042">042</option>
-										<option value="043">043</option>
-										<option value="044">044</option>
-										<option value="051">051</option>
-										<option value="052">052</option>
-										<option value="053">053</option>
-										<option value="054">054</option>
-										<option value="055">055</option>
-										<option value="061">061</option>
-										<option value="062">062</option>
-										<option value="063">063</option>
-										<option value="064">064</option>
+										<c:forEach var="data" items="${list}">
+											<option value="${data.bts}">${data.bts}</option>
+										</c:forEach>
 									</select>
 								</span>
-								<span class="col-sm-8"> 
+								<span class="col-sm-8 p-0"> 
 									<input type="text" class="form-control" id="telNo" maxlength="8" />
 								</span>
 							</div>
