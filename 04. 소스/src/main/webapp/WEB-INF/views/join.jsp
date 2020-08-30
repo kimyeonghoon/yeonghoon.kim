@@ -86,12 +86,12 @@
 						<div class="col-sm-8">
 							<div class="form-check-inline">
 								<label class="form-check-label">
-									<input type="radio" class="form-check-input" name="gender" value="m" />남자
+									<input type="radio" class="form-check-input" name="gender" value="0" />남자
 								</label> 
 							</div>
 							<div class="form-check-inline">
 								<label class="form-check-label">
-									<input type="radio" class="form-check-input" name="gender" value="f" />여자
+									<input type="radio" class="form-check-input" name="gender" value="1" />여자
 								</label> 
 							</div>
 						</div>

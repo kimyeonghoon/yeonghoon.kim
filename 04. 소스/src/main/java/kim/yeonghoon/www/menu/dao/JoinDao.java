@@ -18,4 +18,14 @@ public class JoinDao implements IJoinDao {
 		return sqlSession.selectList("join.getBTS");
 	}
 
+	@Override
+	public int getDuplicationCheck(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("join.getDuplicationCheck", params);
+	}
+
+	@Override
+	public void addUser(HashMap<String, String> params) throws Throwable {
+		sqlSession.insert("join.addUser", params);
+	}
+
 }

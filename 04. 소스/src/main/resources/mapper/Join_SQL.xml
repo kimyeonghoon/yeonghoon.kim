@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="join">
-	<select id="getBTS" resultType="hashmap" parameterType="hashmap">
-		SELECT CONCAT('0', bts_station_no) as bts
+	<!-- 기지국 조회 -->
+	<select id="getBTS" parameterType="hashmap" resultType="hashmap">
+		SELECT CONCAT('0', bts_station_no) AS bts
 		FROM base_transceiver_station
 	</select>
+	
+	<!-- 이메일 중복 체크 -->
+	<select id="getDuplicationCheck" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(member_email)
+		FROM member
+		WHERE member_email = #{emailInput}
+	</select>
+	
+	<!-- 회원 추가 -->
+	<insert id="addUser" parameterType="hashmap">
+		INSERT INTO member(member_email, member_password, member_name, member_address, member_address_detail, member_gender, member_tel)
+		VALUES(#{emailInput}, #{passwordInput}, #{nameInput}, #{addressInput}, #{detailAddressInput}, #{gender}, #{telephone})
+	</insert>
 </mapper>

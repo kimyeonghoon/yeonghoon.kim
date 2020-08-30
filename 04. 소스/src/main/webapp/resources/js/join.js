@@ -86,6 +86,10 @@ function modalPopup() {
 		break;
 		case "x": html += "기지국 번호를 받아올 수 없습니다. 관리자에게 문의하세요.";
 		break;
+		case "y": html += "회원가입이 완료되었습니다.";
+		break;
+		case "z": html += "사용할 수 없는 이메일입니다.";
+		break;
 	}
 	html += "</div>";
 	html += "<div class=\"modal-footer\">";
@@ -138,7 +142,6 @@ function emailCheck() {
 // 회원가입 AJAX
 function addUser() {
 	var params = $("#joinCheck").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "addUserAjax", 
@@ -146,9 +149,12 @@ function addUser() {
 		data : params,
 		success : function(res) {
 			if(res.result == "success") {
-				alert("정상");
-			} else {
-				alert("비정상");		
+				$("[name='popupCheck']").val("y");
+				modalPopup();
+				location.href = "main";
+			} else if(res.result == "duplication"){
+				$("[name='popupCheck']").val("z");
+				modalPopup();
 			}
 		},
 		error : function(request, status, error) {

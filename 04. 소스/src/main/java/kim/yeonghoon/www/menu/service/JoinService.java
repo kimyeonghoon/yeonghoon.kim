@@ -18,6 +18,16 @@ public class JoinService implements IJoinService {
 	public List<HashMap<String, String>> getBTS() throws Throwable {
 		return iJoinDao.getBTS();
 	}
-	
+
+	@Override
+	public int getDuplicationCheck(HashMap<String, String> params) throws Throwable {
+		return iJoinDao.getDuplicationCheck(params);
+	}
+
+	@Override
+	public void addUser(HashMap<String, String> params) throws Throwable {
+		iJoinDao.addUser(params);
+	}
+
 
 }
