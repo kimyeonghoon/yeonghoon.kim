@@ -13,6 +13,12 @@ public class LayoutController {
 		return mav;
 	}
 
+	@RequestMapping (value = "/nav")
+	public ModelAndView nav(ModelAndView mav) {
+		mav.setViewName("common/nav");
+		return mav;
+	}
+	
 	@RequestMapping (value = "/footer")
 	public ModelAndView footer(ModelAndView mav) {
 		mav.setViewName("common/footer");
