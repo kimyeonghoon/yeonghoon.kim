@@ -11,7 +11,7 @@
 	</appender>
 
 	<!-- Application Loggers -->
-	<logger name="com.spring.sample">
+	<logger name="kim.yeonghoon.www">
 		<level value="debug" />
 	</logger>
 

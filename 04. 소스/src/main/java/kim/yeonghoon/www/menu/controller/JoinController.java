@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,9 @@ public class JoinController {
 	
 	@Autowired
 	public IJoinService iJoinService;
+	
+	@Autowired
+	BCryptPasswordEncoder pwEncoder;
 	
 	@RequestMapping(value = "/join")
 	public ModelAndView join(ModelAndView mav) {
@@ -49,8 +53,9 @@ public class JoinController {
 		// 전화번호 합치기
 		String telephone = params.get("telFirstNo") + params.get("telNo");
 		params.put("telephone", telephone);
-		
-		System.out.println(params);
+
+		// 패스워드 암호화
+		params.put("passwordInput", pwEncoder.encode(params.get("passwordInput")));
 		
 		try {
 			// 이메일 중복 체크
@@ -68,6 +73,8 @@ public class JoinController {
 
 		return mapper.writeValueAsString(modelMap);
 	}
-	
-	
 }
+
+
+
+
