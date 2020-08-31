@@ -1,8 +1,9 @@
 package kim.yeonghoon.www.menu.controller;
 
-import java.awt.Dialog.ModalExclusionType;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,37 +28,51 @@ public class loginController {
 	BCryptPasswordEncoder pwEncoder;
 	
 	@RequestMapping(value = "/login")
-	public ModelAndView login(ModelAndView mav) {
-		mav.setViewName("login");
+	public ModelAndView login(ModelAndView mav, HttpSession session) {
+		if(session.getAttribute("sMember_no") != null) {
+			mav.setViewName("redirect:main");
+		} else {
+			mav.setViewName("login");
+		}
 		return mav;
 	}
 	
 	@RequestMapping(value = "/loginUserAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String loginUserAjax(@RequestParam HashMap<String,String> params) throws Throwable {
+	public String loginUserAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
+		boolean passMatch = false;
+		
 		try {
-			// 로그인하려는 이메일이 있는지 확인
-			int emailCheck = iLoginService.getEmailExistCheck(params);
+			// 유저가 디비에 존재하는지 확인
+			int userCheck = iLoginService.getUserCheck(params);
 			
-			if(emailCheck > 0) {
-				// 디비에 저장된 패스워드와 클라이언트에서 온 패스워드 비교
-				String encryptPass = iLoginService.getEncryptPassword(params);
-				boolean pwdMatch = pwEncoder.matches(params.get("passwordInput"), encryptPass); 
-
-				if(pwdMatch) {
+			if(userCheck > 0) {
+				// 유저 정보 조회
+				HashMap<String,String> userInfo = iLoginService.getUserInfo(params);
+				// 유저가 조회될 경우 디비에 암호화되어 저장된 패스워드와 유저가 입력한 패스워드가 맞는지 확인
+				if(!userInfo.isEmpty()) {
+					passMatch = pwEncoder.matches(params.get("passwordInput"), userInfo.get("member_password"));
+				}
+				// 패스워드가 맞을 경우 세션 부여
+				if(passMatch) {
+					session.setAttribute("sMember_no", userInfo.get("member_no"));
+					session.setAttribute("sMember_email", userInfo.get("member_email"));
+					session.setAttribute("sMember_name", userInfo.get("member_name"));
 					modelMap.put("result", "success");
-					
 				} else {
 					modelMap.put("result", "fail");
 				}
+			} else {
+				modelMap.put("result", "fail");
 			}
+			
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	

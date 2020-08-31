@@ -9,6 +9,13 @@
 <title>yeonghoon.kim :: 메인</title>
 <!-- 헤더 영역 -->
 <c:import url="/header"></c:import>
+<!-- 공통 js -->
+<script src="resources/js/common.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		loginStatusMenu(${sMember_no});
+	});
+</script>
 </head>
 <body>
 <!-- nav 영역 -->

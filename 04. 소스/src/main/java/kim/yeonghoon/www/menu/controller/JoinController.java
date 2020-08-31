@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -27,19 +29,22 @@ public class JoinController {
 	BCryptPasswordEncoder pwEncoder;
 	
 	@RequestMapping(value = "/join")
-	public ModelAndView join(ModelAndView mav) {
-
-		try {
-			// 기지국 번호 조회
-			List<HashMap<String,String>> list = iJoinService.getBTS();
-			mav.addObject("list", list);
-			mav.addObject("result", "telFirstNo");
-		} catch (Throwable e) {
-			e.printStackTrace();
-			mav.addObject("result", "x");
-		}
+	public ModelAndView join(ModelAndView mav, HttpSession session) {
 		
-		mav.setViewName("join");
+		if(session.getAttribute("sMember_no") != null) {
+			mav.setViewName("redirect:main");
+		} else {
+			try {
+				// 기지국 번호 조회
+				List<HashMap<String,String>> list = iJoinService.getBTS();
+				mav.addObject("list", list);
+				mav.addObject("result", "telFirstNo");
+			} catch (Throwable e) {
+				e.printStackTrace();
+				mav.addObject("result", "x");
+			}
+			mav.setViewName("join");
+		}
 		return mav;
 	}
 	

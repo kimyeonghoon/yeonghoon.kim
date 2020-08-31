@@ -18,6 +18,8 @@ function modalPopup() {
 		html += "메일을 입력해주세요."
 	} else if($("[name='popupCheck']").val() == "2") {
 		html += "패스워드를 입력해주세요."
+	} else if($("[name='popupCheck']").val() == "3") {
+		html += "아이디나 패스워드가 일치하지 않습니다."
 	}
 	html += "</div>";
 	html += "<div class=\"modal-footer\">";
@@ -43,6 +45,7 @@ function loginUser() {
 			if(res.result == "success") {
 				location.href = "main";
 			} else if(res.result == "fail"){
+				$("[name='popupCheck']").val("3");
 				modalPopup();
 			}
 		},

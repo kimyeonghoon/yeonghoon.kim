@@ -18,9 +18,15 @@ public class LoginDao implements ILoginDao {
 	}
 
 	@Override
-	public String getEncryptPassword(HashMap<String, String> params) throws Throwable {
-		return sqlSession.selectOne("login.getEncryptPassword", params);
+	public HashMap<String, String> getUserInfo(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("login.getUserInfo", params);
 	}
+
+	@Override
+	public int getUserCheck(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("login.getUserCheck", params);
+	}
+
 
 
 }

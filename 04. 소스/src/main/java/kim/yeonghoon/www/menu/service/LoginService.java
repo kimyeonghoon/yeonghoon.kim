@@ -19,9 +19,15 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public String getEncryptPassword(HashMap<String, String> params) throws Throwable {
-		return iLoginDao.getEncryptPassword(params);
+	public HashMap<String, String> getUserInfo(HashMap<String, String> params) throws Throwable {
+		return iLoginDao.getUserInfo(params);
 	}
+
+	@Override
+	public int getUserCheck(HashMap<String, String> params) throws Throwable {
+		return iLoginDao.getUserCheck(params);
+	}
+
 
 	
 }

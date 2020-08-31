@@ -9,10 +9,13 @@
 <title>yeonghoon.kim :: 로그인</title>
 <!-- 헤더 영역 -->
 <c:import url="/header"></c:import>
+<!-- 공통 js -->
+<script src="resources/js/common.js"></script>
 <!-- 로그인 js -->
 <script src="resources/js/login.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		loginStatusMenu('${sMember_no}');
 		// 로그인 버튼 클릭 이벤트
 		$("#loginBtn").on("click", function() {
 			if($("#emailInput").val() == '' || $("#emailInput").val() == null) {
@@ -27,8 +30,6 @@
 			}
 		});
 	});
-
-
 </script>
 </head>
 <body>

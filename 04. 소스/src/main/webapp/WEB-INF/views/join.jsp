@@ -13,8 +13,12 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- 회원가입 js -->
 <script src="resources/js/join.js"></script>
+<!-- 공통 js -->
+<script src="resources/js/common.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		loginStatusMenu('${sMember_no}');
+		
 		// 기지국 번호를 못받아올 경우(디비 문제 발생)
 		if($("#telFirstNo").attr("name") != "telFirstNo") {
 			$("[name='popupCheck']").val("x");

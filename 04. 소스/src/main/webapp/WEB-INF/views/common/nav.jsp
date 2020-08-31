@@ -33,13 +33,7 @@
 				</li>
 			</ul>
 			<!-- 우측 매뉴 -->
-			<ul class="navbar-nav ml-auto font-weight-bold">
-				<li class="nav-item">
-					<a href="login" class="nav-link text-warning">로그인</a>
-				</li>
-				<li class="nav-item">
-					<a href="join" class="nav-link text-danger">회원가입</a>
-				</li>
+			<ul class="navbar-nav ml-auto font-weight-bold" id="loginStatus">
 			</ul>
 		</div>
 	</nav>
