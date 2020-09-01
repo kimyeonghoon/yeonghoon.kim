@@ -35,7 +35,6 @@ function modalPopup() {
 // 로그인 AJAX
 function loginUser() {
 	var params = $("#loginCheck").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "loginUserAjax", 

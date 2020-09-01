@@ -16,6 +16,13 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		loginStatusMenu('${sMember_no}');
+
+		// 약력 수정버튼 클릭(팝업)
+		$("#briefHistoryModifyBtn").on("click", function(){
+			modalPopup("1-2");
+			getBriefHistory();
+		});
+		
 		// 로그인 버튼 클릭 이벤트
 		$("#loginBtn").on("click", function() {
 			if($("#emailInput").val() == '' || $("#emailInput").val() == null) {

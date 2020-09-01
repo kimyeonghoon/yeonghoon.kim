@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="profile">
+	<!-- 약력 조회 -->
+	<select id="getBriefHistory" parameterType="hashmap" resultType="hashmap">
+		SELECT m.member_name AS nameInput,
+			   m.member_birthday AS yearInput,
+			   m.member_address AS addressInput,
+			   b.brief_history_education AS educationInput,
+			   b.brief_history_career AS careerInput,
+			   b.brief_history_certificate AS certificateInput,
+			   b.brief_history_upload_path AS imageInput
+		
+		FROM member m INNER JOIN brief_history b
+						  	  ON m.member_no = b.member_no
+						  	 AND m.member_no = #{member_no}
+	</select>
+	
+	<!-- 약력 수정 -->
+	<update id="updateBriefHistory" parameterType="hashmap">
+		UPDATE member
+		SET member_name = #{nameInput}, member_birthday = #{yearInput}, member_address = #{addressInput}
+		WHERE member_no = #{member_no}
+		;
+		
+		UPDATE brief_history
+		SET brief_history_education = #{educationInput},
+			brief_history_career = #{careerInput},
+			brief_history_certificate = #{certificateInput},
+			brief_history_upload_path = #{imageInput}
+		WHERE member_no = 1
+		;
+	</update>
+</mapper>

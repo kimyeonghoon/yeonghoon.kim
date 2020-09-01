@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `base_transceiver_station` (
 
 -- 테이블 데이터 yeonghoon.kim.base_transceiver_station:~24 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `base_transceiver_station` DISABLE KEYS */;
-INSERT INTO `base_transceiver_station` (`bts_no`, `bts_name`, `bts_station_no`) VALUES
+REPLACE INTO `base_transceiver_station` (`bts_no`, `bts_name`, `bts_station_no`) VALUES
 	(1, '모바일공통\r\n', 10),
 	(2, 'SKT', 11),
 	(3, 'KT\r\n', 16),
@@ -248,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `education` (
 CREATE TABLE IF NOT EXISTS `member` (
   `member_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '회원번호',
   `member_email` varchar(50) NOT NULL COMMENT '이메일',
-  `member_password` varchar(20) NOT NULL COMMENT '패스워드',
+  `member_password` tinytext NOT NULL COMMENT '패스워드',
   `member_name` varchar(5) NOT NULL COMMENT '이름',
   `member_address` varchar(40) DEFAULT NULL COMMENT '주소',
   `member_address_detail` varchar(10) DEFAULT NULL COMMENT '상세주소',
@@ -257,12 +257,12 @@ CREATE TABLE IF NOT EXISTS `member` (
   `member_birthday` date DEFAULT NULL COMMENT '생일',
   `member_delete_yn` tinyint(1) unsigned NOT NULL DEFAULT 1 COMMENT '삭제여부',
   PRIMARY KEY (`member_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='회원에 대한 정보를 담는 테이블';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='회원에 대한 정보를 담는 테이블';
 
--- 테이블 데이터 yeonghoon.kim.member:~10 rows (대략적) 내보내기
+-- 테이블 데이터 yeonghoon.kim.member:~13 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` (`member_no`, `member_email`, `member_password`, `member_name`, `member_address`, `member_address_detail`, `member_gender`, `member_tel`, `member_birthday`, `member_delete_yn`) VALUES
-	(1, 'me@yeonghoon.kim', 'kimnin78=k', '김영훈', '경상북도 포항시 남구 오천읍 용덕리 340-21', '동흥빌라 303호', 0, '01051661219', NULL, 1),
+REPLACE INTO `member` (`member_no`, `member_email`, `member_password`, `member_name`, `member_address`, `member_address_detail`, `member_gender`, `member_tel`, `member_birthday`, `member_delete_yn`) VALUES
+	(1, 'me@yeonghoon.kim', '$2a$10$rf8DyZyWJiMjD7Yru/oiGOiW3p3F7.E3QXjNpCxVye1Za/Mj8F2xe', '김영훈', '경상북도 포항시 남구 오천읍 용덕리 340-21', '동흥빌라 303호', 0, '01051661219', NULL, 1),
 	(2, 'jdld@ckd.com', '1234', 'dasda', NULL, '111', 0, '04422321321', NULL, 1),
 	(3, 'jdld@ckd.com', '1234', 'dasda', NULL, '111', 0, '04422321321', NULL, 1),
 	(4, 'jdld@ckd.com', '1234', 'dasda', NULL, '111', 0, '04422321321', NULL, 1),
@@ -271,7 +271,10 @@ INSERT INTO `member` (`member_no`, `member_email`, `member_password`, `member_na
 	(7, 'jdld@ckd.com', '1234', 'dasda', NULL, '111', 0, '04422321321', NULL, 1),
 	(8, 'jd2ld@ckd.com', '1234', 'dasda', NULL, '111', 0, '04422321321', NULL, 1),
 	(9, 'dsadsa@nate.com', '1234', '개개개개개', NULL, '1111', 1, '05311111111', NULL, 1),
-	(10, 'qweqwe1231@nate.com', '1234', 'asdfg', NULL, '11', 0, '01032132132', NULL, 1);
+	(10, 'qweqwe1231@nate.com', '1234', 'asdfg', NULL, '11', 0, '01032132132', NULL, 1),
+	(11, 'ioniere@25ni.pe.kr', '$2a$10$rf8DyZyWJiMjD7Yru/oiGOiW3p3F7.E3QXjNpCxVye1Za/Mj8F2xe', '김영훈', NULL, '1111', 0, '04411111111', NULL, 1),
+	(12, 'fdsafasd@nate.com', '$2a$10$qg1CLwAZP19ONJSZC6bK0urpRE3mmAcmafbbGsq8/hAB5cpkdH4c.', 'qwe', NULL, '111', 0, '04311111111', NULL, 1),
+	(13, 'qwe@qwe.qwe', '$2a$10$KbJn1A/iAnJqLrdGtjGH5uBiPHXNlz6y9on39e5oduwqjRkzak0Uu', 'qwe', NULL, '12', 0, '01055554444', NULL, 1);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.tech 구조 내보내기

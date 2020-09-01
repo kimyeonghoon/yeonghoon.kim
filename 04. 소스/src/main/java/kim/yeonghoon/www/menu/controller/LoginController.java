@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kim.yeonghoon.www.menu.service.ILoginService;
 
 @Controller
-public class loginController {
+public class LoginController {
 
 	@Autowired
 	ILoginService iLoginService;

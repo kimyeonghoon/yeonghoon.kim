@@ -16,7 +16,7 @@
 			<!-- 좌측메뉴 -->
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a href="profile.html" class="nav-link">프로필</a>
+					<a href="profile" class="nav-link">프로필</a>
 				</li>
 				<!-- 2단 메뉴(드롭다운) -->
 				<li class="nav-item dropdown">
