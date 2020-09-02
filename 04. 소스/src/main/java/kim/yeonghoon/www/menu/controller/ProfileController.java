@@ -1,6 +1,8 @@
 package kim.yeonghoon.www.menu.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -100,5 +102,65 @@ public class ProfileController {
 		return mapper.writeValueAsString(modelMap);
 	}
 
+	@RequestMapping(value = "redrawTechAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String redrawTechAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		params.put("member_no", "1");
+		try {
+			
+			// 기술 카테고리 개수 추출
+			int getTechCategoryCnt = iProfileService.getTechCategoryCnt();
+			
+			List<HashMap<String,String>> getTechCategory = iProfileService.getTechCategory();
+			
+			// 기술 리스트 뽑기
+			for(int i = 1; i <= getTechCategoryCnt; i++) {
+				List<String> getTech = new ArrayList<String>();
+				if(getTech.size() > 0) {
+					getTech.clear();
+				}
+				getTech = iProfileService.getTech(i);
+				String techName = "tech" + (i - 1);
+				modelMap.put(techName, getTech);
 
+			}
+			modelMap.put("getTechCategory", getTechCategory);
+			modelMap.put("getTechCategoryCnt", getTechCategoryCnt);
+			modelMap.put("result", "success");
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "techAddAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String techAddAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		params.put("member_no", "1");
+		System.out.println(params);
+		
+		try {
+			int techAdd = iProfileService.techAdd(params);
+			
+			if(techAdd > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+	
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 }

@@ -31,4 +31,30 @@
 		WHERE member_no = 1
 		;
 	</update>
+	
+	<!-- 기술 카테고리목록 받기 -->
+	<select id="getTechCategory" resultType="hashmap">
+		SELECT tech_category_name
+		FROM tech_category
+		WHERE tech_category_delete_yn = 1
+	</select>
+	
+	<!-- 기술 카테고리개수 받기 -->
+	<select id="getTechCategoryCnt" resultType="Integer">
+		SELECT COUNT(*)
+		FROM tech_category
+		WHERE tech_category_delete_yn = 1
+	</select>
+	
+	<select id="getTech" parameterType="Integer" resultType="string">
+		SELECT tech_name
+		FROM tech
+		WHERE tech_category_no = #{i}
+	</select>
+	
+	<insert id="techAdd" parameterType="hashmap">
+		INSERT INTO tech(member_no, tech_category_no, tech_name)
+		VALUES (#{member_no}, #{categoryName}, #{skillNameInput})
+	</insert>
+	
 </mapper>

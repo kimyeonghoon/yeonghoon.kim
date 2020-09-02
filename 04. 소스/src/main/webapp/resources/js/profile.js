@@ -46,6 +46,7 @@ function init_profile() {
 	
 	
 	redrawBriefHistory();
+	redrawTech();
 }
 
 
@@ -138,9 +139,9 @@ function modalPopup(id) {
 					break;
 		case "3-6": html += "경력을 삭제하시겠습니까?";
 					break;
-		case "4-1": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">카테고리</span></div><select class=\"form-control\" id=\"categoryName\"><option value=\"0\">카테고리 선택</option><option value=\"1\">언어</option><option value=\"2\">프레임워크</option><option value=\"3\">라이브러리</option><option value=\"4\">데이터베이스</option><option value=\"5\">서버</option><option value=\"6\">형상관리</option><option value=\"7\">API</option><option value=\"8\">그외 사용도구</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">스킬명</span></div><input type=\"text\" class=\"form-control\" id=\"skillNameInput\"></div>";
+		case "4-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"4-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">카테고리</span></div><select class=\"form-control\" name=\"categoryName\"id=\"categoryName\"><option value=\"0\">카테고리 선택</option><option value=\"1\">언어</option><option value=\"2\">프레임워크</option><option value=\"3\">라이브러리</option><option value=\"4\">데이터베이스</option><option value=\"5\">서버</option><option value=\"6\">형상관리</option><option value=\"7\">API</option><option value=\"8\">그외 사용도구</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">스킬명</span></div><input type=\"text\" class=\"form-control\" name=\"skillNameInput\" id=\"skillNameInput\"></div>";
 					break;
-		case "4-3": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">카테고리</span></div><select class=\"form-control\" id=\"categoryName\"><option value=\"0\">카테고리 선택</option><option value=\"1\">언어</option><option value=\"2\">프레임워크</option><option value=\"3\">라이브러리</option><option value=\"4\">데이터베이스</option><option value=\"5\">서버</option><option value=\"6\">형상관리</option><option value=\"7\">API</option><option value=\"8\">그외 사용도구</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">스킬명</span></div><select class=\"form-control\" id=\"skillName\"><option value=\"0\">스킬 선택</option><option value=\"1\">Java</option><option value=\"2\">Javascript</option><option value=\"3\">html</option><option value=\"4\">CSS</option></select></div>";
+		case "4-3": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">카테고리</span></div><select class=\"form-control\" name=\"categoryName\" id=\"categoryName\"><option value=\"0\">카테고리 선택</option><option value=\"1\">언어</option><option value=\"2\">프레임워크</option><option value=\"3\">라이브러리</option><option value=\"4\">데이터베이스</option><option value=\"5\">서버</option><option value=\"6\">형상관리</option><option value=\"7\">API</option><option value=\"8\">그외 사용도구</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">스킬명</span></div><select class=\"form-control\" id=\"skillName\"><option value=\"0\">스킬 선택</option><option value=\"1\">Java</option><option value=\"2\">Javascript</option><option value=\"3\">html</option><option value=\"4\">CSS</option></select></div>";
 					break;
 		case "5-1": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학원명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">시작년월</span></div><input type=\"text\" class=\"form-control\" id=\"startInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">종료년월</span></div><input type=\"text\" class=\"form-control\" id=\"endInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">수료</option><option value=\"2\">미수료</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육과정</span></div><input type=\"text\" class=\"form-control\" id=\"curriculumInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육내용</span></div><textarea class=\"form-control\" id=\"contentInput\"></textarea></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\"></div>";
 					break;
@@ -166,7 +167,7 @@ function modalPopup(id) {
 		case "3-4":
 		case "4-1":
 		case "5-1":
-		case "6-1": html += "<button type=\"button\" class=\"btn btn-danger\ id=\"addBtn\">등록</button>";
+		case "6-1": html += "<button type=\"button\" class=\"btn btn-danger\ id=\"addBtn\" onclick=\"addSelect();\">등록</button>";
 					break;
 		case "1-2":
 		case "2-2":
@@ -285,6 +286,118 @@ function redrawBriefHistory() {
 			console.log("error : " + error);
 		}			
 	});
+}
+
+// 보유기술 그리기
+function redrawTech() {
+	$.ajax({
+		type : "post",			  
+		url : "redrawTechAjax", 
+		dataType : "json",
+		success : function(res) {
+			if(res.result == "success") {
+				var html = "";
+				html += "<div class=\"card\">";
+				html += "<table class=\"card-body table table-sm table-borderless bg-light m-0\">";
+				html += "<colgroup><col width=\"40%\"></col><col width=\"*\"></col></colgroup><tbody>";
+				
+				for(var i in res.getTechCategory) {
+					html += "<tr class=\"border border-top-0 border-left-0 border-right-0\"><td>";
+					html += "<h6>";
+					html += res.getTechCategory[i].tech_category_name;
+					html += "</h6></td>";
+					html += "<td class=\"text-secondary\">";
+					if(i == 0) {
+						for(var j in res.tech0) {
+							html += res.tech0[j] + "<br/>";
+						}
+					} else if(i == 1) {
+						for(var j in res.tech1) {
+							html += res.tech1[j] + "<br/>";
+						}
+					} else if(i == 2){
+						for(var j in res.tech2) {
+							html += res.tech2[j] + "<br/>";
+						}
+					} else if(i == 3){
+						for(var j in res.tech3) {
+							html += res.tech3[j] + "<br/>";
+						}
+					} else if(i == 4){
+						for(var j in res.tech4) {
+							html += res.tech4[j] + "<br/>";
+						}
+					} else if(i == 5){
+						for(var j in res.tech5) {
+							html += res.tech5[j] + "<br/>";
+						}
+					} else if(i == 6){
+						for(var j in res.tech6) {
+							html += res.tech6[j] + "<br/>";
+						}
+					} else if(i == 7){
+						for(var j in res.tech7) {
+							html += res.tech7[j] + "<br/>";
+						}
+					}
+					html += "</td></tr>";
+				}
+				html += "</tbody></table></div>";
+				$("#skillList").html(html);
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+// 스킬 추가
+function techAdd() {
+	if($("#categoryName").val() == 0 || $("#categoryName").val() == '' || $("#categoryName").val() == null) {
+		return false;
+	}   
+	$("#actionForm").attr("action", "techAddAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "techAddAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawTech();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+// 등록버튼 클릭 시 동작
+function addSelect() {
+	switch ($("#addSelect").val()) {
+	case "2-1": alert("학력 추가");
+		break;
+	case "2-2": alert("학력 수정");
+		break;
+	case "3-1": alert("회사 추가");
+		break;
+	case "4-1": techAdd();
+		break;
+	case "5-1": alert("교육 추가");
+		break;
+	case "6-1": alert("자격증 추가");
+		break;
+	}
 }
 
 // 수정버튼 클릭 시 동작
