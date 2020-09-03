@@ -34,7 +34,7 @@
 	
 	<!-- 기술 카테고리목록 받기 -->
 	<select id="getTechCategory" resultType="hashmap">
-		SELECT tech_category_name
+		SELECT tech_category_name, tech_category_no
 		FROM tech_category
 		WHERE tech_category_delete_yn = 1
 	</select>
@@ -50,11 +50,28 @@
 		SELECT tech_name
 		FROM tech
 		WHERE tech_category_no = #{i}
+		AND tech_delete_yn = 1
 	</select>
 	
 	<insert id="techAdd" parameterType="hashmap">
 		INSERT INTO tech(member_no, tech_category_no, tech_name)
 		VALUES (#{member_no}, #{categoryName}, #{skillNameInput})
 	</insert>
+	
+	<!-- 기술 카테고리 기술 받기 -->
+	<select id="techList" parameterType="hashmap" resultType="hashmap">
+		SELECT tech_name, tech_no
+		FROM tech
+		WHERE tech_category_no = #{categoryName}
+		AND tech_delete_yn = 1
+	</select>
+	
+	<update id="techDel" parameterType="hashmap">
+		UPDATE tech
+		SET tech_delete_yn = 0
+		WHERE tech_no = #{skillName}
+		AND member_no = #{member_no}
+		AND tech_category_no = #{categoryName}
+	</update>
 	
 </mapper>

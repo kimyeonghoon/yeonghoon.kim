@@ -42,4 +42,15 @@ public class ProfileDao implements IProfileDao {
 	public int techAdd(HashMap<String, String> params) throws Throwable {
 		return sqlSession.insert("profile.techAdd", params);
 	}
+
+	@Override
+	public List<HashMap<String, String>> techList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("profile.techList", params);
+	}
+
+	@Override
+	public int techDel(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("profile.techDel", params);
+	}
+
 }

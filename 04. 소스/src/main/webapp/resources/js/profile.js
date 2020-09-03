@@ -139,9 +139,9 @@ function modalPopup(id) {
 					break;
 		case "3-6": html += "경력을 삭제하시겠습니까?";
 					break;
-		case "4-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"4-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">카테고리</span></div><select class=\"form-control\" name=\"categoryName\"id=\"categoryName\"><option value=\"0\">카테고리 선택</option><option value=\"1\">언어</option><option value=\"2\">프레임워크</option><option value=\"3\">라이브러리</option><option value=\"4\">데이터베이스</option><option value=\"5\">서버</option><option value=\"6\">형상관리</option><option value=\"7\">API</option><option value=\"8\">그외 사용도구</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">스킬명</span></div><input type=\"text\" class=\"form-control\" name=\"skillNameInput\" id=\"skillNameInput\"></div>";
+		case "4-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"4-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">카테고리</span></div><select class=\"form-control\" name=\"categoryName\"id=\"categoryName\"><option value=\"0\">카테고리 선택</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">스킬명</span></div><input type=\"text\" class=\"form-control\" name=\"skillNameInput\" id=\"skillNameInput\"></div>";
 					break;
-		case "4-3": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">카테고리</span></div><select class=\"form-control\" name=\"categoryName\" id=\"categoryName\"><option value=\"0\">카테고리 선택</option><option value=\"1\">언어</option><option value=\"2\">프레임워크</option><option value=\"3\">라이브러리</option><option value=\"4\">데이터베이스</option><option value=\"5\">서버</option><option value=\"6\">형상관리</option><option value=\"7\">API</option><option value=\"8\">그외 사용도구</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">스킬명</span></div><select class=\"form-control\" id=\"skillName\"><option value=\"0\">스킬 선택</option><option value=\"1\">Java</option><option value=\"2\">Javascript</option><option value=\"3\">html</option><option value=\"4\">CSS</option></select></div>";
+		case "4-3": html += "<input type=\"hidden\" id=\"delSelect\" value=\"4-3\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">카테고리</span></div><select class=\"form-control\" name=\"categoryName\" id=\"categoryName\" onchange=\"techList()\"><option value=\"0\">카테고리 선택</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">스킬명</span></div><select class=\"form-control\" id=\"skillName\" name=\"skillName\" disabled=\"disabled\"><option value=\"0\">스킬 선택</option></select></div>";
 					break;
 		case "5-1": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학원명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">시작년월</span></div><input type=\"text\" class=\"form-control\" id=\"startInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">종료년월</span></div><input type=\"text\" class=\"form-control\" id=\"endInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">수료</option><option value=\"2\">미수료</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육과정</span></div><input type=\"text\" class=\"form-control\" id=\"curriculumInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육내용</span></div><textarea class=\"form-control\" id=\"contentInput\"></textarea></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\"></div>";
 					break;
@@ -181,7 +181,7 @@ function modalPopup(id) {
 		case "3-6":
 		case "4-3":
 		case "5-3":
-		case "6-3": html += "<button type=\"button\" class=\"btn btn-danger\" id=\"delBtn\">삭제</button>";
+		case "6-3": html += "<button type=\"button\" class=\"btn btn-danger\" id=\"delBtn\" onclick=\"delSelect();\">삭제</button>";
 					break;
 	}
 	html += "<button type=\"button\" class=\"btn btn-dark\" data-dismiss=\"modal\">닫기</button>";
@@ -189,8 +189,13 @@ function modalPopup(id) {
 	html += "</div>";
 	html += "</div>";
 	html += "</div>";
+	
 	$("#contentsArea").prepend(html);
 	$("#notifyModal").modal("show");
+	
+	if(id == "4-1" || id == "4-3") {
+		techCategoryList();
+	}
 }
 
 function getBriefHistory() {
@@ -360,11 +365,44 @@ function techAdd() {
 	if($("#categoryName").val() == 0 || $("#categoryName").val() == '' || $("#categoryName").val() == null) {
 		return false;
 	}   
+	if($("#skillNameInput").val() == '' || $("#categoryName").val() == null) {
+		return false;
+	}   
 	$("#actionForm").attr("action", "techAddAjax");
 	var params = $("#actionForm").serialize();
 	$.ajax({
 		type : "post",			  
 		url : "techAddAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawTech();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+// 스킬 추가
+function techDel() {
+	if($("#categoryName").val() == 0 || $("#categoryName").val() == '' || $("#categoryName").val() == null) {
+		return false;
+	}   
+	if($("#skillName").val() == '' || $("#skillName").val() == null) {
+		return false;
+	}   
+	$("#actionForm").attr("action", "techDelAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "techDelAjax", 
 		dataType : "json",
 		data : params,
 		success : function(res) {
@@ -403,7 +441,7 @@ function addSelect() {
 // 수정버튼 클릭 시 동작
 function modSelect() {
 	switch ($("#modSelect").val()) {
-	case "1-2": briefHistoryModify();
+	case "4-1": briefHistoryModify();
 		break;
 	case "2-2": alert("학력 수정");
 		break;
@@ -416,4 +454,87 @@ function modSelect() {
 	case "6-2": alert("자격증 수정");
 		break;
 	}
+}
+
+//삭제버튼 클릭 시 동작
+function delSelect() {
+	switch ($("#delSelect").val()) {
+	case "4-3": techDel();
+		break;
+	case "2-2": alert("학력 수정");
+		break;
+	case "3-2": alert("회사 수정");
+		break;
+	case "3-5": alert("경력 수정");
+		break;
+	case "5-2": alert("교육 수정");
+		break;
+	case "6-2": alert("자격증 수정");
+		break;
+	}
+}
+
+
+// 기술 카테고리의 내용 조회
+function techList() {
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "techListAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				var html = "";
+				html += "<option value=\"0\">스킬 선택</option>";
+				if(res.techList.length < 1) { // 해당 카테고리에 기술이 없을 경우
+					$("#skillName").attr("disabled", "disabled");
+				} else { // 해당 부서에 기술이 있을 경우
+					$("#skillName").removeAttr("disabled");
+				}
+				for(var i = 0; i < res.techList.length; i++) {
+					html += "<option value=\"" + res.techList[i].tech_no +"\">" + res.techList[i].tech_name + "</option>";
+				}
+				// emplyNo 아래에 있는 모든 요소 제거
+				$("#skillName *").remove();
+				
+				$("#skillName").prepend(html);
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(reqsuest, status, error) {
+			console.log("text : " + reqsuest.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+// 기술 카테고리의 내용 조회
+function techCategoryList() {
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "techCategoryListAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				var html = "";
+				html += "<option value=\"0\">카테고리 선택</option>";
+				for(var i = 0; i < res.techCategoryList.length; i++) {
+					html += "<option value=\"" + res.techCategoryList[i].tech_category_no +"\">" + res.techCategoryList[i].tech_category_name + "</option>";
+				}
+				$("#categoryName *").remove();
+				
+				$("#categoryName").prepend(html);
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(reqsuest, status, error) {
+			console.log("text : " + reqsuest.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
 }

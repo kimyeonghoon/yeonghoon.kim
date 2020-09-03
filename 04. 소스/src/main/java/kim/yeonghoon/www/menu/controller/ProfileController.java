@@ -163,4 +163,74 @@ public class ProfileController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	@RequestMapping(value = "techListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String techListAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		System.out.println(params);
+		
+		try {
+			List<HashMap<String,String>> techList = iProfileService.techList(params);
+			modelMap.put("techList", techList);
+			modelMap.put("result", "success");
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+	
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+		
+	@RequestMapping(value = "techCategoryListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String techCategoryListAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		System.out.println(params);
+		
+		try {
+			List<HashMap<String,String>> getTechCategory = iProfileService.getTechCategory();
+			modelMap.put("techCategoryList", getTechCategory);
+			modelMap.put("result", "success");
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+	
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "techDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String techDelAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		params.put("member_no", "1");
+		
+		try {
+			
+			int techDel = iProfileService.techDel(params);
+			
+			if(techDel > 0) {
+				modelMap.put("techDel", techDel);
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+	
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 }

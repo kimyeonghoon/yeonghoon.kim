@@ -17,4 +17,8 @@ public interface IProfileService {
 
 	public int techAdd(HashMap<String, String> params) throws Throwable;
 
+	public List<HashMap<String, String>> techList(HashMap<String, String> params) throws Throwable;
+
+	public int techDel(HashMap<String, String> params) throws Throwable;
+
 }
