@@ -233,4 +233,61 @@ public class ProfileController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	@RequestMapping(value = "redrawEducationAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String redrawEducationAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		params.put("member_no", "1");
+		try {
+			
+			List<HashMap<String,String>> getEducation = iProfileService.getEducation(params);
+			
+			modelMap.put("getEducation", getEducation);
+			modelMap.put("result", "success");
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "educationAdd", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String educationAdd(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+		if(params.get("graduatedInput") == "") {
+			params.put("graduatedInput", null);
+		}
+		if(params.get("etcInput") == "") {
+			params.put("etcInput", null);
+		}
+		if(params.get("departmentInput") == "") {
+			params.put("departmentInput", null);
+		}
+		
+			
+		params.put("member_no", "1");
+		try {
+			
+			int educationAddCnt = iProfileService.educationAdd(params);
+
+			if(educationAddCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 }

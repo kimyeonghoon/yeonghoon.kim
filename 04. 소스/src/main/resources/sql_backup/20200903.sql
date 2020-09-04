@@ -13,10 +13,12 @@
 
 
 -- yeonghoon.kim 데이터베이스 구조 내보내기
+DROP DATABASE IF EXISTS `yeonghoon.kim`;
 CREATE DATABASE IF NOT EXISTS `yeonghoon.kim` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `yeonghoon.kim`;
 
 -- 테이블 yeonghoon.kim.academy 구조 내보내기
+DROP TABLE IF EXISTS `academy`;
 CREATE TABLE IF NOT EXISTS `academy` (
   `academy_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '교육번호',
   `member_no` int(11) unsigned NOT NULL COMMENT '회원번호',
@@ -37,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `academy` (
 /*!40000 ALTER TABLE `academy` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.base_transceiver_station 구조 내보내기
+DROP TABLE IF EXISTS `base_transceiver_station`;
 CREATE TABLE IF NOT EXISTS `base_transceiver_station` (
   `bts_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '기지국정보번호',
   `bts_name` varchar(10) NOT NULL COMMENT '기지국명',
@@ -74,6 +77,7 @@ REPLACE INTO `base_transceiver_station` (`bts_no`, `bts_name`, `bts_station_no`)
 /*!40000 ALTER TABLE `base_transceiver_station` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.board 구조 내보내기
+DROP TABLE IF EXISTS `board`;
 CREATE TABLE IF NOT EXISTS `board` (
   `board_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '게시판번호',
   `board_type_no` int(11) unsigned NOT NULL COMMENT '게시판구분번호',
@@ -90,6 +94,7 @@ CREATE TABLE IF NOT EXISTS `board` (
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.board_content 구조 내보내기
+DROP TABLE IF EXISTS `board_content`;
 CREATE TABLE IF NOT EXISTS `board_content` (
   `board_content_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '게시글번호',
   `board_no` int(11) unsigned NOT NULL COMMENT '게시판번호',
@@ -112,6 +117,7 @@ CREATE TABLE IF NOT EXISTS `board_content` (
 /*!40000 ALTER TABLE `board_content` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.board_content_file 구조 내보내기
+DROP TABLE IF EXISTS `board_content_file`;
 CREATE TABLE IF NOT EXISTS `board_content_file` (
   `board_content_file_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '첨부파일번호',
   `board_content_no` int(11) unsigned NOT NULL COMMENT '게시글번호',
@@ -127,6 +133,7 @@ CREATE TABLE IF NOT EXISTS `board_content_file` (
 /*!40000 ALTER TABLE `board_content_file` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.board_type 구조 내보내기
+DROP TABLE IF EXISTS `board_type`;
 CREATE TABLE IF NOT EXISTS `board_type` (
   `board_type_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '게시판구분번호',
   `board_type_delete_yn` tinyint(1) unsigned NOT NULL DEFAULT 1 COMMENT '삭제여부',
@@ -138,6 +145,7 @@ CREATE TABLE IF NOT EXISTS `board_type` (
 /*!40000 ALTER TABLE `board_type` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.brief_history 구조 내보내기
+DROP TABLE IF EXISTS `brief_history`;
 CREATE TABLE IF NOT EXISTS `brief_history` (
   `brief_history_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '약력번호',
   `member_no` int(11) unsigned NOT NULL COMMENT '회원번호',
@@ -150,13 +158,14 @@ CREATE TABLE IF NOT EXISTS `brief_history` (
   CONSTRAINT `brief_hisotry_member.FK` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='약력에 대한 정보를 담는 테이블';
 
--- 테이블 데이터 yeonghoon.kim.brief_history:~1 rows (대략적) 내보내기
+-- 테이블 데이터 yeonghoon.kim.brief_history:~0 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `brief_history` DISABLE KEYS */;
 REPLACE INTO `brief_history` (`brief_history_no`, `member_no`, `brief_history_education`, `brief_history_career`, `brief_history_certificate`, `brief_history_upload_path`) VALUES
 	(1, 1, '동아대학교(4년) 사학과', '인프라엔지니어 4년 5개월', '정보처리기사 외 3', NULL);
 /*!40000 ALTER TABLE `brief_history` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.career 구조 내보내기
+DROP TABLE IF EXISTS `career`;
 CREATE TABLE IF NOT EXISTS `career` (
   `career_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '경력번호',
   `company_no` int(11) unsigned NOT NULL COMMENT '회사번호',
@@ -173,6 +182,7 @@ CREATE TABLE IF NOT EXISTS `career` (
 /*!40000 ALTER TABLE `career` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.certificate 구조 내보내기
+DROP TABLE IF EXISTS `certificate`;
 CREATE TABLE IF NOT EXISTS `certificate` (
   `certificate_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '자격증번호',
   `member_no` int(11) unsigned NOT NULL COMMENT '회원번호',
@@ -191,6 +201,7 @@ CREATE TABLE IF NOT EXISTS `certificate` (
 /*!40000 ALTER TABLE `certificate` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.comment 구조 내보내기
+DROP TABLE IF EXISTS `comment`;
 CREATE TABLE IF NOT EXISTS `comment` (
   `comment_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '댓글번호',
   `board_content_no` int(11) unsigned NOT NULL COMMENT '게시글번호',
@@ -208,6 +219,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.company 구조 내보내기
+DROP TABLE IF EXISTS `company`;
 CREATE TABLE IF NOT EXISTS `company` (
   `company_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '회사번호',
   `member_no` int(11) unsigned NOT NULL COMMENT '회원번호',
@@ -226,6 +238,7 @@ CREATE TABLE IF NOT EXISTS `company` (
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.education 구조 내보내기
+DROP TABLE IF EXISTS `education`;
 CREATE TABLE IF NOT EXISTS `education` (
   `education_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '학력번호',
   `member_no` int(11) unsigned NOT NULL COMMENT '회원번호',
@@ -247,6 +260,7 @@ CREATE TABLE IF NOT EXISTS `education` (
 /*!40000 ALTER TABLE `education` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.member 구조 내보내기
+DROP TABLE IF EXISTS `member`;
 CREATE TABLE IF NOT EXISTS `member` (
   `member_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '회원번호',
   `member_email` varchar(50) NOT NULL COMMENT '이메일',
@@ -269,6 +283,7 @@ REPLACE INTO `member` (`member_no`, `member_email`, `member_password`, `member_n
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.tech 구조 내보내기
+DROP TABLE IF EXISTS `tech`;
 CREATE TABLE IF NOT EXISTS `tech` (
   `tech_no` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '기술번호',
   `member_no` int(11) unsigned NOT NULL COMMENT '회원번호',
@@ -280,9 +295,9 @@ CREATE TABLE IF NOT EXISTS `tech` (
   KEY `tech_category.FK` (`tech_category_no`),
   CONSTRAINT `tech_category.FK` FOREIGN KEY (`tech_category_no`) REFERENCES `tech_category` (`tech_category_no`),
   CONSTRAINT `tech_member.FK` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COMMENT='기술에 대한 정보를 담는 테이블';
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COMMENT='기술에 대한 정보를 담는 테이블';
 
--- 테이블 데이터 yeonghoon.kim.tech:~25 rows (대략적) 내보내기
+-- 테이블 데이터 yeonghoon.kim.tech:~28 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `tech` DISABLE KEYS */;
 REPLACE INTO `tech` (`tech_no`, `member_no`, `tech_category_no`, `tech_name`, `tech_delete_yn`) VALUES
 	(3, 1, 1, 'Java', 1),
@@ -307,13 +322,17 @@ REPLACE INTO `tech` (`tech_no`, `member_no`, `tech_category_no`, `tech_name`, `t
 	(23, 1, 8, 'HeidiSQL', 1),
 	(24, 1, 8, 'TortoiseSVN', 1),
 	(25, 1, 8, 'Git for Windows', 1),
-	(26, 1, 4, '배고파', 1),
-	(27, 1, 5, 'dasdsadas', 1),
-	(28, 1, 3, 'zzzzzzzzzzzzzzzzzz', 1),
-	(30, 1, 2, 'edsad', 1);
+	(26, 1, 4, '배고파', 0),
+	(27, 1, 5, 'dasdsadas', 0),
+	(28, 1, 3, 'zzzzzzzzzzzzzzzzzz', 0),
+	(30, 1, 2, 'edsad', 0),
+	(31, 1, 4, 'wqeqweqw', 0),
+	(32, 1, 3, '', 0),
+	(33, 1, 4, '가나다라', 0);
 /*!40000 ALTER TABLE `tech` ENABLE KEYS */;
 
 -- 테이블 yeonghoon.kim.tech_category 구조 내보내기
+DROP TABLE IF EXISTS `tech_category`;
 CREATE TABLE IF NOT EXISTS `tech_category` (
   `tech_category_no` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `tech_category_name` varchar(20) NOT NULL,

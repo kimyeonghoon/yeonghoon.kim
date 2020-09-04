@@ -47,6 +47,7 @@ function init_profile() {
 	
 	redrawBriefHistory();
 	redrawTech();
+	redrawEducation();
 }
 
 
@@ -121,9 +122,9 @@ function modalPopup(id) {
 	switch (id) {
 		case "1-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"1-2\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">이름</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">생년</span></div><input type=\"number\" class=\"form-control\" id=\"yearInput\" name=\"yearInput\" maxlength=\"4\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">주소</span></div><input type=\"text\" class=\"form-control\" id=\"addressInput\" name=\"addressInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학력</span></div><input type=\"text\" class=\"form-control\" id=\"educationInput\" name=\"educationInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">경력</span></div><input type=\"text\" class=\"form-control\" id=\"careerInput\" name=\"careerInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격</span></div><input type=\"text\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">사진</span></div><input type=\"file\" class=\"form-control\" id=\"imageInput\" name=\"imageInput\"></div>";
 				  break;
-		case "2-1": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학교명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학과명</span></div><input type=\"text\" class=\"form-control\" id=\"departmentInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\"><option value=\"0\">졸업</option><option value=\"1\">수료</option><option value=\"2\">자퇴</option><option value=\"3\">퇴학</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입학년월</span></div><input type=\"text\" class=\"form-control\" id=\"admissionInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">졸업년월</span></div><input type=\"text\" class=\"form-control\" id=\"graduatedInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">기타사항</span></div><input type=\"text\" class=\"form-control\" id=\"etcInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\"></div>";
-					break;
-		case "2-2": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학교명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학과명</span></div><input type=\"text\" class=\"form-control\" id=\"departmentInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\"><option value=\"0\">졸업</option><option value=\"1\">수료</option><option value=\"2\">자퇴</option><option value=\"3\">퇴학</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입학년월</span></div><input type=\"text\" class=\"form-control\" id=\"admissionInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">졸업년월</span></div><input type=\"text\" class=\"form-control\" id=\"graduatedInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">기타사항</span></div><input type=\"text\" class=\"form-control\" id=\"etcInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\"></div>";
+		case "2-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"2-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학교명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학과명</span></div><input type=\"text\" class=\"form-control\" name=\"departmentInput\" id=\"departmentInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" name=\"status\" id=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">졸업</option><option value=\"2\">수료</option><option value=\"3\">재적</option><option value=\"4\">퇴학</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입학년월</span></div><input type=\"text\" class=\"form-control\" name=\"admissionInput\" id=\"admissionInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">졸업년월</span></div><input type=\"text\" class=\"form-control\" name=\"graduatedInput\" id=\"graduatedInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">기타사항</span></div><input type=\"text\" class=\"form-control\" name=\"etcInput\" id=\"etcInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
+				  break;
+		case "2-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"2-2\" /><input type=\"hidden\" id=\"educationNo\" name=\"educationNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학교명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학과명</span></div><input type=\"text\" class=\"form-control\" name=\"departmentInput\" id=\"departmentInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" name=\"status\" id=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">졸업</option><option value=\"2\">수료</option><option value=\"3\">재적</option><option value=\"4\">퇴학</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입학년월</span></div><input type=\"text\" class=\"form-control\" name=\"admissionInput\" id=\"admissionInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">졸업년월</span></div><input type=\"text\" class=\"form-control\" name=\"graduatedInput\" id=\"graduatedInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">기타사항</span></div><input type=\"text\" class=\"form-control\" name=\"etcInput\" id=\"etcInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
 					break;
 		case "2-3": html += "학력을 삭제하시겠습니까?";
 					break;
@@ -190,8 +191,18 @@ function modalPopup(id) {
 	html += "</div>";
 	html += "</div>";
 	
+	
 	$("#contentsArea").prepend(html);
 	$("#notifyModal").modal("show");
+	
+	$("#admissionInput, #graduatedInput").datepicker({
+		dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true, yearRange: '2000:2020',
+		monthNames: ["1","2","3","4","5","6","7","8","9","10","11","12"],
+		monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"],
+		dayNamesMin: ["일","월","화","수","목","금","토"] 
+	});
+	$(".hasDatepicker").css("z-index", 1300);
+	
 	
 	if(id == "4-1" || id == "4-3") {
 		techCategoryList();
@@ -360,6 +371,67 @@ function redrawTech() {
 	});
 }
 
+//학력 그리기
+function redrawEducation() {
+	$.ajax({
+		type : "post",			  
+		url : "redrawEducationAjax", 
+		dataType : "json",
+		success : function(res) {
+			if(res.result == "success") {
+				var html = "";
+				html += "<div class=\"card\">";
+				html += "<table class=\"card-body table table-sm table-borderless bg-light m-0\">";
+				html += "<colgroup><col width=\"40%\"></col><col width=\"*\"></col></colgroup><tbody>";
+				for(var i in res.getEducation) {
+					html += "<tr data-no=" + res.getEducation[i].education_no + " class=\"border border-top-0 border-left-0 border-right-0\"><td><H6>";
+					html += res.getEducation[i].startdate + " ~ ";
+					if(res.getEducation[i].enddate != undefined) {
+						html += res.getEducation[i].enddate;
+					}
+					html += "</H6><span class=\"text-primary\">";
+					if(res.getEducation[i].status == "1") {
+						html += "졸업";
+					} else if(res.getEducation[i].status == "2") {
+						html += "수료";
+					} else if (res.getEducation[i].status == "3") {
+						html += "재학";
+					} else if (res.getEducation[i].status == "4") {
+						html += "제적";
+					}
+					html += "</span>&nbsp;<span class=\"educationModBtn\">&#x1F6E0;</span>&nbsp;<span class=\"educationDelBtn\">&#x1F5D1;</span></td><td><H6>";
+					html += res.getEducation[i].name + " " + res.getEducation[i].department;
+					html += "</H6><span class=\"text-secondary\">";
+					if(res.getEducation[i].etc != null) {
+						html += res.getEducation[i].etc;
+					}
+					html += "</span></td></tr>";
+				}
+				html += "</tbody></table></div>";
+				$("#educationList").html(html);
+				
+				// 학력 수정버튼 동작
+				$(".educationModBtn").on("click", function(){
+					$("#pickEdu").val($(this).parent().parent().attr("data-no"));
+					modalPopup("2-2");
+				});
+				// 학력 삭제버튼 동작
+				$(".educationDelBtn").on("click", function(){
+					$("#pickEdu").val($(this).parent().parent().attr("data-no"));
+					modalPopup("2-3");
+				});
+				
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
 // 스킬 추가
 function techAdd() {
 	if($("#categoryName").val() == 0 || $("#categoryName").val() == '' || $("#categoryName").val() == null) {
@@ -390,7 +462,7 @@ function techAdd() {
 	});
 }
 
-// 스킬 추가
+// 스킬 삭제
 function techDel() {
 	if($("#categoryName").val() == 0 || $("#categoryName").val() == '' || $("#categoryName").val() == null) {
 		return false;
@@ -420,10 +492,46 @@ function techDel() {
 	});
 }
 
+
+//학력 추가
+function educationAdd() {
+	if($("#nameInput").val() == null || $("#nameInput").val() == '') {
+		alert("학교명을 입력해주세요");
+	} else if ($("#status").val() == null || $("#status").val() == '' || $("#status").val() == "0") {
+		alert("상태를 선택해주세요.");
+	} else if ($("#admissionInput").val() == null || $("#admissionInput").val() == '') {
+		alert("입학년월을 입력해주세요.");
+	} else {
+		$("#actionForm").attr("action", "educationAddAjax");
+		var params = $("#actionForm").serialize();
+		console.log(params);
+		$.ajax({
+			type : "post",			  
+			url : "educationAdd", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				if(res.result == "success") {
+					$("#notifyModal").modal("hide");
+					redrawEducation();
+				} else {
+					modalPopup("x");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
+}
+
+
+
 // 등록버튼 클릭 시 동작
 function addSelect() {
 	switch ($("#addSelect").val()) {
-	case "2-1": alert("학력 추가");
+	case "2-1": educationAdd();
 		break;
 	case "2-2": alert("학력 수정");
 		break;
@@ -441,7 +549,7 @@ function addSelect() {
 // 수정버튼 클릭 시 동작
 function modSelect() {
 	switch ($("#modSelect").val()) {
-	case "4-1": briefHistoryModify();
+	case "1-2": briefHistoryModify();
 		break;
 	case "2-2": alert("학력 수정");
 		break;

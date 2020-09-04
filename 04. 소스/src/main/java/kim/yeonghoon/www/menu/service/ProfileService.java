@@ -54,4 +54,14 @@ public class ProfileService implements IProfileService {
 		return iProfileDao.techDel(params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getEducation(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.getEducation(params);
+	}
+
+	@Override
+	public int educationAdd(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.educationAdd(params);
+	}
+
 }

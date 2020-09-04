@@ -53,4 +53,14 @@ public class ProfileDao implements IProfileDao {
 		return sqlSession.insert("profile.techDel", params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getEducation(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("profile.getEducation", params);
+	}
+
+	@Override
+	public int educationAdd(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("profile.educationAdd", params);
+	}
+
 }

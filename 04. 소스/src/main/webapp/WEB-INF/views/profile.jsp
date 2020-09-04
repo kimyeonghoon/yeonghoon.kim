@@ -13,6 +13,10 @@
 <script src="resources/js/common.js"></script>
 <!-- profile js -->
 <script src="resources/js/profile.js"></script>
+<!-- jQuery UI js -->
+<script src="resources/jquery/jquery-ui.js"></script>
+<!-- jQuery UI CSS -->
+<link rel="stylesheet" href="resources/jquery/jquery-ui.css">
 <script type="text/javascript">
 $(document).ready(function() {
 	loginStatusMenu('${sMember_no}');
@@ -23,14 +27,7 @@ $(document).ready(function() {
 	$("#educationAddBtn").on("click", function(){
 		modalPopup("2-1");
 	});
-	// 학력 수정버튼 동작
-	$("#educationModBtn").on("click", function(){
-		modalPopup("2-2");
-	});
-	// 학력 삭제버튼 동작
-	$("#educationDelBtn").on("click", function(){
-		modalPopup("2-3");
-	});
+
 	// 회사 추가버튼 동작
 	$("#companyAddBtn").on("click", function(){
 		modalPopup("3-1");
@@ -106,41 +103,8 @@ $(document).ready(function() {
 				<span id="educationAddBtn" class="btn btn-light float-right">추가</span>
 			</div>
 			<div class="collapse show" id="education" data-parent="#accordion">
-				<div class="card-body p-0">
-					<div class="card">
-						<table class="card-body table table-sm table-borderless bg-light m-0">
-							<colgroup>
-								<col width="40%"></col>
-								<col width="*"></col>
-							</colgroup>
-							<tbody>
-								<tr class="border border-top-0 border-left-0 border-right-0">
-									<td>
-										<H6>2006. 03 ~ 2013. 02</H6>
-										<span class="text-primary" id="dongauniv" data-toggle="popover" data-trigger="hover">졸업 &#x1F4C7;</span>
-										<span id="educationModBtn">&#x1F6E0;</span>
-										<span id="educationDelBtn">&#x1F5D1;</span>
-									</td>
-									<td>
-										<H6>동아대학교 사학과</H6>
-										<span class="text-secondary">평점 : 3.0 / 4.5</span>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<H6>2003. 03 ~ 2006. 02</H6>
-										<span class="text-primary">졸업</span>
-										<span>&#x1F6E0;</span>
-										<span>&#x1F5D1;</span>
-									</td>
-									<td>
-										<H6>오천고등학교</H6>
-										<span class="text-secondary">인문계열</span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+				<input type="hidden" id="pickEdu" name="pickEdu">
+				<div class="card-body p-0" id="educationList">
 				</div>
 			</div>
 		</div>
