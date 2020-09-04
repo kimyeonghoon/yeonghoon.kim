@@ -128,9 +128,9 @@ function modalPopup(id) {
 					break;
 		case "2-3": html += "<input type=\"hidden\" id=\"delSelect\" value=\"2-3\" /><input type=\"hidden\" id=\"educationNo\" name=\"educationNo\" />학력을 삭제하시겠습니까?";
 					break;
-		case "3-1": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입사년월</span></div><input type=\"text\" class=\"form-control\" id=\"joinInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">퇴사년월</span></div><input type=\"text\" class=\"form-control\" id=\"leaveInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\"></div>";
+		case "3-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"3-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입사년월</span></div><input type=\"text\" class=\"form-control\" name=\"joinInput\" id=\"joinInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">퇴사년월</span></div><input type=\"text\" class=\"form-control\" name=\"leaveInput\" id=\"leaveInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
 					break;
-		case "3-2": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입사년월</span></div><input type=\"text\" class=\"form-control\" id=\"joinInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">퇴사년월</span></div><input type=\"text\" class=\"form-control\" id=\"leaveInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\"></div>";
+		case "3-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"3-2\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입사년월</span></div><input type=\"text\" class=\"form-control\" name=\"joinInput\" id=\"joinInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">퇴사년월</span></div><input type=\"text\" class=\"form-control\" name=\"leaveInput\" id=\"leaveInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
 					break;
 		case "3-3": html += "회사를 삭제하시겠습니까?";
 					break;
@@ -195,7 +195,7 @@ function modalPopup(id) {
 	$("#contentsArea").prepend(html);
 	$("#notifyModal").modal("show");
 	
-	$("#admissionInput, #graduatedInput").datepicker({
+	$("#admissionInput, #graduatedInput, #joinInput, #leaveInput").datepicker({
 		dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true, yearRange: '2000:2020',
 		monthNames: ["1","2","3","4","5","6","7","8","9","10","11","12"],
 		monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"],
@@ -496,6 +496,29 @@ function techDel() {
 	});
 }
 
+// 회사 추가
+function companyAdd() {
+	$("#actionForm").attr("action", "companyAddAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "companyAddAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawTech();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
 
 //학력 추가
 function educationAdd() {
@@ -572,7 +595,7 @@ function addSelect() {
 		break;
 	case "2-2": alert("학력 수정");
 		break;
-	case "3-1": alert("회사 추가");
+	case "3-1": companyAdd();
 		break;
 	case "4-1": techAdd();
 		break;
