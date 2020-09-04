@@ -25,4 +25,8 @@ public interface IProfileService {
 
 	public int educationAdd(HashMap<String, String> params) throws Throwable;
 
+	public int educationDel(HashMap<String, String> params) throws Throwable;
+
+	public int educationMod(HashMap<String, String> params) throws Throwable;
+
 }

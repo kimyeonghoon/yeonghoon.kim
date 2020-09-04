@@ -126,7 +126,7 @@ function modalPopup(id) {
 				  break;
 		case "2-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"2-2\" /><input type=\"hidden\" id=\"educationNo\" name=\"educationNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학교명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학과명</span></div><input type=\"text\" class=\"form-control\" name=\"departmentInput\" id=\"departmentInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" name=\"status\" id=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">졸업</option><option value=\"2\">수료</option><option value=\"3\">재적</option><option value=\"4\">퇴학</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입학년월</span></div><input type=\"text\" class=\"form-control\" name=\"admissionInput\" id=\"admissionInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">졸업년월</span></div><input type=\"text\" class=\"form-control\" name=\"graduatedInput\" id=\"graduatedInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">기타사항</span></div><input type=\"text\" class=\"form-control\" name=\"etcInput\" id=\"etcInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
 					break;
-		case "2-3": html += "학력을 삭제하시겠습니까?";
+		case "2-3": html += "<input type=\"hidden\" id=\"delSelect\" value=\"2-3\" /><input type=\"hidden\" id=\"educationNo\" name=\"educationNo\" />학력을 삭제하시겠습니까?";
 					break;
 		case "3-1": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입사년월</span></div><input type=\"text\" class=\"form-control\" id=\"joinInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">퇴사년월</span></div><input type=\"text\" class=\"form-control\" id=\"leaveInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\"></div>";
 					break;
@@ -203,6 +203,9 @@ function modalPopup(id) {
 	});
 	$(".hasDatepicker").css("z-index", 1300);
 	
+	if(id == "2-2") {
+		educationOneView();
+	}
 	
 	if(id == "4-1" || id == "4-3") {
 		techCategoryList();
@@ -385,7 +388,8 @@ function redrawEducation() {
 				html += "<colgroup><col width=\"40%\"></col><col width=\"*\"></col></colgroup><tbody>";
 				for(var i in res.getEducation) {
 					html += "<tr data-no=" + res.getEducation[i].education_no + " class=\"border border-top-0 border-left-0 border-right-0\"><td><H6>";
-					html += res.getEducation[i].startdate + " ~ ";
+					html += res.getEducation[i].startdate;
+					html += " ~ ";
 					if(res.getEducation[i].enddate != undefined) {
 						html += res.getEducation[i].enddate;
 					}
@@ -507,7 +511,7 @@ function educationAdd() {
 		console.log(params);
 		$.ajax({
 			type : "post",			  
-			url : "educationAdd", 
+			url : "educationAddAjax", 
 			dataType : "json",
 			data : params,
 			success : function(res) {
@@ -526,6 +530,39 @@ function educationAdd() {
 	}
 }
 
+//학력 수정
+function educationMod() {
+	$("#educationNo").val($("#pickEdu").val());
+	if($("#nameInput").val() == null || $("#nameInput").val() == '') {
+		alert("학교명을 입력해주세요");
+	} else if ($("#status").val() == null || $("#status").val() == '' || $("#status").val() == "0") {
+		alert("상태를 선택해주세요.");
+	} else if ($("#admissionInput").val() == null || $("#admissionInput").val() == '') {
+		alert("입학년월을 입력해주세요.");
+	} else {
+		$("#actionForm").attr("action", "educationModAjax");
+		var params = $("#actionForm").serialize();
+		console.log(params);
+		$.ajax({
+			type : "post",			  
+			url : "educationModAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				if(res.result == "success") {
+					$("#notifyModal").modal("hide");
+					redrawEducation();
+				} else {
+					modalPopup("x");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
+}
 
 
 // 등록버튼 클릭 시 동작
@@ -551,7 +588,7 @@ function modSelect() {
 	switch ($("#modSelect").val()) {
 	case "1-2": briefHistoryModify();
 		break;
-	case "2-2": alert("학력 수정");
+	case "2-2": educationMod();
 		break;
 	case "3-2": alert("회사 수정");
 		break;
@@ -569,7 +606,7 @@ function delSelect() {
 	switch ($("#delSelect").val()) {
 	case "4-3": techDel();
 		break;
-	case "2-2": alert("학력 수정");
+	case "2-3": educationDel();
 		break;
 	case "3-2": alert("회사 수정");
 		break;
@@ -642,6 +679,61 @@ function techCategoryList() {
 		},
 		error : function(reqsuest, status, error) {
 			console.log("text : " + reqsuest.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+
+function educationOneView() {
+	$("#educationNo").val($("#pickEdu").val());
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "educationOneViewAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#nameInput").val(res.getEducation[0].name);
+				$("#departmentInput").val(res.getEducation[0].department);
+				$("#status").val(res.getEducation[0].status);
+				$("#admissionInput").val(res.getEducation[0].startdate);
+				$("#graduatedInput").val(res.getEducation[0].enddate);
+				$("#etcInput").val(res.getEducation[0].etc);
+				$("#certificateInput").val(res.getEducation[0].upload_path);
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(reqsuest, status, error) {
+			console.log("text : " + reqsuest.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+
+
+function educationDel() {
+	$("#educationNo").val($("#pickEdu").val());
+	$("#actionForm").attr("action", "educationDelAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "educationDelAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawEducation();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
 			console.log("error : " + error);
 		}			
 	});

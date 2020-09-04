@@ -63,4 +63,14 @@ public class ProfileDao implements IProfileDao {
 		return sqlSession.insert("profile.educationAdd", params);
 	}
 
+	@Override
+	public int educationDel(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("profile.educationDel", params);
+	}
+
+	@Override
+	public int educationMod(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("profile.educationMod", params);
+	}
+
 }

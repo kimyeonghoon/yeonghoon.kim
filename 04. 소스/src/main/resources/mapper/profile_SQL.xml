@@ -80,16 +80,49 @@
 			   education_name AS name,
 			   education_department AS department,
 			   education_status AS status,
-			   DATE_FORMAT(education_startdate, '%Y.%m') AS startdate,
-			   DATE_FORMAT(education_enddate, '%Y.%m') AS enddate,
-			   education_upload_path AS upload_path
+			   education_upload_path AS upload_path,
+			   <choose>
+				   <when test="educationNo != null and educationNo != ''">
+				   	DATE_FORMAT(education_startdate, '%Y-%m-%d') AS startdate,
+				   	DATE_FORMAT(education_enddate, '%Y-%m-%d') AS enddate
+				   </when>
+				   <otherwise>
+					   DATE_FORMAT(education_startdate, '%Y.%m') AS startdate,
+					   DATE_FORMAT(education_enddate, '%Y.%m') AS enddate
+				   </otherwise>
+			   </choose>
 		FROM education
-		WHERE education_delete_yn = 1
+		WHERE 1 = 1
+		AND education_delete_yn = 1
 		AND member_no = #{member_no}
+		<if test="educationNo != null and educationNo != ''">
+			AND education_no = #{educationNo}
+		</if>
+		
 	</select>
 	
 	<insert id="educationAdd" parameterType="hashmap">
 		INSERT INTO education(member_no, education_name, education_department, education_status, education_startdate, education_enddate, education_etc, education_upload_path)
 		VALUES (#{member_no}, #{nameInput}, #{departmentInput}, #{status}, #{admissionInput}, #{graduatedInput}, #{etcInput}, #{certificateInput})
 	</insert>
+	
+	<update id="educationDel" parameterType="hashmap">
+		UPDATE education
+		SET education_delete_yn = 0
+		WHERE member_no = #{member_no}
+		AND education_no = #{educationNo}
+	</update>
+	
+	<update id="educationMod" parameterType="hashmap">
+		UPDATE education
+		SET education_name = #{nameInput}, 
+			 education_department = #{departmentInput},
+			 education_status = #{status},
+			 education_startdate = #{admissionInput},
+			 education_enddate = #{graduatedInput},
+			 education_etc = #{etcInput},
+			 education_upload_path = #{certificateInput}
+		WHERE member_no = #{member_no}
+		AND education_no = #{educationNo}
+	</update>
 </mapper>
