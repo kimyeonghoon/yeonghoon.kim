@@ -29,5 +29,21 @@ public interface IProfileDao {
 
 	public int educationMod(HashMap<String, String> params) throws Throwable;
 
+	public int companyAdd(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> companyList(HashMap<String, String> params) throws Throwable;
+
+	public int companyMod(HashMap<String, String> params) throws Throwable;
+
+	public int companyDel(HashMap<String, String> params) throws Throwable;
+
+	public int careerAdd(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> careerList(HashMap<String, String> params) throws Throwable;
+
+	public int careerMod(HashMap<String, String> params) throws Throwable;
+
+	public int careerDel(HashMap<String, String> params) throws Throwable;
+
 
 }

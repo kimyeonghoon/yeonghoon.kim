@@ -48,6 +48,7 @@ function init_profile() {
 	redrawBriefHistory();
 	redrawTech();
 	redrawEducation();
+	redrawCareer();
 }
 
 
@@ -130,15 +131,15 @@ function modalPopup(id) {
 					break;
 		case "3-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"3-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입사년월</span></div><input type=\"text\" class=\"form-control\" name=\"joinInput\" id=\"joinInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">퇴사년월</span></div><input type=\"text\" class=\"form-control\" name=\"leaveInput\" id=\"leaveInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
 					break;
-		case "3-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"3-2\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입사년월</span></div><input type=\"text\" class=\"form-control\" name=\"joinInput\" id=\"joinInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">퇴사년월</span></div><input type=\"text\" class=\"form-control\" name=\"leaveInput\" id=\"leaveInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
+		case "3-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"3-2\" /><input type=\"hidden\" id=\"companyNo\" name=\"companyNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입사년월</span></div><input type=\"text\" class=\"form-control\" name=\"joinInput\" id=\"joinInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">퇴사년월</span></div><input type=\"text\" class=\"form-control\" name=\"leaveInput\" id=\"leaveInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
 					break;
-		case "3-3": html += "회사를 삭제하시겠습니까?";
+		case "3-3": html += "<input type=\"hidden\" id=\"delSelect\" value=\"3-3\" /><input type=\"hidden\" id=\"companyNo\" name=\"companyNo\" />회사를 삭제하시겠습니까?";
 					break;
-		case "3-4": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><select class=\"form-control\" id=\"companyName\"><option value=\"0\">회사 선택</option><option value=\"1\">기프트엠</option><option value=\"2\">스마일서브</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">주요업무</span></div><input type=\"text\" class=\"form-control\" id=\"taskInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">경력기술</span></div><textarea class=\"form-control\" id=\"careerInput\"></textarea></div>";
+		case "3-4": html += "<input type=\"hidden\" id=\"addSelect\" value=\"3-4\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><select class=\"form-control\" name=\"companyName\" id=\"companyName\"><option value=\"0\">회사 선택</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">근무부서</span></div><input type=\"text\" class=\"form-control\" name=\"departmentInput\" id=\"departmentInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">주요업무</span></div><input type=\"text\" class=\"form-control\" name=\"taskInput\" id=\"taskInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">경력기술</span></div><textarea class=\"form-control\" name=\"careerInput\" id=\"careerInput\"></textarea></div>";
 					break;
-		case "3-5": html += "<div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><select class=\"form-control\" id=\"companyName\"><option value=\"0\">회사 선택</option><option value=\"1\">기프트엠</option><option value=\"2\">스마일서브</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">주요업무</span></div><input type=\"text\" class=\"form-control\" id=\"taskInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">경력기술</span></div><textarea class=\"form-control\" id=\"careerInput\"></textarea></div>";
+		case "3-5": html += "<input type=\"hidden\" id=\"modSelect\" value=\"3-5\" /><input type=\"hidden\" id=\"careerNo\" name=\"careerNo\" /><div class=\"input-group\"><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">근무부서</span></div><input type=\"text\" class=\"form-control\" name=\"departmentInput\" id=\"departmentInput\"></div><div class=\"input-group-prepend\"><span class=\"input-group-text\">주요업무</span></div><input type=\"text\" class=\"form-control\" name=\"taskInput\" id=\"taskInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">경력기술</span></div><textarea class=\"form-control\" name=\"careerInput\" id=\"careerInput\"></textarea></div>";
 					break;
-		case "3-6": html += "경력을 삭제하시겠습니까?";
+		case "3-6": html += "<input type=\"hidden\" id=\"delSelect\" value=\"3-6\" /><input type=\"hidden\" id=\"careerNo\" name=\"careerNo\" />경력을 삭제하시겠습니까?";
 					break;
 		case "4-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"4-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">카테고리</span></div><select class=\"form-control\" name=\"categoryName\"id=\"categoryName\"><option value=\"0\">카테고리 선택</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">스킬명</span></div><input type=\"text\" class=\"form-control\" name=\"skillNameInput\" id=\"skillNameInput\"></div>";
 					break;
@@ -207,8 +208,20 @@ function modalPopup(id) {
 		educationOneView();
 	}
 	
+	if(id == "3-2") {
+		companyOneView();
+	}
+	
 	if(id == "4-1" || id == "4-3") {
 		techCategoryList();
+	}
+	
+	if(id == "3-4" || id == "3-5") {
+		companyList();
+	}
+	if(id == "3-5") {
+		companyList(id);
+		careerOneView();
 	}
 }
 
@@ -404,7 +417,10 @@ function redrawEducation() {
 						html += "제적";
 					}
 					html += "</span>&nbsp;<span class=\"educationModBtn\">&#x1F6E0;</span>&nbsp;<span class=\"educationDelBtn\">&#x1F5D1;</span></td><td><H6>";
-					html += res.getEducation[i].name + " " + res.getEducation[i].department;
+					html += res.getEducation[i].name + " "
+					if(res.getEducation[i].department != undefined) {
+						html += res.getEducation[i].department;
+					}
 					html += "</H6><span class=\"text-secondary\">";
 					if(res.getEducation[i].etc != null) {
 						html += res.getEducation[i].etc;
@@ -508,7 +524,7 @@ function companyAdd() {
 		success : function(res) {
 			if(res.result == "success") {
 				$("#notifyModal").modal("hide");
-				redrawTech();
+				redrawCareer();
 			} else {
 				modalPopup("x");
 			}
@@ -597,6 +613,8 @@ function addSelect() {
 		break;
 	case "3-1": companyAdd();
 		break;
+	case "3-4": careerAdd();
+		break;
 	case "4-1": techAdd();
 		break;
 	case "5-1": alert("교육 추가");
@@ -613,9 +631,9 @@ function modSelect() {
 		break;
 	case "2-2": educationMod();
 		break;
-	case "3-2": alert("회사 수정");
+	case "3-2": companyMod();
 		break;
-	case "3-5": alert("경력 수정");
+	case "3-5": careerMod();
 		break;
 	case "5-2": alert("교육 수정");
 		break;
@@ -627,13 +645,13 @@ function modSelect() {
 //삭제버튼 클릭 시 동작
 function delSelect() {
 	switch ($("#delSelect").val()) {
-	case "4-3": techDel();
-		break;
 	case "2-3": educationDel();
 		break;
-	case "3-2": alert("회사 수정");
+	case "3-3": companyDel();
 		break;
-	case "3-5": alert("경력 수정");
+	case "3-6": careerDel();
+		break;
+	case "4-3": techDel();
 		break;
 	case "5-2": alert("교육 수정");
 		break;
@@ -751,6 +769,302 @@ function educationDel() {
 			if(res.result == "success") {
 				$("#notifyModal").modal("hide");
 				redrawEducation();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+
+// 경력 그리기
+function redrawCareer() {
+	$.ajax({
+		type : "post",			  
+		url : "redrawCareerAjax", 
+		dataType : "json",
+		success : function(res) {
+			if(res.result == "success") {
+				var html = "";
+				html += "<div class=\"card\">";
+				html += "<table class=\"card-body table table-sm table-borderless bg-light m-0\">";
+				html += "<colgroup><col width=\"40%\"></col><col width=\"*\"></col></colgroup><tbody>";
+				for(var i = 0; i < res.companyList.length; i++) {
+					html += "<tr data-no=\"" + res.companyList[i].company_no + "\" class=\"border border-top-0 border-left-0 border-right-0\"><td><H6>";
+					html += res.companyList[i].company_name;
+					html += "</H6><h6>";
+					html += res.companyList[i].startdate;
+					html += " ~ ";
+					html += res.companyList[i].enddate;
+					html += "</h6><span class=\"text-primary\">";
+					if(res.companyList[i].cha >= 12) {
+						var year = Math.round(res.companyList[i].cha / 12);
+						var month = res.companyList[i].cha % 12;
+						html += year + "년 " + month + "개월";
+					} else {
+						html += res.companyList[i].cha + "개월";
+					}
+					html += "</span>&nbsp;<span id=\"companyModBtn\" class=\"companyModBtn\" >&#x1F6E0;</span>&nbsp;<span class=\"companyDelBtn\" id=\"companyDelBtn\">&#x1F5D1;</span></td>";
+					html += "<td>";
+					for(var j = 0; j < res.careerList.length; j++) {
+						if(res.companyList[i].company_no == res.careerList[j].company_no) {
+							html += "<h6 data-no=\"" + res.careerList[j].career_no + "\">";
+							html += res.careerList[j].career_department;
+							if(res.careerList.length - 1 > j) {
+								html += "<span class=\"careerModBtn\" id=\"careerModBtn\">&#x1F6E0;</span><span id=\"careerDelBtn\" class=\"careerDelBtn\">&#x1F5D1;</span></H6><h6 class=\"text-primary\">";
+							} else {
+								html += "<span class=\"careerModBtn\" id=\"careerModBtn\">&#x1F6E0;</span><span id=\"careerDelBtn\" class=\"careerDelBtn\">&#x1F5D1;</span></H6><h6 class=\"text-primary\">";
+							}
+							html += "주요업무 : " + res.careerList[j].career_responsibility;
+							html += "</h6><p class=\"text-secondary\">";
+							var description = res.careerList[j].career_description.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+							html += description;
+							html += "</p>";
+						}
+					}
+					html += "</td></tr>";
+				}
+				html +=	"</td></tr>";
+				html += "</tbody></table></div>";
+				$("#careerList").html(html);
+				
+				// 회사 수정버튼 동작
+				$(".companyModBtn").on("click", function(){
+					$("#pickCompany").val($(this).parent().parent().attr("data-no"));
+					modalPopup("3-2");
+				});
+				// 회사 삭제버튼 동작
+				$(".companyDelBtn").on("click", function(){
+					$("#pickCompany").val($(this).parent().parent().attr("data-no"));
+					modalPopup("3-3");
+				});
+				// 경력 수정버튼 동작
+				$(".careerModBtn").on("click", function(){
+					$("#pickCareer").val($(this).parent().attr("data-no"));
+					modalPopup("3-5");
+				});
+				// 경력 삭제버튼 동작
+				$(".careerDelBtn").on("click", function(){
+					$("#pickCareer").val($(this).parent().attr("data-no"));
+					modalPopup("3-6");
+				});
+				
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+// 회사리스트 호출 
+function companyList(id) {
+	$.ajax({
+		type : "post",			  
+		url : "companyListAjax", 
+		dataType : "json",
+		success : function(res) {
+			if(res.result == "success") {
+				var html = "";
+				if(id != "3-5") {
+					html += "<option value=\"0\">회사 선택</option>";
+					for(var i = 0; i < res.companyList.length; i++) {
+					html += "<option value=\"" + res.companyList[i].company_no +"\">" + res.companyList[i].company_name + "</option>";
+					}
+				}
+					
+				$("#companyName *").remove();
+				
+				$("#companyName").prepend(html);
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+//회사 수정
+function companyOneView() {
+	$("#companyNo").val($("#pickCompany").val());
+	$("#actionForm").attr("action", "companyOneViewAjax");
+	var params = $("#actionForm").serialize();
+	console.log(params);
+	$.ajax({
+		type : "post",			  
+		url : "companyOneViewAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#nameInput").val(res.companyList[0].company_name);
+				$("#joinInput").val(res.companyList[0].startdate);
+				$("#leaveInput").val(res.companyList[0].enddate);
+				$("#certificateInput").val(res.companyList[0].company_upload_path);
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+//회사 수정
+function companyMod() {
+	$("#companyNo").val($("#pickCompany").val());
+	$("#actionForm").attr("action", "companyModAjax");
+	var params = $("#actionForm").serialize();
+	console.log(params);
+	$.ajax({
+		type : "post",			  
+		url : "companyModAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawCareer();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+//회사 삭제
+function companyDel() {
+	$("#companyNo").val($("#pickCompany").val());
+	$("#actionForm").attr("action", "companyDelAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "companyDelAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawCareer();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+
+// 경력 추가
+function careerAdd() {
+	$("#actionForm").attr("action", "careerAddAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "careerAddAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawCareer();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+// 경력 수정
+function careerOneView() {
+	$("#careerNo").val($("#pickCareer").val());
+	$("#actionForm").attr("action", "careerOneViewAjax");
+	var params = $("#actionForm").serialize();
+	console.log(params);
+	$.ajax({
+		type : "post",			  
+		url : "careerOneViewAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#taskInput").val(res.careerList[0].career_responsibility);
+				$("#departmentInput").val(res.careerList[0].career_department);
+				$("#careerInput").val(res.careerList[0].career_description);
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+//경력 수정
+function careerMod() {
+	$("#careerNo").val($("#pickCareer").val());
+	$("#actionForm").attr("action", "careerModAjax");
+	var params = $("#actionForm").serialize();
+	console.log(params);
+	$.ajax({
+		type : "post",			  
+		url : "careerModAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawCareer();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+//경력 삭제
+function careerDel() {
+	$("#careerNo").val($("#pickCareer").val());
+	$("#actionForm").attr("action", "careerDelAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "careerDelAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawCareer();
 			} else {
 				modalPopup("x");
 			}

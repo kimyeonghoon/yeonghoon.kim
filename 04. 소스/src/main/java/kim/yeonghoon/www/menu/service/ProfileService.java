@@ -74,4 +74,44 @@ public class ProfileService implements IProfileService {
 		return iProfileDao.educationMod(params);
 	}
 
+	@Override
+	public int companyAdd(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.companyAdd(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> companyList(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.companyList(params);
+	}
+
+	@Override
+	public int companyMod(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.companyMod(params);
+	}
+
+	@Override
+	public int companyDel(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.companyDel(params);
+	}
+
+	@Override
+	public int careerAdd(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.careerAdd(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> careerList(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.careerList(params);
+	}
+
+	@Override
+	public int careerMod(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.careerMod(params);
+	}
+
+	@Override
+	public int careerDel(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.careerDel(params);
+	}
+
 }

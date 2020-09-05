@@ -92,8 +92,7 @@
 				   </otherwise>
 			   </choose>
 		FROM education
-		WHERE 1 = 1
-		AND education_delete_yn = 1
+		WHERE education_delete_yn = 1
 		AND member_no = #{member_no}
 		<if test="educationNo != null and educationNo != ''">
 			AND education_no = #{educationNo}
@@ -124,5 +123,75 @@
 			 education_upload_path = #{certificateInput}
 		WHERE member_no = #{member_no}
 		AND education_no = #{educationNo}
+	</update>
+	
+	<insert id="companyAdd" parameterType="hashmap">
+		INSERT INTO company (member_no, company_name, company_startdate, company_enddate, company_upload_path)
+		VALUES (#{member_no}, #{nameInput}, #{joinInput}, #{leaveInput}, #{certificateInput})
+	</insert>
+	
+	<!-- 회사 리스트 -->
+	<select id="companyList" resultType="hashmap">
+		SELECT company_no,
+			   company_name, 
+			   <choose>
+				   <when test="companyNo != null and companyNo != ''">
+				   	DATE_FORMAT(company_startdate, '%Y-%m-%d') AS startdate,
+				   	DATE_FORMAT(company_enddate, '%Y-%m-%d') AS enddate
+				   </when>
+				   <otherwise>
+					   DATE_FORMAT(company_startdate, '%Y.%m') AS startdate,
+			  		   DATE_FORMAT(company_enddate, '%Y.%m') AS enddate,
+					   ROUND(TIMESTAMPDIFF(DAY, company_startdate, company_enddate) / 30) AS cha
+				   </otherwise>
+			   </choose>
+		FROM company
+		WHERE company_delete_yn = 1
+		AND member_no = #{member_no}
+		<if test="companyNo != null and companyNo != ''">
+			AND company_no = #{companyNo}
+		</if>
+	</select>
+	
+	<!-- 회사수정 -->
+	<update id="companyMod" parameterType="hashmap">
+		UPDATE company
+		SET company_name = #{nameInput}, company_startdate = #{joinInput}, company_enddate = #{leaveInput}, company_upload_path = #{certificateInput}
+		WHERE company_no = #{companyNo}
+		AND member_no = #{member_no}
+	</update>
+	<!-- 회사 삭제 -->
+	<update id="companyDel" parameterType="hashmap">
+		UPDATE company
+		SET company_delete_yn = 0
+		WHERE company_no = #{companyNo}
+		AND member_no = #{member_no}
+	</update>
+	
+	<!-- 경력 추가 -->
+	<insert id="careerAdd" parameterType="hashmap">
+		INSERT INTO career (company_no, career_responsibility, career_description, career_department)
+		VALUES (#{companyName}, #{taskInput}, #{careerInput}, #{departmentInput})
+	</insert>
+	<!-- 경력 리스트 -->
+	<select id="careerList" parameterType="hashmap" resultType="hashmap">
+		SELECT career_no, company_no, career_responsibility, career_description, career_department
+		FROM career
+		WHERE career_delete_yn = 1
+		<if test="careerNo != null and careerNo != ''">
+			AND career_no = #{careerNo}
+		</if>
+	</select>
+	<!-- 경력 수정 -->
+	<update id="careerMod" parameterType="hashmap">
+		UPDATE career 
+		SET career_responsibility=#{taskInput}, career_description=#{careerInput}, career_department=#{departmentInput}
+		WHERE career_no = #{careerNo}
+	</update>
+	<!-- 경력 삭제 -->
+	<update id="careerDel" parameterType="hashmap">
+		UPDATE career 
+		SET career_delete_yn = 0
+		WHERE career_no = #{careerNo}
 	</update>
 </mapper>

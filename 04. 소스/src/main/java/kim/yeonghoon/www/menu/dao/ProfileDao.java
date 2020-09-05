@@ -73,4 +73,44 @@ public class ProfileDao implements IProfileDao {
 		return sqlSession.update("profile.educationMod", params);
 	}
 
+	@Override
+	public int companyAdd(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("profile.companyAdd", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> companyList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("profile.companyList", params);
+	}
+
+	@Override
+	public int companyMod(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("profile.companyMod", params);
+	}
+
+	@Override
+	public int companyDel(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("profile.companyDel", params);
+	}
+
+	@Override
+	public int careerAdd(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("profile.careerAdd", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> careerList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("profile.careerList", params);
+	}
+
+	@Override
+	public int careerMod(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("profile.careerMod", params);
+	}
+
+	@Override
+	public int careerDel(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("profile.careerDel", params);
+	}
+
 }

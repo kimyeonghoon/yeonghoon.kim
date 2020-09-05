@@ -289,6 +289,38 @@ public class ProfileController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	@RequestMapping(value = "companyAddAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String companyAddAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+		if(params.get("certificateInput") == "") {
+			params.put("certificateInput", null);
+		}
+		if(params.get("leaveInput") == "") {
+			params.put("leaveInput", null);
+		}
+		
+		params.put("member_no", "1");
+		try {
+			
+			int companyAddCnt = iProfileService.companyAdd(params);
+			
+			if(companyAddCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 	@RequestMapping(value = "educationDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String educationDelAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
@@ -360,6 +392,227 @@ public class ProfileController {
 			int educationModCnt = iProfileService.educationMod(params);
 
 			if(educationModCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	@RequestMapping(value = "redrawCareerAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String redrawCareerAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+		params.put("member_no", "1");
+		try {
+			
+			List<HashMap<String,String>> companyList = iProfileService.companyList(params);
+			List<HashMap<String,String>> careerList = iProfileService.careerList(params);
+			
+			modelMap.put("companyList", companyList);
+			modelMap.put("careerList", careerList);
+			modelMap.put("result", "success");
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "companyListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String companyListAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+		params.put("member_no", "1");
+		try {
+			
+			List<HashMap<String,String>> companyList = iProfileService.companyList(params);
+			
+			modelMap.put("companyList", companyList);
+			modelMap.put("result", "success");
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	@RequestMapping(value = "companyOneViewAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String companyOneViewAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+		params.put("member_no", "1");
+		try {
+			
+			List<HashMap<String,String>> companyList = iProfileService.companyList(params);
+			
+			modelMap.put("companyList", companyList);
+			modelMap.put("result", "success");
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "companyModAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String companyModAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+		params.put("member_no", "1");
+		try {
+			
+			int companyModCnt = iProfileService.companyMod(params);
+
+			if(companyModCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "companyDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String companyDelAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+
+		params.put("member_no", "1");
+		try {
+			
+			int companyDelCnt = iProfileService.companyDel(params);
+
+			if(companyDelCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "careerAddAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String careerAddAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		params.put("member_no", "1");
+		try {
+			
+			int careerAddCnt = iProfileService.careerAdd(params);
+			
+			if(careerAddCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	
+	@RequestMapping(value = "careerOneViewAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String careerOneViewAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+		params.put("member_no", "1");
+		try {
+			
+			List<HashMap<String,String>> careerList = iProfileService.careerList(params);
+			
+			modelMap.put("careerList", careerList);
+			modelMap.put("result", "success");
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "careerModAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String careerModAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+		params.put("member_no", "1");
+		try {
+			
+			int careerModCnt = iProfileService.careerMod(params);
+
+			if(careerModCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "careerDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String careerDelAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		try {
+			
+			int careerDelCnt = iProfileService.careerDel(params);
+
+			if(careerDelCnt > 0) {
 				modelMap.put("result", "success");
 			} else {
 				modelMap.put("result", "fail");
