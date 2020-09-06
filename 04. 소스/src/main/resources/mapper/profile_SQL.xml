@@ -97,6 +97,7 @@
 		<if test="educationNo != null and educationNo != ''">
 			AND education_no = #{educationNo}
 		</if>
+		ORDER BY education_no DESC
 		
 	</select>
 	
@@ -151,6 +152,7 @@
 		<if test="companyNo != null and companyNo != ''">
 			AND company_no = #{companyNo}
 		</if>
+		ORDER BY company_no DESC
 	</select>
 	
 	<!-- 회사수정 -->
@@ -181,6 +183,7 @@
 		<if test="careerNo != null and careerNo != ''">
 			AND career_no = #{careerNo}
 		</if>
+		ORDER BY career_no DESC
 	</select>
 	<!-- 경력 수정 -->
 	<update id="careerMod" parameterType="hashmap">
@@ -194,4 +197,29 @@
 		SET career_delete_yn = 0
 		WHERE career_no = #{careerNo}
 	</update>
+	<!-- 교육 리스트 -->
+	<select id="getAcademy" parameterType="hashmap" resultType="hashmap">
+		SELECT academy_no, 
+			 academy_course AS course,
+			 academy_content AS content,
+			 academy_academy AS academy,
+			 DATE_FORMAT(academy_startdate, '%Y.%m') AS startdate,
+			 DATE_FORMAT(academy_enddate, '%Y.%m') AS enddate,
+			 academy_upload_path AS upload_path
+		FROM academy
+		WHERE academy_delete_yn = 1
+		AND member_no = #{member_no}
+		ORDER BY academy_no DESC
+	</select>
+	<!-- 자격증 리스트 -->
+	<select id="getCertificate" parameterType="hashmap" resultType="hashmap">
+		SELECT certificate_no AS cert_no,
+			   certificate_name AS cert_name,
+			   certificate_organization AS cert_organization,
+			   DATE_FORMAT(certificate_issue_date, '%Y.%m') AS cert_date
+		FROM certificate
+		WHERE certificate_delete_yn = 1
+		AND member_no = #{member_no}
+		ORDER BY cert_no DESC
+	</select>
 </mapper>

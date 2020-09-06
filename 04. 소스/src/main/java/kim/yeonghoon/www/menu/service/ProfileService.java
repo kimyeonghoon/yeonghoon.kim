@@ -114,4 +114,14 @@ public class ProfileService implements IProfileService {
 		return iProfileDao.careerDel(params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getAcademy(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.getAcademy(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getCertificate(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.getCertificate(params);
+	}
+
 }

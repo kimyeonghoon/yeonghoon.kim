@@ -113,4 +113,13 @@ public class ProfileDao implements IProfileDao {
 		return sqlSession.update("profile.careerDel", params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getAcademy(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("profile.getAcademy", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getCertificate(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("profile.getCertificate", params);
+	}
 }

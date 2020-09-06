@@ -625,4 +625,44 @@ public class ProfileController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	@RequestMapping(value = "redrawAcademyAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String redrawAcademyAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		params.put("member_no", "1");
+		try {
+			List<HashMap<String,String>> getAcademy = iProfileService.getAcademy(params);
+			
+			modelMap.put("getAcademy", getAcademy);
+			modelMap.put("result", "success");
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "redrawCertificateAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String redrawCertificateAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		params.put("member_no", "1");
+		try {
+			List<HashMap<String,String>> getCertificate = iProfileService.getCertificate(params);
+			
+			modelMap.put("getCertificate", getCertificate);
+			modelMap.put("result", "success");
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 }

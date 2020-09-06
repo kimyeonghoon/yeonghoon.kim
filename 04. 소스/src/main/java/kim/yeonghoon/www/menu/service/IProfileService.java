@@ -45,4 +45,8 @@ public interface IProfileService {
 
 	public int careerDel(HashMap<String, String> params) throws Throwable;
 
+	public List<HashMap<String, String>> getAcademy(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> getCertificate(HashMap<String, String> params) throws Throwable;
+
 }
