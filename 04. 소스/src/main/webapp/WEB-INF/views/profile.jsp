@@ -38,7 +38,7 @@ $(document).ready(function() {
 		<div class="card">
 			<div class="card-header font-weight-bold bg-secondary">
 				<a class="card-link text-light" data-toggle="collapse" href="#education">학력</a>
-				<span id="educationAddBtn" class="btn btn-light float-right">추가</span>
+				${educationAddBtn}
 			</div>
 			<div class="collapse show" id="education" data-parent="#accordion">
 				<input type="hidden" id="pickEdu" name="pickEdu">
@@ -49,8 +49,8 @@ $(document).ready(function() {
 		<div class="card">
 			<div class="card-header font-weight-bold bg-secondary">
 				<a class="card-link text-light" data-toggle="collapse" href="#career">경력</a>
-				<span class="btn btn-light ml-3 float-right" id="careerAddBtn">경력추가</span>
-				<span class="btn btn-light float-right" id="companyAddBtn">회사추가</span>
+				${careerAddBtn}
+				${companyAddBtn}
 			</div>
 			<div class="collapse" id="career" data-parent="#accordion">
 				<input type="hidden" id="pickCompany" name="pickCompany">
@@ -62,8 +62,8 @@ $(document).ready(function() {
 		<div class="card">
 			<div class="card-header font-weight-bold bg-secondary">
 				<a class="card-link text-light" data-toggle="collapse" href="#skill">보유기술</a>
-				<span class="btn btn-light ml-3 float-right" id="skillDelBtn">항목 삭제</span>
-				<span class="btn btn-light float-right" id="skillAddBtn">항목 추가</span>
+				${skillDelBtn}
+				${skillAddBtn}
 			</div>
 			<div class="collapse" id="skill" data-parent="#accordion">
 				<div class="card-body p-0" id="skillList">
@@ -73,7 +73,7 @@ $(document).ready(function() {
 		<div class="card">
 			<div class="card-header font-weight-bold bg-secondary">
 				<a class="card-link text-light" data-toggle="collapse" href="#academy">교육</a>
-				<span class="btn btn-light float-right" id="academyAddBtn">추가</span>
+				${academyAddBtn}
 			</div>
 			<div class="collapse" id="academy" data-parent="#accordion">
 				<input type="hidden" id="pickAcademy" name="pickAcademy">
@@ -84,7 +84,7 @@ $(document).ready(function() {
 		<div class="card">
 			<div class="card-header font-weight-bold bg-secondary">
 				<a class="card-link text-light" data-toggle="collapse" href="#certificate">자격증</a>
-				<span class="btn btn-light float-right" id="certificationAddBtn">추가</span>
+				${certificationAddBtn}
 			</div>
 			<div class="collapse" id="certificate" data-parent="#accordion">
 				<input type="hidden" id="pickCertificate" name="pickCertificate">

@@ -28,6 +28,19 @@ public class ProfileController {
 	@RequestMapping(value = "profile")
 	public ModelAndView profile(@RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) throws Throwable {
 		mav.setViewName("profile");
+		
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		
+		if(currentUser.equals("1")) {
+			mav.addObject("educationAddBtn", "<span id='educationAddBtn' class='btn btn-light float-right'>추가</span>");
+			mav.addObject("companyAddBtn", "<span class='btn btn-light float-right' id='companyAddBtn'>회사추가</span>");
+			mav.addObject("careerAddBtn", "<span class='btn btn-light ml-3 float-right' id='careerAddBtn'>경력추가</span>");
+			mav.addObject("skillAddBtn", "<span class='btn btn-light float-right' id='skillAddBtn'>항목 추가</span>");
+			mav.addObject("skillDelBtn", "<span class='btn btn-light ml-3 float-right' id='skillDelBtn'>항목 삭제</span>");
+			mav.addObject("academyAddBtn", "<span class='btn btn-light float-right' id='academyAddBtn'>추가</span>");
+			mav.addObject("certificationAddBtn", "<span class='btn btn-light float-right' id='certificationAddBtn'>추가</span>");
+		}
+		
 		return mav;
 	}
 	
@@ -38,7 +51,16 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		params.put("member_no", "1");
+		
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		
+		if(currentUser.equals("1")) {
+			modelMap.put("modBtn", "<div id='briefHistoryModifyBtn' class='btn btn-secondary'>약력수정</div>");
+			params.put("member_no", currentUser);
+		} else {
+			params.put("member_no", "1");
+		}
+		
 		try {
 			HashMap<String,String> briefHistory = iProfileService.getBriefHistory(params);
 			modelMap.put("briefHistory", briefHistory);
@@ -56,11 +78,9 @@ public class ProfileController {
 	public String getBriefHistoryAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
-		// 관리자만 수정가능하도록 하는 기능 필요
 
-		// 현재 세션값 숫자로 변환 후 값 전달
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		
 		try {
 			HashMap<String,String> list = iProfileService.getBriefHistory(params);
@@ -70,6 +90,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -79,10 +100,11 @@ public class ProfileController {
 	public String briefHistoryModifyAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		// 현재 세션값 숫자로 변환 후 값 전달
-		params.put("member_no", "1");
 		
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		// 날짜타입이 공백으로 들어왔을 경우 null 처리
+		
 		if(params.get("yearInput").equals("")) {
 			params.put("yearInput", null); 
 		}
@@ -98,7 +120,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 
@@ -108,7 +130,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			// 기술 카테고리 개수 추출
@@ -134,7 +157,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -143,8 +166,8 @@ public class ProfileController {
 	public String techAddAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		params.put("member_no", "1");
-		System.out.println(params);
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		
 		try {
 			int techAdd = iProfileService.techAdd(params);
@@ -159,7 +182,7 @@ public class ProfileController {
 			modelMap.put("result", "fail");
 		}
 	
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -168,7 +191,6 @@ public class ProfileController {
 	public String techListAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		System.out.println(params);
 		
 		try {
 			List<HashMap<String,String>> techList = iProfileService.techList(params);
@@ -180,7 +202,7 @@ public class ProfileController {
 			modelMap.put("result", "fail");
 		}
 	
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 		
@@ -189,7 +211,6 @@ public class ProfileController {
 	public String techCategoryListAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		System.out.println(params);
 		
 		try {
 			List<HashMap<String,String>> getTechCategory = iProfileService.getTechCategory();
@@ -201,7 +222,7 @@ public class ProfileController {
 			modelMap.put("result", "fail");
 		}
 	
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -211,7 +232,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		
 		try {
 			
@@ -229,7 +251,7 @@ public class ProfileController {
 			modelMap.put("result", "fail");
 		}
 	
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -238,6 +260,13 @@ public class ProfileController {
 	public String redrawEducationAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		
+		if(currentUser.equals("1")) {
+			modelMap.put("educationModDelBtn",
+					"<span class='educationModBtn'>&#x1F6E0;</span>&nbsp;<span class='educationDelBtn'>&#x1F5D1;</span>");
+		}
 		
 		params.put("member_no", "1");
 		try {
@@ -250,7 +279,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -270,8 +299,8 @@ public class ProfileController {
 		if(params.get("departmentInput") == "") {
 			params.put("departmentInput", null);
 		}
-			
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int educationAddCnt = iProfileService.educationAdd(params);
@@ -285,7 +314,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -303,7 +332,8 @@ public class ProfileController {
 			params.put("leaveInput", null);
 		}
 		
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int companyAddCnt = iProfileService.companyAdd(params);
@@ -317,7 +347,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -329,7 +359,8 @@ public class ProfileController {
 		
 		// 공백으로 서버로 들어올 경우 null 처리
 
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int educationDelCnt = iProfileService.educationDel(params);
@@ -343,7 +374,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -353,8 +384,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		params.put("member_no", "1");
-		System.out.println(params);
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			List<HashMap<String,String>> getEducation = iProfileService.getEducation(params);
@@ -365,7 +396,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -386,7 +417,8 @@ public class ProfileController {
 			params.put("departmentInput", null);
 		}
 
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int educationModCnt = iProfileService.educationMod(params);
@@ -400,7 +432,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -410,6 +442,17 @@ public class ProfileController {
 	public String redrawCareerAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		
+		if(currentUser.equals("1")) {
+			modelMap.put("companyModDelBtn",
+					"&nbsp;<span id='companyModBtn' class='companyModBtn' >&#x1F6E0;</span>&nbsp;<span class='companyDelBtn' id='companyDelBtn'>&#x1F5D1;</span>");
+			modelMap.put("careerModDelBtn",
+					"&nbsp;<span class='careerModBtn' id='careerModBtn'>&#x1F6E0;</span><span id='careerDelBtn' class='careerDelBtn'>&#x1F5D1;</span>");
+			
+		}
+		
 		
 		// 공백으로 서버로 들어올 경우 null 처리
 		params.put("member_no", "1");
@@ -426,7 +469,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -436,8 +479,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		// 공백으로 서버로 들어올 경우 null 처리
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			List<HashMap<String,String>> companyList = iProfileService.companyList(params);
@@ -449,7 +492,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -460,8 +503,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		// 공백으로 서버로 들어올 경우 null 처리
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			List<HashMap<String,String>> companyList = iProfileService.companyList(params);
@@ -473,7 +516,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -483,8 +526,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		// 공백으로 서버로 들어올 경우 null 처리
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int companyModCnt = iProfileService.companyMod(params);
@@ -498,7 +541,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -508,9 +551,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		// 공백으로 서버로 들어올 경우 null 처리
-
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int companyDelCnt = iProfileService.companyDel(params);
@@ -524,7 +566,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -534,7 +576,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int careerAddCnt = iProfileService.careerAdd(params);
@@ -548,7 +591,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -561,7 +604,8 @@ public class ProfileController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
 		// 공백으로 서버로 들어올 경우 null 처리
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			List<HashMap<String,String>> careerList = iProfileService.careerList(params);
@@ -573,7 +617,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -583,8 +627,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		// 공백으로 서버로 들어올 경우 null 처리
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int careerModCnt = iProfileService.careerMod(params);
@@ -598,7 +642,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -621,7 +665,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -630,6 +674,13 @@ public class ProfileController {
 	public String redrawAcademyAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		
+		if(currentUser.equals("1")) {
+			modelMap.put("academyModDelBtn",
+					"&nbsp;<span id='academyModBtn' class='academyModBtn'>&#x1F6E0;</span>&nbsp;<span id='academyDelBtn' class='academyDelBtn'>&#x1F5D1;</span>");
+		}
 		
 		params.put("member_no", "1");
 		try {
@@ -641,7 +692,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -651,7 +702,16 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		
+		if(currentUser.equals("1")) {
+			modelMap.put("certificateModDelBtn",
+					"&nbsp;<span id=\"certificateModBtn\" class=\"certificateModBtn\">&#x1F6E0;</span>&nbsp;<span id=\"certificateDelBtn\" class=\"certificateDelBtn\">&#x1F5D1;</span>");
+			params.put("member_no", currentUser);
+		} else {
+			params.put("member_no", "1");
+		}
+		
 		try {
 			List<HashMap<String,String>> getCertificate = iProfileService.getCertificate(params);
 			
@@ -661,7 +721,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -671,7 +731,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int academyAddCnt = iProfileService.academyAdd(params);
@@ -685,7 +746,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -695,7 +756,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int certificateAddCnt = iProfileService.certificateAdd(params);
@@ -709,7 +771,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -719,9 +781,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		System.out.println(params);
-		// 공백으로 서버로 들어올 경우 null 처리
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			List<HashMap<String,String>> getAcademy = iProfileService.getAcademy(params);
@@ -732,7 +793,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -742,8 +803,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		// 공백으로 서버로 들어올 경우 null 처리
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			List<HashMap<String,String>> getCertificate = iProfileService.getCertificate(params);
@@ -755,7 +816,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -765,8 +826,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		// 공백으로 서버로 들어올 경우 null 처리
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int academyModCnt = iProfileService.academyMod(params);
@@ -780,7 +841,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -790,8 +851,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		// 공백으로 서버로 들어올 경우 null 처리
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int certificateModCnt = iProfileService.certificateMod(params);
@@ -805,7 +866,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -815,9 +876,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		System.out.println(params);
-		// 공백으로 서버로 들어올 경우 null 처리
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int academyDelCnt = iProfileService.academyDel(params);
@@ -831,7 +891,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -841,8 +901,8 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		// 공백으로 서버로 들어올 경우 null 처리
-		params.put("member_no", "1");
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		params.put("member_no", currentUser);
 		try {
 			
 			int certificateDelCnt = iProfileService.certificateDel(params);
@@ -856,7 +916,7 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
+		
 		return mapper.writeValueAsString(modelMap);
 	}
 	

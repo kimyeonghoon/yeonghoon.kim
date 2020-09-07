@@ -326,7 +326,9 @@ function redrawBriefHistory() {
 			if(res.result == "success") {
 				var html = "";
 				html += "<div class=\"d-flex justify-content-center\">";
-				html += "<div id=\"briefHistoryModifyBtn\" class=\"btn btn-secondary\">약력수정</div>";
+				if(res.modBtn != undefined) {
+					html += res.modBtn;
+				}
 				html += "<img src=\"../image/img_avatar1.png\" style=\"width: 150px; height: 180px;\">";
 				html += "</div><p class=\"text-center font-weight-bold pt-3\">";
 				html += res.briefHistory.nameInput + "(" + res.briefHistory.yearInput + "년생, 34세)</p>";
@@ -451,7 +453,11 @@ function redrawEducation() {
 					} else if (res.getEducation[i].status == "4") {
 						html += "제적";
 					}
-					html += "</span>&nbsp;<span class=\"educationModBtn\">&#x1F6E0;</span>&nbsp;<span class=\"educationDelBtn\">&#x1F5D1;</span></td><td><H6>";
+					html += "</span>";
+					if(res.educationModDelBtn != undefined) {
+						html += "&nbsp" + res.educationModDelBtn + "";
+					}
+					html += "</td><td><h6>";
 					html += res.getEducation[i].name + " "
 					if(res.getEducation[i].department != undefined) {
 						html += res.getEducation[i].department;
@@ -831,7 +837,7 @@ function redrawCareer() {
 				for(var i = 0; i < res.companyList.length; i++) {
 					html += "<tr data-no=\"" + res.companyList[i].company_no + "\" class=\"border border-top-0 border-left-0 border-right-0\"><td><H6>";
 					html += res.companyList[i].company_name;
-					html += "</H6><h6>";
+					html += "</h6><h6>";
 					html += res.companyList[i].startdate;
 					html += " ~ ";
 					html += res.companyList[i].enddate;
@@ -843,17 +849,19 @@ function redrawCareer() {
 					} else {
 						html += res.companyList[i].cha + "개월";
 					}
-					html += "</span>&nbsp;<span id=\"companyModBtn\" class=\"companyModBtn\" >&#x1F6E0;</span>&nbsp;<span class=\"companyDelBtn\" id=\"companyDelBtn\">&#x1F5D1;</span></td>";
-					html += "<td>";
+					html += "</span>";
+					if(res.companyModDelBtn != undefined) {
+						html += res.companyModDelBtn;
+					}
+					html += "</td><td>";
 					for(var j = 0; j < res.careerList.length; j++) {
 						if(res.companyList[i].company_no == res.careerList[j].company_no) {
 							html += "<h6 data-no=\"" + res.careerList[j].career_no + "\">";
 							html += res.careerList[j].career_department;
-							if(res.careerList.length - 1 > j) {
-								html += "<span class=\"careerModBtn\" id=\"careerModBtn\">&#x1F6E0;</span><span id=\"careerDelBtn\" class=\"careerDelBtn\">&#x1F5D1;</span></H6><h6 class=\"text-primary\">";
-							} else {
-								html += "<span class=\"careerModBtn\" id=\"careerModBtn\">&#x1F6E0;</span><span id=\"careerDelBtn\" class=\"careerDelBtn\">&#x1F5D1;</span></H6><h6 class=\"text-primary\">";
+							if(res.careerModDelBtn != undefined) {
+								html += res.careerModDelBtn;
 							}
+							html += "</h6><h6 class=\"text-primary\">";
 							html += "주요업무 : " + res.careerList[j].career_responsibility;
 							html += "</h6><p class=\"text-secondary\">";
 							var description = res.careerList[j].career_description.replace(/(?:\r\n|\r|\n)/g, '<br/>');
@@ -1130,7 +1138,11 @@ function redrawAcademy() {
 					} else {
 						html += "미수료";
 					}
-					html += "</span>&nbsp;<span id=\"academyModBtn\" class=\"academyModBtn\">&#x1F6E0;</span>&nbsp;<span id=\"academyDelBtn\" class=\"academyDelBtn\">&#x1F5D1;</span></td><td><h6>";
+					html += "</span>";
+					if(res.academyModDelBtn != undefined) {
+						html += res.academyModDelBtn;
+					}
+					html +=	"</td><td><h6>";
 					html += academy[i].academy;
 					html += "</h6><p class=\"text-primary\">교육과정 : ";
 					html += academy[i].course;
@@ -1185,7 +1197,10 @@ function redrawCertificate() {
 					} else if(res.getCertificate[i].cert_pass == false) {
 						html += "불합격";
 					}
-					html += "&nbsp;<span id=\"certificateModBtn\" class=\"certificateModBtn\">&#x1F6E0;</span>&nbsp;<span id=\"certificateDelBtn\" class=\"certificateDelBtn\">&#x1F5D1;</span></td><td><h6>";
+					if (res.certificateModDelBtn != undefined) {
+						html += res.certificateModDelBtn; 
+					}
+					html += "</td><td><h6>";
 					html += res.getCertificate[i].cert_name;
 					html += "</h6><div class=\"text-secondary\">";
 					html += res.getCertificate[i].cert_organization;
