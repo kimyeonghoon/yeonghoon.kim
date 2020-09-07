@@ -49,5 +49,16 @@ public interface IProfileDao {
 
 	public List<HashMap<String, String>> getCertificate(HashMap<String, String> params) throws Throwable;
 
+	public int academyAdd(HashMap<String, String> params) throws Throwable;
+
+	public int certificateAdd(HashMap<String, String> params) throws Throwable;
+
+	public int academyMod(HashMap<String, String> params) throws Throwable;
+
+	public int certificateMod(HashMap<String, String> params) throws Throwable;
+
+	public int certificateDel(HashMap<String, String> params) throws Throwable;
+
+	public int academyDel(HashMap<String, String> params) throws Throwable;
 
 }

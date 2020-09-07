@@ -122,4 +122,34 @@ public class ProfileDao implements IProfileDao {
 	public List<HashMap<String, String>> getCertificate(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectList("profile.getCertificate", params);
 	}
+
+	@Override
+	public int academyAdd(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("profile.academyAdd", params);
+	}
+
+	@Override
+	public int certificateAdd(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("profile.certificateAdd", params);
+	}
+
+	@Override
+	public int academyMod(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("profile.academyMod", params);
+	}
+
+	@Override
+	public int certificateMod(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("profile.certificateMod", params);
+	}
+
+	@Override
+	public int certificateDel(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("profile.certificateDel", params);
+	}
+
+	@Override
+	public int academyDel(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("profile.academyDel", params);
+	}
 }

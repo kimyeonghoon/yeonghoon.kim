@@ -665,4 +665,199 @@ public class ProfileController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	@RequestMapping(value = "academyAddAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String academyAddAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		params.put("member_no", "1");
+		try {
+			
+			int academyAddCnt = iProfileService.academyAdd(params);
+			
+			if(academyAddCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "certificateAddAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String certificateAddAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		params.put("member_no", "1");
+		try {
+			
+			int certificateAddCnt = iProfileService.certificateAdd(params);
+			
+			if(certificateAddCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "academyOneViewAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String academyOneViewAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		System.out.println(params);
+		// 공백으로 서버로 들어올 경우 null 처리
+		params.put("member_no", "1");
+		try {
+			
+			List<HashMap<String,String>> getAcademy = iProfileService.getAcademy(params);
+			modelMap.put("getAcademy", getAcademy);
+			modelMap.put("result", "success");
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "certificateOneViewAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String certificateOneViewAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+		params.put("member_no", "1");
+		try {
+			
+			List<HashMap<String,String>> getCertificate = iProfileService.getCertificate(params);
+			
+			modelMap.put("getCertificate", getCertificate);
+			modelMap.put("result", "success");
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "academyModAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String academyModAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+		params.put("member_no", "1");
+		try {
+			
+			int academyModCnt = iProfileService.academyMod(params);
+
+			if(academyModCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "certificateModAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String certificateModlAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+		params.put("member_no", "1");
+		try {
+			
+			int certificateModCnt = iProfileService.certificateMod(params);
+
+			if(certificateModCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "academyDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String academyDelAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		System.out.println(params);
+		// 공백으로 서버로 들어올 경우 null 처리
+		params.put("member_no", "1");
+		try {
+			
+			int academyDelCnt = iProfileService.academyDel(params);
+
+			if(academyDelCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "certificateDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String certificateDelAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// 공백으로 서버로 들어올 경우 null 처리
+		params.put("member_no", "1");
+		try {
+			
+			int certificateDelCnt = iProfileService.certificateDel(params);
+
+			if(certificateDelCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "fail");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 }

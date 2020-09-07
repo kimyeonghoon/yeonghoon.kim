@@ -200,26 +200,89 @@
 	<!-- 교육 리스트 -->
 	<select id="getAcademy" parameterType="hashmap" resultType="hashmap">
 		SELECT academy_no, 
-			 academy_course AS course,
-			 academy_content AS content,
-			 academy_academy AS academy,
-			 DATE_FORMAT(academy_startdate, '%Y.%m') AS startdate,
-			 DATE_FORMAT(academy_enddate, '%Y.%m') AS enddate,
-			 academy_upload_path AS upload_path
+			   academy_course AS course,
+			   academy_content AS content,
+			   academy_academy AS academy,
+			   academy_status_yn AS status,
+			   <choose>
+				   <when test="academyNo != null and academyNo != ''">
+				     	DATE_FORMAT(academy_startdate, '%Y-%m-%d') AS startdate,
+				    	DATE_FORMAT(academy_enddate, '%Y-%m-%d') AS enddate,
+				   </when>
+				   <otherwise>
+				    	DATE_FORMAT(academy_startdate, '%Y.%m') AS startdate,
+				    	DATE_FORMAT(academy_enddate, '%Y.%m') AS enddate,
+				   </otherwise>
+			   </choose>
+			   academy_upload_path AS upload_path
 		FROM academy
 		WHERE academy_delete_yn = 1
 		AND member_no = #{member_no}
+		<if test="academyNo != null and academyNo != ''">
+			AND academy_no = #{academyNo}
+		</if>
 		ORDER BY academy_no DESC
 	</select>
+	
 	<!-- 자격증 리스트 -->
 	<select id="getCertificate" parameterType="hashmap" resultType="hashmap">
 		SELECT certificate_no AS cert_no,
 			   certificate_name AS cert_name,
 			   certificate_organization AS cert_organization,
-			   DATE_FORMAT(certificate_issue_date, '%Y.%m') AS cert_date
+			   certificate_pass_yn AS cert_pass,
+			   certificate_upload_path AS upload_path,
+			   <choose>
+				   <when test="certificateNo != null and certificateNo != ''">
+				     	DATE_FORMAT(certificate_issue_date, '%Y-%m-%d') AS cert_date
+				   </when>
+				   <otherwise>
+				    	DATE_FORMAT(certificate_issue_date, '%Y.%m') AS cert_date
+				   </otherwise>
+			   </choose>
 		FROM certificate
 		WHERE certificate_delete_yn = 1
 		AND member_no = #{member_no}
+		<if test="certificateNo != null and certificateNo != ''">
+			AND certificate_no = #{certificateNo}
+		</if>
 		ORDER BY cert_no DESC
 	</select>
+	<!-- 교육 추가 -->
+	<insert id="academyAdd" parameterType="hashmap">
+		INSERT INTO academy (member_no, academy_course, academy_content, academy_academy, academy_startdate, academy_enddate, academy_status_yn, academy_upload_path)
+		VALUES (#{member_no}, #{curriculumInput}, #{contentInput}, #{nameInput}, #{startInput}, #{endInput}, #{status}, #{certificateInput});
+	</insert>
+	<!-- 자격증 추가 -->
+	<insert id="certificateAdd" parameterType="hashmap">
+		INSERT INTO certificate (member_no, certificate_name, certificate_organization, certificate_pass_yn, certificate_issue_date, certificate_upload_path)
+		VALUES (#{member_no}, #{nameInput}, #{certAutorityInput}, #{status}, #{dateInput}, #{certificateInput});	
+	</insert>
+	<!-- 교육 수정 -->
+	<update id="academyMod" parameterType="hashmap">
+		UPDATE academy 
+		SET academy_course = #{curriculumInput}, academy_content = #{contentInput}, academy_academy = #{nameInput}, academy_startdate = #{startInput}, academy_enddate = #{endInput}, academy_status_yn = #{status}, academy_upload_path = #{certificateInput}
+		WHERE member_no = #{member_no}
+		AND academy_no = #{academyNo}
+	</update>
+	<!-- 자격증 수정 -->
+	<update id="certificateMod" parameterType="hashmap">
+		UPDATE certificate
+		SET certificate_name = #{nameInput}, certificate_organization = #{certAutorityInput}, certificate_pass_yn = #{status}, certificate_issue_date = #{dateInput}, certificate_upload_path = #{certificateInput}
+		WHERE member_no = #{member_no}
+		AND certificate_no = #{certificateNo}
+	</update>
+	<!-- 교육 삭제 -->
+	<update id="academyDel" parameterType="hashmap">
+		UPDATE academy 
+		SET academy_delete_yn = 0
+		WHERE member_no = #{member_no}
+		AND academy_no = #{academyNo}
+	</update>
+	<!-- 자격증 삭제 -->
+	<update id="certificateDel" parameterType="hashmap">
+		UPDATE certificate
+		SET certificate_delete_yn = 0
+		WHERE member_no = #{member_no}
+		AND certificate_no = #{certificateNo}
+	</update>
 </mapper>

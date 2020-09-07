@@ -174,15 +174,15 @@ function modalPopup(id) {
 					break;
 		case "4-3": html += "<input type=\"hidden\" id=\"delSelect\" value=\"4-3\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">카테고리</span></div><select class=\"form-control\" name=\"categoryName\" id=\"categoryName\" onchange=\"techList()\"><option value=\"0\">카테고리 선택</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">스킬명</span></div><select class=\"form-control\" id=\"skillName\" name=\"skillName\" disabled=\"disabled\"><option value=\"0\">스킬 선택</option></select></div>";
 					break;
-		case "5-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"5-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학원명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">시작년월</span></div><input type=\"text\" class=\"form-control\" id=\"startInput\" name=\"startInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">종료년월</span></div><input type=\"text\" class=\"form-control\" id=\"endInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">수료</option><option value=\"2\">미수료</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육과정</span></div><input type=\"text\" class=\"form-control\" id=\"curriculumInput\" name=\"curriculumInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육내용</span></div><textarea class=\"form-control\" name=\"contentInput\" id=\"contentInput\"></textarea></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div>";
+		case "5-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"5-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학원명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">시작년월</span></div><input type=\"text\" class=\"form-control\" id=\"startInput\" name=\"startInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">종료년월</span></div><input type=\"text\" class=\"form-control\" id=\"endInput\" name=\"endInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"-1\">상태 선택</option><option value=\"1\">수료</option><option value=\"0\">미수료</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육과정</span></div><input type=\"text\" class=\"form-control\" id=\"curriculumInput\" name=\"curriculumInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육내용</span></div><textarea class=\"form-control\" name=\"contentInput\" id=\"contentInput\"></textarea></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div>";
 					break;
-		case "5-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"5-2\" /><input type=\"hidden\" id=\"academyNo\" name=\"academyNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학원명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">시작년월</span></div><input type=\"text\" class=\"form-control\" id=\"startInput\" name=\"startInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">종료년월</span></div><input type=\"text\" class=\"form-control\" id=\"endInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">수료</option><option value=\"2\">미수료</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육과정</span></div><input type=\"text\" class=\"form-control\" name=\"curriculumInput\" id=\"curriculumInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육내용</span></div><textarea class=\"form-control\" id=\"contentInput\" name=\"contentInput\"></textarea></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div>";
+		case "5-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"5-2\" /><input type=\"hidden\" id=\"academyNo\" name=\"academyNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학원명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">시작년월</span></div><input type=\"text\" class=\"form-control\" id=\"startInput\" name=\"startInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">종료년월</span></div><input type=\"text\" class=\"form-control\" id=\"endInput\" name=\"endInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"-1\">상태 선택</option><option value=\"1\">수료</option><option value=\"0\">미수료</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육과정</span></div><input type=\"text\" class=\"form-control\" name=\"curriculumInput\" id=\"curriculumInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육내용</span></div><textarea class=\"form-control\" id=\"contentInput\" name=\"contentInput\"></textarea></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div>";
 					break;
 		case "5-3": html += "<input type=\"hidden\" id=\"delSelect\" value=\"5-3\" /><input type=\"hidden\" id=\"academyNo\" name=\"academyNo\" />교육을 삭제하시겠습니까?";
 					break;
-		case "6-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"6-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격증</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급기관</span></div><input type=\"text\" class=\"form-control\" id=\"certAutorityInput\" name=\"certAutorityInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">합격여부</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"0\">합격여부</option><option value=\"1\">합격</option><option value=\"2\">불합격</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급일자</span></div><input type=\"text\" class=\"form-control\" id=\"dateInput\" name=\"dateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div>";
+		case "6-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"6-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격증</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급기관</span></div><input type=\"text\" class=\"form-control\" id=\"certAutorityInput\" name=\"certAutorityInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">합격여부</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"-1\">합격여부</option><option value=\"1\">합격</option><option value=\"0\">불합격</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급일자</span></div><input type=\"text\" class=\"form-control\" id=\"dateInput\" name=\"dateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div>";
 					break;
-		case "6-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"6-2\" /><input type=\"hidden\" id=\"certificateNo\" name=\"certificateNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격증</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급기관</span></div><input type=\"text\" class=\"form-control\" id=\"certAutorityInput\" name=\"certAutorityInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">합격여부</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"0\">합격여부</option><option value=\"1\">합격</option><option value=\"2\">불합격</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급일자</span></div><input type=\"text\" class=\"form-control\" id=\"dateInput\" name=\"dateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div>";
+		case "6-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"6-2\" /><input type=\"hidden\" id=\"certificateNo\" name=\"certificateNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격증</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급기관</span></div><input type=\"text\" class=\"form-control\" id=\"certAutorityInput\" name=\"certAutorityInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">합격여부</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"-1\">합격여부</option><option value=\"1\">합격</option><option value=\"0\">불합격</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급일자</span></div><input type=\"text\" class=\"form-control\" id=\"dateInput\" name=\"dateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div>";
 					break;
 		case "6-3": html += "<input type=\"hidden\" id=\"delSelect\" value=\"6-3\" /><input type=\"hidden\" id=\"certificateNo\" name=\"certificateNo\" />자격증을 삭제하시겠습니까?";
 					break;
@@ -225,7 +225,7 @@ function modalPopup(id) {
 	$("#contentsArea").prepend(html);
 	$("#notifyModal").modal("show");
 	
-	$("#admissionInput, #graduatedInput, #joinInput, #leaveInput").datepicker({
+	$("#admissionInput, #graduatedInput, #joinInput, #leaveInput, #startInput, #endInput, #dateInput").datepicker({
 		dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true, yearRange: '2000:2020',
 		monthNames: ["1","2","3","4","5","6","7","8","9","10","11","12"],
 		monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"],
@@ -251,6 +251,12 @@ function modalPopup(id) {
 	if(id == "3-5") {
 		companyList(id);
 		careerOneView();
+	}
+	if(id == "5-2") {
+		academyOneView();
+	}
+	if(id == "6-2") {
+		certificateOneView();
 	}
 }
 
@@ -646,9 +652,9 @@ function addSelect() {
 		break;
 	case "4-1": techAdd();
 		break;
-	case "5-1": alert("교육 추가");
+	case "5-1": academyAdd();
 		break;
-	case "6-1": alert("자격증 추가");
+	case "6-1": certificateAdd();
 		break;
 	}
 }
@@ -664,9 +670,9 @@ function modSelect() {
 		break;
 	case "3-5": careerMod();
 		break;
-	case "5-2": alert("교육 수정");
+	case "5-2": academyMod();
 		break;
-	case "6-2": alert("자격증 수정");
+	case "6-2": certificateMod();
 		break;
 	}
 }
@@ -682,9 +688,9 @@ function delSelect() {
 		break;
 	case "4-3": techDel();
 		break;
-	case "5-2": alert("교육 수정");
+	case "5-3": academyDel();
 		break;
-	case "6-2": alert("자격증 수정");
+	case "6-3": certificateDel();
 		break;
 	}
 }
@@ -1118,7 +1124,13 @@ function redrawAcademy() {
 				for (var i = 0; i < res.getAcademy.length; i++) {
 					html += "<tr class=\"border border-top-0 border-left-0 border-right-0\" data-no=\"" + academy[i].academy_no + "\"><td><h6>";
 					html += academy[i].startdate + " ~ " + academy[i].enddate;
-					html += "</h6><span class=\"text-primary\">수료</span>&nbsp;<span id=\"academyModBtn\" class=\"academyModBtn\">&#x1F6E0;</span>&nbsp;<span id=\"academyDelBtn\" class=\"academyDelBtn\">&#x1F5D1;</span></td><td><h6>";
+					html += "</h6><span class=\"text-primary\">";
+					if(academy[i].status == true) {
+						html += "수료";
+					} else {
+						html += "미수료";
+					}
+					html += "</span>&nbsp;<span id=\"academyModBtn\" class=\"academyModBtn\">&#x1F6E0;</span>&nbsp;<span id=\"academyDelBtn\" class=\"academyDelBtn\">&#x1F5D1;</span></td><td><h6>";
 					html += academy[i].academy;
 					html += "</h6><p class=\"text-primary\">교육과정 : ";
 					html += academy[i].course;
@@ -1127,7 +1139,7 @@ function redrawAcademy() {
 					html += "</div></td></tr>";
 				}
 				html += "</tbody></table></div>";
-				$("#academy").html(html);
+				$("#academyList").html(html);
 				
 				// 교육 추가버튼 동작
 				$(".academyAddBtn").on("click", function(){
@@ -1135,10 +1147,12 @@ function redrawAcademy() {
 				});
 				// 교육 삭제버튼 동작
 				$(".academyModBtn").on("click", function(){
+					$("#pickAcademy").val($(this).parent().parent().attr("data-no"));
 					modalPopup("5-2");
 				});
 				// 교육 삭제버튼 동작
 				$(".academyDelBtn").on("click", function(){
+					$("#pickAcademy").val($(this).parent().parent().attr("data-no"));
 					modalPopup("5-3");
 				});				
 			} else {
@@ -1165,14 +1179,20 @@ function redrawCertificate() {
 				for(var i = 0; i < res.getCertificate.length; i++) {
 					html += "<tr class=\"border border-top-0 border-left-0 border-right-0\" data-no=\"" + res.getCertificate[i].cert_no + "\"><td><h6>";
 					html += res.getCertificate[i].cert_date;
-					html += "</h6><span class=\"text-primary\">합격</span>&nbsp;<span id=\"certificateModBtn\" class=\"certificateModBtn\">&#x1F6E0;</span>&nbsp;<span id=\"certificateDelBtn\" class=\"certificateDelBtn\">&#x1F5D1;</span></td><td><h6>";
+					html += "</h6><span class=\"text-primary\">";
+					if(res.getCertificate[i].cert_pass == true) {
+						html += "합격";
+					} else if(res.getCertificate[i].cert_pass == false) {
+						html += "불합격";
+					}
+					html += "&nbsp;<span id=\"certificateModBtn\" class=\"certificateModBtn\">&#x1F6E0;</span>&nbsp;<span id=\"certificateDelBtn\" class=\"certificateDelBtn\">&#x1F5D1;</span></td><td><h6>";
 					html += res.getCertificate[i].cert_name;
 					html += "</h6><div class=\"text-secondary\">";
 					html += res.getCertificate[i].cert_organization;
 					html += "</div></td></tr>";
 				}
 				html += "<tr class=\"border border-top-0 border-left-0 border-right-0\"><td colspan=\"2\"><div class=\"text-secondary\">*기타 - 1종보통운전면허, 워드프로세서1급, 전산회계1급, OCA(만료), CCNP(만료)</div></td></tr></tbody></table></div>";
-				$("#certificate").html(html);
+				$("#certificateList").html(html);
 				
 				// 자격증 추가버튼 동작
 				$(".certificateAddBtn").on("click", function(){
@@ -1180,12 +1200,235 @@ function redrawCertificate() {
 				});
 				// 자격증 삭제버튼 동작
 				$(".certificateModBtn").on("click", function(){
+					$("#pickCertificate").val($(this).parent().parent().parent().attr("data-no"));
 					modalPopup("6-2");
 				});
 				// 자격증 삭제버튼 동작
 				$(".certificateDelBtn").on("click", function(){
+					$("#pickCertificate").val($(this).parent().parent().parent().attr("data-no"));
 					modalPopup("6-3");
 				});				
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+//교육 추가
+function academyAdd() {
+	$("#actionForm").attr("action", "academyAddAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "academyAddAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawAcademy();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+
+//자격증 추가
+function certificateAdd() {
+	$("#actionForm").attr("action", "certificateAddAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "certificateAddAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawCertificate();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+//교육 수정전 조회 ajax
+function academyOneView() {
+	$("#academyNo").val($("#pickAcademy").val());
+	$("#actionForm").attr("action", "academyOneViewAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "academyOneViewAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#nameInput").val(res.getAcademy[0].academy);
+				$("#startInput").val(res.getAcademy[0].startdate);
+				$("#endInput").val(res.getAcademy[0].enddate);
+				if(res.getAcademy[0].status == true) {
+					$("#status").val("1");
+				} else if(res.getAcademy[0].status == false) {
+					$("#status").val("0");
+				} else {
+					$("#status").val("-1");
+				}
+				$("#curriculumInput").val(res.getAcademy[0].course);
+				$("#contentInput").val(res.getAcademy[0].content);
+				$("#certificateInput").val(res.getAcademy[0].upload_path);
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+// 자격증 수정전 조회 ajax
+function certificateOneView() {
+	$("#certificateNo").val($("#pickCertificate").val());
+	$("#actionForm").attr("action", "certificateOneViewAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "certificateOneViewAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#nameInput").val(res.getCertificate[0].cert_name);
+				$("#certAutorityInput").val(res.getCertificate[0].cert_organization);
+				if(res.getCertificate[0].cert_pass == true) {
+					$("#status").val("1");
+				} else if(res.getCertificate[0].cert_pass == false) {
+					$("#status").val("0");
+				} else {
+					$("#status").val("-1");
+				}
+				$("#dateInput").val(res.getCertificate[0].cert_date);
+				$("#certificateInput").val(res.getCertificate[0].upload_path);
+				
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+//학원 수정
+function academyMod() {
+	$("#academyNo").val($("#pickAcademy").val());
+	$("#actionForm").attr("action", "academyModAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "academyModAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawAcademy();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+//자격증 수정
+function certificateMod() {
+	$("#certificateNo").val($("#pickCertificate").val());
+	$("#actionForm").attr("action", "certificateModAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "certificateModAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawCertificate();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+//학원 삭제
+function academyDel() {
+	$("#academyNo").val($("#pickAcademy").val());
+	$("#actionForm").attr("action", "academyDelAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "academyDelAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawAcademy();
+			} else {
+				modalPopup("x");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+//자격증 삭제
+function certificateDel() {
+	$("#certificateNo").val($("#pickCertificate").val());
+	$("#actionForm").attr("action", "certificateDelAjax");
+	var params = $("#actionForm").serialize();
+	console.log(params);
+	$.ajax({
+		type : "post",			  
+		url : "certificateDelAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				$("#notifyModal").modal("hide");
+				redrawCertificate();
 			} else {
 				modalPopup("x");
 			}

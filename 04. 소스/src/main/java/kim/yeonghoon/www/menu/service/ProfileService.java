@@ -124,4 +124,34 @@ public class ProfileService implements IProfileService {
 		return iProfileDao.getCertificate(params);
 	}
 
+	@Override
+	public int academyAdd(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.academyAdd(params);
+	}
+
+	@Override
+	public int certificateAdd(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.certificateAdd(params);
+	}
+
+	@Override
+	public int academyMod(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.academyMod(params);
+	}
+
+	@Override
+	public int certificateMod(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.certificateMod(params);
+	}
+
+	@Override
+	public int certificateDel(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.certificateDel(params);
+	}
+
+	@Override
+	public int academyDel(HashMap<String, String> params) throws Throwable {
+		return iProfileDao.academyDel(params);
+	}
+
 }
