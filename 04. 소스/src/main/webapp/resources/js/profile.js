@@ -4,74 +4,36 @@
 
 // 프로파일 초기화
 function init_profile() {
-	// 이미지 변수화
-	var businessCard1 = "<img src='../image/giftm.jpg' width='100%' />";
-	var businessCard2 = "<img src='../image/smileserv.jpg' width='100%' />";
-	var dongauniv = "<img src='../image/dongauniv.jpg' width='100%' />";
-	var gdi = "<img src='../image/gdi.jpg' width='100%' />";
-	var itwillbs = "<img src='../image/itwillbs.jpg' width='100%' />";
-	var eip = "<img src='../image/eip.jpg' width='100%' />";
-	var csisdl2 = "<img src='../image/csisdl2.jpg' width='100%' />";
-	var ieoa = "<img src='../image/ieoa.jpg' width='100%' />";
-	var pc1 = "<img src='../image/pc1.jpg' width='100%' />";
-
-	// 팝오버 정의
-	$("#businessCard1").popover({
-		content: businessCard1, html: true
-	});
-	$("#businessCard2").popover({
-		content: businessCard2, html: true
-	});
-	$("#dongauniv").popover({
-		content: dongauniv, html: true
-	});
-	$("#gdi").popover({
-		content: gdi, html: true
-	});
-	$("#itwillbs").popover({
-		content: itwillbs, html: true
-	});
-	$("#eip").popover({
-		content: eip, html: true
-	});
-	$("#csisdl2").popover({
-		content: csisdl2, html: true
-	});
-	$("#ieoa").popover({
-		content: ieoa, html: true
-	});
-	$("#pc1").popover({
-		content: pc1, html: true
-	});
-	
+	// 교육 추가 버튼 동작
 	$("#educationAddBtn").on("click", function(){
 		modalPopup("2-1");
 	});
-	// 회사 추가버튼 동작
+	// 회사 추가 버튼 동작
 	$("#companyAddBtn").on("click", function(){
 		modalPopup("3-1");
 	});
-	// 경력 추가버튼 동작
+	// 경력 추가 버튼 동작
 	$("#careerAddBtn").on("click", function(){
 		modalPopup("3-4");
 	});
-	// 보유기술 추가버튼 동작
+	// 보유기술 추가 버튼 동작
 	$("#skillAddBtn").on("click", function(){
 		modalPopup("4-1");
 	});
-	// 보유기술 삭제버튼 동작
+	// 보유기술 삭제 버튼 동작
 	$("#skillDelBtn").on("click", function(){
 		modalPopup("4-3");
 	});
-	// 교육 추가버튼 동작
+	// 교육 추가 버튼 동작
 	$("#academyAddBtn").on("click", function(){
 		modalPopup("5-1");
 	});
-	// 자격증 등록버튼 동작
+	// 자격증 등록 버튼 동작
 	$("#certificationAddBtn").on("click", function(){
 		modalPopup("6-1");
 	});
 	
+	// ajax로 DB 조회 후 값 그리기
 	redrawBriefHistory();
 	redrawTech();
 	redrawEducation();
@@ -79,7 +41,6 @@ function init_profile() {
 	redrawAcademy();
 	redrawCertificate();
 }
-
 
 // 팝업창 생성
 function modalPopup(id) {
@@ -147,20 +108,20 @@ function modalPopup(id) {
 	}
 	html += "</h4>";
 	html += "</div>";
-	html += "<form action=\"#\" method=\"post\" id=\"actionForm\">"
+	html += "<form action=\"#\" method=\"post\" id=\"actionForm\" enctype=\"multipart/form-data\">"
 	html += "<div class=\"modal-body\">";
 	switch (id) {
 		case "1-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"1-2\" /><input type=\"hidden\" id=\"imageAddress\" name=\"imageAddress\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">이름</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">생년</span></div><input type=\"number\" class=\"form-control\" id=\"yearInput\" name=\"yearInput\" maxlength=\"4\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">주소</span></div><input type=\"text\" class=\"form-control\" id=\"addressInput\" name=\"addressInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학력</span></div><input type=\"text\" class=\"form-control\" id=\"educationInput\" name=\"educationInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">경력</span></div><input type=\"text\" class=\"form-control\" id=\"careerInput\" name=\"careerInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격</span></div><input type=\"text\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">사진</span></div><input type=\"file\" accept=\"image/*\" class=\"form-control\" id=\"imageInput\" name=\"imageInput\"><div id=\"uploadBtn\" class=\"btn bg-primary text-light\">업로드</div></div>";
 				  break;
-		case "2-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"2-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학교명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학과명</span></div><input type=\"text\" class=\"form-control\" name=\"departmentInput\" id=\"departmentInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" name=\"status\" id=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">졸업</option><option value=\"2\">수료</option><option value=\"3\">재적</option><option value=\"4\">퇴학</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입학년월</span></div><input type=\"text\" class=\"form-control\" name=\"admissionInput\" id=\"admissionInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">졸업년월</span></div><input type=\"text\" class=\"form-control\" name=\"graduatedInput\" id=\"graduatedInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">기타사항</span></div><input type=\"text\" class=\"form-control\" name=\"etcInput\" id=\"etcInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
+		case "2-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"2-1\" /><input type=\"hidden\" id=\"imageAddress\" name=\"imageAddress\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학교명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학과명</span></div><input type=\"text\" class=\"form-control\" name=\"departmentInput\" id=\"departmentInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" name=\"status\" id=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">졸업</option><option value=\"2\">수료</option><option value=\"3\">재적</option><option value=\"4\">퇴학</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입학년월</span></div><input type=\"text\" class=\"form-control\" name=\"admissionInput\" id=\"admissionInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">졸업년월</span></div><input type=\"text\" class=\"form-control\" name=\"graduatedInput\" id=\"graduatedInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">기타사항</span></div><input type=\"text\" class=\"form-control\" name=\"etcInput\" id=\"etcInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"><div id=\"uploadBtn\" class=\"btn bg-primary text-light\">업로드</div>";
 				  break;
-		case "2-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"2-2\" /><input type=\"hidden\" id=\"educationNo\" name=\"educationNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학교명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학과명</span></div><input type=\"text\" class=\"form-control\" name=\"departmentInput\" id=\"departmentInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" name=\"status\" id=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">졸업</option><option value=\"2\">수료</option><option value=\"3\">재적</option><option value=\"4\">퇴학</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입학년월</span></div><input type=\"text\" class=\"form-control\" name=\"admissionInput\" id=\"admissionInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">졸업년월</span></div><input type=\"text\" class=\"form-control\" name=\"graduatedInput\" id=\"graduatedInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">기타사항</span></div><input type=\"text\" class=\"form-control\" name=\"etcInput\" id=\"etcInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
+		case "2-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"2-2\" /><input type=\"hidden\" id=\"imageAddress\" name=\"imageAddress\" /><input type=\"hidden\" id=\"educationNo\" name=\"educationNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학교명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학과명</span></div><input type=\"text\" class=\"form-control\" name=\"departmentInput\" id=\"departmentInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" name=\"status\" id=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">졸업</option><option value=\"2\">수료</option><option value=\"3\">재적</option><option value=\"4\">퇴학</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입학년월</span></div><input type=\"text\" class=\"form-control\" name=\"admissionInput\" id=\"admissionInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">졸업년월</span></div><input type=\"text\" class=\"form-control\" name=\"graduatedInput\" id=\"graduatedInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">기타사항</span></div><input type=\"text\" class=\"form-control\" name=\"etcInput\" id=\"etcInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"><div id=\"uploadBtn\" class=\"btn bg-primary text-light\">업로드</div>";
 					break;
 		case "2-3": html += "<input type=\"hidden\" id=\"delSelect\" value=\"2-3\" /><input type=\"hidden\" id=\"educationNo\" name=\"educationNo\" />학력을 삭제하시겠습니까?";
 					break;
-		case "3-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"3-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입사년월</span></div><input type=\"text\" class=\"form-control\" name=\"joinInput\" id=\"joinInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">퇴사년월</span></div><input type=\"text\" class=\"form-control\" name=\"leaveInput\" id=\"leaveInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
+		case "3-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"3-1\" /><input type=\"hidden\" id=\"imageAddress\" name=\"imageAddress\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입사년월</span></div><input type=\"text\" class=\"form-control\" name=\"joinInput\" id=\"joinInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">퇴사년월</span></div><input type=\"text\" class=\"form-control\" name=\"leaveInput\" id=\"leaveInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"><div id=\"uploadBtn\" class=\"btn bg-primary text-light\">업로드</div></div>";
 					break;
-		case "3-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"3-2\" /><input type=\"hidden\" id=\"companyNo\" name=\"companyNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입사년월</span></div><input type=\"text\" class=\"form-control\" name=\"joinInput\" id=\"joinInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">퇴사년월</span></div><input type=\"text\" class=\"form-control\" name=\"leaveInput\" id=\"leaveInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
+		case "3-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"3-2\" /><input type=\"hidden\" id=\"imageAddress\" name=\"imageAddress\" /><input type=\"hidden\" id=\"companyNo\" name=\"companyNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">회사명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입사년월</span></div><input type=\"text\" class=\"form-control\" name=\"joinInput\" id=\"joinInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">퇴사년월</span></div><input type=\"text\" class=\"form-control\" name=\"leaveInput\" id=\"leaveInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"><div id=\"uploadBtn\" class=\"btn bg-primary text-light\">업로드</div></div>";
 					break;
 		case "3-3": html += "<input type=\"hidden\" id=\"delSelect\" value=\"3-3\" /><input type=\"hidden\" id=\"companyNo\" name=\"companyNo\" />회사를 삭제하시겠습니까?";
 					break;
@@ -174,15 +135,15 @@ function modalPopup(id) {
 					break;
 		case "4-3": html += "<input type=\"hidden\" id=\"delSelect\" value=\"4-3\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">카테고리</span></div><select class=\"form-control\" name=\"categoryName\" id=\"categoryName\" onchange=\"techList()\"><option value=\"0\">카테고리 선택</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">스킬명</span></div><select class=\"form-control\" id=\"skillName\" name=\"skillName\" disabled=\"disabled\"><option value=\"0\">스킬 선택</option></select></div>";
 					break;
-		case "5-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"5-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학원명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">시작년월</span></div><input type=\"text\" class=\"form-control\" id=\"startInput\" name=\"startInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">종료년월</span></div><input type=\"text\" class=\"form-control\" id=\"endInput\" name=\"endInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"-1\">상태 선택</option><option value=\"1\">수료</option><option value=\"0\">미수료</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육과정</span></div><input type=\"text\" class=\"form-control\" id=\"curriculumInput\" name=\"curriculumInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육내용</span></div><textarea class=\"form-control\" name=\"contentInput\" id=\"contentInput\"></textarea></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div>";
+		case "5-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"5-1\" /><input type=\"hidden\" id=\"imageAddress\" name=\"imageAddress\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학원명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">시작년월</span></div><input type=\"text\" class=\"form-control\" id=\"startInput\" name=\"startInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">종료년월</span></div><input type=\"text\" class=\"form-control\" id=\"endInput\" name=\"endInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"-1\">상태 선택</option><option value=\"1\">수료</option><option value=\"0\">미수료</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육과정</span></div><input type=\"text\" class=\"form-control\" id=\"curriculumInput\" name=\"curriculumInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육내용</span></div><textarea class=\"form-control\" name=\"contentInput\" id=\"contentInput\"></textarea></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"><div id=\"uploadBtn\" class=\"btn bg-primary text-light\">업로드</div></div>";
 					break;
-		case "5-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"5-2\" /><input type=\"hidden\" id=\"academyNo\" name=\"academyNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학원명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">시작년월</span></div><input type=\"text\" class=\"form-control\" id=\"startInput\" name=\"startInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">종료년월</span></div><input type=\"text\" class=\"form-control\" id=\"endInput\" name=\"endInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"-1\">상태 선택</option><option value=\"1\">수료</option><option value=\"0\">미수료</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육과정</span></div><input type=\"text\" class=\"form-control\" name=\"curriculumInput\" id=\"curriculumInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육내용</span></div><textarea class=\"form-control\" id=\"contentInput\" name=\"contentInput\"></textarea></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div>";
+		case "5-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"5-2\" /><input type=\"hidden\" id=\"imageAddress\" name=\"imageAddress\" /><input type=\"hidden\" id=\"academyNo\" name=\"academyNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학원명</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">시작년월</span></div><input type=\"text\" class=\"form-control\" id=\"startInput\" name=\"startInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">종료년월</span></div><input type=\"text\" class=\"form-control\" id=\"endInput\" name=\"endInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"-1\">상태 선택</option><option value=\"1\">수료</option><option value=\"0\">미수료</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육과정</span></div><input type=\"text\" class=\"form-control\" name=\"curriculumInput\" id=\"curriculumInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">교육내용</span></div><textarea class=\"form-control\" id=\"contentInput\" name=\"contentInput\"></textarea></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"><div id=\"uploadBtn\" class=\"btn bg-primary text-light\">업로드</div></div>";
 					break;
 		case "5-3": html += "<input type=\"hidden\" id=\"delSelect\" value=\"5-3\" /><input type=\"hidden\" id=\"academyNo\" name=\"academyNo\" />교육을 삭제하시겠습니까?";
 					break;
-		case "6-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"6-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격증</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급기관</span></div><input type=\"text\" class=\"form-control\" id=\"certAutorityInput\" name=\"certAutorityInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">합격여부</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"-1\">합격여부</option><option value=\"1\">합격</option><option value=\"0\">불합격</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급일자</span></div><input type=\"text\" class=\"form-control\" id=\"dateInput\" name=\"dateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div>";
+		case "6-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"6-1\" /><input type=\"hidden\" id=\"imageAddress\" name=\"imageAddress\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격증</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급기관</span></div><input type=\"text\" class=\"form-control\" id=\"certAutorityInput\" name=\"certAutorityInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">합격여부</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"-1\">합격여부</option><option value=\"1\">합격</option><option value=\"0\">불합격</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급일자</span></div><input type=\"text\" class=\"form-control\" id=\"dateInput\" name=\"dateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"><div id=\"uploadBtn\" class=\"btn bg-primary text-light\">업로드</div></div>";
 					break;
-		case "6-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"6-2\" /><input type=\"hidden\" id=\"certificateNo\" name=\"certificateNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격증</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급기관</span></div><input type=\"text\" class=\"form-control\" id=\"certAutorityInput\" name=\"certAutorityInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">합격여부</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"-1\">합격여부</option><option value=\"1\">합격</option><option value=\"0\">불합격</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급일자</span></div><input type=\"text\" class=\"form-control\" id=\"dateInput\" name=\"dateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div>";
+		case "6-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"6-2\" /><input type=\"hidden\" id=\"imageAddress\" name=\"imageAddress\" /><input type=\"hidden\" id=\"certificateNo\" name=\"certificateNo\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격증</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급기관</span></div><input type=\"text\" class=\"form-control\" id=\"certAutorityInput\" name=\"certAutorityInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">합격여부</span></div><select class=\"form-control\" id=\"status\" name=\"status\"><option value=\"-1\">합격여부</option><option value=\"1\">합격</option><option value=\"0\">불합격</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">발급일자</span></div><input type=\"text\" class=\"form-control\" id=\"dateInput\" name=\"dateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"><div id=\"uploadBtn\" class=\"btn bg-primary text-light\">업로드</div></div>";
 					break;
 		case "6-3": html += "<input type=\"hidden\" id=\"delSelect\" value=\"6-3\" /><input type=\"hidden\" id=\"certificateNo\" name=\"certificateNo\" />자격증을 삭제하시겠습니까?";
 					break;
@@ -258,11 +219,10 @@ function modalPopup(id) {
 	if(id == "6-2") {
 		certificateOneView();
 	}
-	if(id == "1-2") {
-		$("#uploadBtn").on("click", function() {
-			fileUpload();
-		});
-	}
+
+	$("#uploadBtn").on("click", function() {
+		fileUpload();
+	});
 }
 
 function getBriefHistory() {
@@ -459,6 +419,10 @@ function redrawEducation() {
 						html += "제적";
 					}
 					html += "</span>";
+					if(res.getEducation[i].imageAddress != undefined) {
+						var temp = res.getEducation[i].imageAddress;
+						html += "&nbsp<span class=\"imgPopover\" data-toggle=\"popover\" data-trigger=\"hover\" data-original-title=\"\" title=\"\" data-content=\"<img src='" + res.getEducation[i].imageAddress + "' width='100%' />\">📇</span>";
+					}
 					if(res.educationModDelBtn != undefined) {
 						html += "&nbsp" + res.educationModDelBtn + "";
 					}
@@ -475,6 +439,10 @@ function redrawEducation() {
 				}
 				html += "</tbody></table></div>";
 				$("#educationList").html(html);
+				
+				$(".imgPopover").popover({
+					html: true
+				});
 				
 				// 학력 수정버튼 동작
 				$(".educationModBtn").on("click", function(){
@@ -591,6 +559,7 @@ function educationAdd() {
 	} else if ($("#admissionInput").val() == null || $("#admissionInput").val() == '') {
 		alert("입학년월을 입력해주세요.");
 	} else {
+		$("#status").attr("name", "status");
 		$("#actionForm").attr("action", "educationAddAjax");
 		var params = $("#actionForm").serialize();
 		
@@ -625,6 +594,7 @@ function educationMod() {
 	} else if ($("#admissionInput").val() == null || $("#admissionInput").val() == '') {
 		alert("입학년월을 입력해주세요.");
 	} else {
+		$("#status").attr("name", "status");
 		$("#actionForm").attr("action", "educationModAjax");
 		var params = $("#actionForm").serialize();
 		
@@ -654,8 +624,6 @@ function educationMod() {
 function addSelect() {
 	switch ($("#addSelect").val()) {
 	case "2-1": educationAdd();
-		break;
-	case "2-2": alert("학력 수정");
 		break;
 	case "3-1": companyAdd();
 		break;
@@ -855,6 +823,10 @@ function redrawCareer() {
 						html += res.companyList[i].cha + "개월";
 					}
 					html += "</span>";
+					if(res.companyList[i].imageAddress != undefined) {
+						var temp = res.companyList[i].imageAddress;
+						html += "&nbsp<span class=\"imgPopover\" data-toggle=\"popover\" data-trigger=\"hover\" data-original-title=\"\" title=\"\" data-content=\"<img src='" + res.companyList[i].imageAddress + "' width='100%' />\">📇</span>";
+					}
 					if(res.companyModDelBtn != undefined) {
 						html += res.companyModDelBtn;
 					}
@@ -899,6 +871,10 @@ function redrawCareer() {
 				$(".careerDelBtn").on("click", function(){
 					$("#pickCareer").val($(this).parent().attr("data-no"));
 					modalPopup("3-6");
+				});
+				
+				$(".imgPopover").popover({
+					html: true
 				});
 				
 			} else {
@@ -1144,6 +1120,10 @@ function redrawAcademy() {
 						html += "미수료";
 					}
 					html += "</span>";
+					if(academy[i].imageAddress != undefined) {
+						var temp = academy[i].imageAddress;
+						html += "&nbsp<span class=\"imgPopover\" data-toggle=\"popover\" data-trigger=\"hover\" data-original-title=\"\" title=\"\" data-content=\"<img src='" + academy[i].imageAddress + "' width='100%' />\">📇</span>";
+					}
 					if(res.academyModDelBtn != undefined) {
 						html += res.academyModDelBtn;
 					}
@@ -1172,6 +1152,9 @@ function redrawAcademy() {
 					$("#pickAcademy").val($(this).parent().parent().attr("data-no"));
 					modalPopup("5-3");
 				});				
+				$(".imgPopover").popover({
+					html: true
+				});
 			} else {
 				modalPopup("x");
 			}
@@ -1202,6 +1185,10 @@ function redrawCertificate() {
 					} else if(res.getCertificate[i].cert_pass == false) {
 						html += "불합격";
 					}
+					if(res.getCertificate[i].imageAddress != undefined) {
+						var temp = res.getCertificate[i].imageAddress;
+						html += "&nbsp<span class=\"imgPopover\" data-toggle=\"popover\" data-trigger=\"hover\" data-original-title=\"\" title=\"\" data-content=\"<img src='" + res.getCertificate[i].imageAddress + "' width='100%' />\">📇</span>";
+					}
 					if (res.certificateModDelBtn != undefined) {
 						html += res.certificateModDelBtn; 
 					}
@@ -1228,6 +1215,9 @@ function redrawCertificate() {
 					$("#pickCertificate").val($(this).parent().parent().parent().attr("data-no"));
 					modalPopup("6-3");
 				});				
+				$(".imgPopover").popover({
+					html: true
+				});
 			} else {
 				modalPopup("x");
 			}
@@ -1241,6 +1231,7 @@ function redrawCertificate() {
 
 //교육 추가
 function academyAdd() {
+	$("#status").attr("name", "status");
 	$("#actionForm").attr("action", "academyAddAjax");
 	var params = $("#actionForm").serialize();
 	$.ajax({
@@ -1266,6 +1257,7 @@ function academyAdd() {
 
 //자격증 추가
 function certificateAdd() {
+	$("#status").attr("name", "status");
 	$("#actionForm").attr("action", "certificateAddAjax");
 	var params = $("#actionForm").serialize();
 	$.ajax({
@@ -1361,6 +1353,7 @@ function certificateOneView() {
 
 //학원 수정
 function academyMod() {
+	$("#status").attr("name", "status");
 	$("#academyNo").val($("#pickAcademy").val());
 	$("#actionForm").attr("action", "academyModAjax");
 	var params = $("#actionForm").serialize();
@@ -1386,6 +1379,7 @@ function academyMod() {
 
 //자격증 수정
 function certificateMod() {
+	$("#status").attr("name", "status");
 	$("#certificateNo").val($("#pickCertificate").val());
 	$("#actionForm").attr("action", "certificateModAjax");
 	var params = $("#actionForm").serialize();
@@ -1462,7 +1456,7 @@ function certificateDel() {
 
 // 파일 업로드
 function fileUpload() {
-	$("#actionForm").attr("enctype", "multipart/form-data");
+	$("#status").removeAttr("name");
 	$("#actionForm").attr("action", "fileUploadAjax");
 	var fileForm = $("#actionForm");
 	fileForm.ajaxForm({ 
@@ -1473,10 +1467,10 @@ function fileUpload() {
 			} else {
 				alert("저장실패");
 			} 
-		}, //ajax error
+		},
 		error: function(){
 			alert("에러발생!!"); 
 		}
-	});  // ajaxForm 할당
-	fileForm.submit(); // ajaxForm 실행
+	});
+	fileForm.submit();
 }

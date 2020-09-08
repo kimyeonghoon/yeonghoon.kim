@@ -80,7 +80,7 @@
 			   education_name AS name,
 			   education_department AS department,
 			   education_status AS status,
-			   education_upload_path AS upload_path,
+			   education_upload_path AS imageAddress,
 			   <choose>
 				   <when test="educationNo != null and educationNo != ''">
 				   	DATE_FORMAT(education_startdate, '%Y-%m-%d') AS startdate,
@@ -103,7 +103,7 @@
 	
 	<insert id="educationAdd" parameterType="hashmap">
 		INSERT INTO education(member_no, education_name, education_department, education_status, education_startdate, education_enddate, education_etc, education_upload_path)
-		VALUES (#{member_no}, #{nameInput}, #{departmentInput}, #{status}, #{admissionInput}, #{graduatedInput}, #{etcInput}, #{certificateInput})
+		VALUES (#{member_no}, #{nameInput}, #{departmentInput}, #{status}, #{admissionInput}, #{graduatedInput}, #{etcInput}, #{imageAddress})
 	</insert>
 	
 	<update id="educationDel" parameterType="hashmap">
@@ -121,20 +121,21 @@
 			 education_startdate = #{admissionInput},
 			 education_enddate = #{graduatedInput},
 			 education_etc = #{etcInput},
-			 education_upload_path = #{certificateInput}
+			 education_upload_path = #{imageAddress}
 		WHERE member_no = #{member_no}
 		AND education_no = #{educationNo}
 	</update>
 	
 	<insert id="companyAdd" parameterType="hashmap">
 		INSERT INTO company (member_no, company_name, company_startdate, company_enddate, company_upload_path)
-		VALUES (#{member_no}, #{nameInput}, #{joinInput}, #{leaveInput}, #{certificateInput})
+		VALUES (#{member_no}, #{nameInput}, #{joinInput}, #{leaveInput}, #{imageAddress})
 	</insert>
 	
 	<!-- 회사 리스트 -->
 	<select id="companyList" resultType="hashmap">
 		SELECT company_no,
 			   company_name, 
+			   company_upload_path AS imageAddress,
 			   <choose>
 				   <when test="companyNo != null and companyNo != ''">
 				   	DATE_FORMAT(company_startdate, '%Y-%m-%d') AS startdate,
@@ -158,7 +159,7 @@
 	<!-- 회사수정 -->
 	<update id="companyMod" parameterType="hashmap">
 		UPDATE company
-		SET company_name = #{nameInput}, company_startdate = #{joinInput}, company_enddate = #{leaveInput}, company_upload_path = #{certificateInput}
+		SET company_name = #{nameInput}, company_startdate = #{joinInput}, company_enddate = #{leaveInput}, company_upload_path = #{imageAddress}
 		WHERE company_no = #{companyNo}
 		AND member_no = #{member_no}
 	</update>
@@ -214,7 +215,7 @@
 				    	DATE_FORMAT(academy_enddate, '%Y.%m') AS enddate,
 				   </otherwise>
 			   </choose>
-			   academy_upload_path AS upload_path
+			   academy_upload_path AS imageAddress
 		FROM academy
 		WHERE academy_delete_yn = 1
 		AND member_no = #{member_no}
@@ -230,7 +231,7 @@
 			   certificate_name AS cert_name,
 			   certificate_organization AS cert_organization,
 			   certificate_pass_yn AS cert_pass,
-			   certificate_upload_path AS upload_path,
+			   certificate_upload_path AS imageAddress,
 			   <choose>
 				   <when test="certificateNo != null and certificateNo != ''">
 				     	DATE_FORMAT(certificate_issue_date, '%Y-%m-%d') AS cert_date
@@ -250,24 +251,24 @@
 	<!-- 교육 추가 -->
 	<insert id="academyAdd" parameterType="hashmap">
 		INSERT INTO academy (member_no, academy_course, academy_content, academy_academy, academy_startdate, academy_enddate, academy_status_yn, academy_upload_path)
-		VALUES (#{member_no}, #{curriculumInput}, #{contentInput}, #{nameInput}, #{startInput}, #{endInput}, #{status}, #{certificateInput});
+		VALUES (#{member_no}, #{curriculumInput}, #{contentInput}, #{nameInput}, #{startInput}, #{endInput}, #{status}, #{imageAddress});
 	</insert>
 	<!-- 자격증 추가 -->
 	<insert id="certificateAdd" parameterType="hashmap">
 		INSERT INTO certificate (member_no, certificate_name, certificate_organization, certificate_pass_yn, certificate_issue_date, certificate_upload_path)
-		VALUES (#{member_no}, #{nameInput}, #{certAutorityInput}, #{status}, #{dateInput}, #{certificateInput});	
+		VALUES (#{member_no}, #{nameInput}, #{certAutorityInput}, #{status}, #{dateInput}, #{imageAddress});	
 	</insert>
 	<!-- 교육 수정 -->
 	<update id="academyMod" parameterType="hashmap">
 		UPDATE academy 
-		SET academy_course = #{curriculumInput}, academy_content = #{contentInput}, academy_academy = #{nameInput}, academy_startdate = #{startInput}, academy_enddate = #{endInput}, academy_status_yn = #{status}, academy_upload_path = #{certificateInput}
+		SET academy_course = #{curriculumInput}, academy_content = #{contentInput}, academy_academy = #{nameInput}, academy_startdate = #{startInput}, academy_enddate = #{endInput}, academy_status_yn = #{status}, academy_upload_path = #{imageAddress}
 		WHERE member_no = #{member_no}
 		AND academy_no = #{academyNo}
 	</update>
 	<!-- 자격증 수정 -->
 	<update id="certificateMod" parameterType="hashmap">
 		UPDATE certificate
-		SET certificate_name = #{nameInput}, certificate_organization = #{certAutorityInput}, certificate_pass_yn = #{status}, certificate_issue_date = #{dateInput}, certificate_upload_path = #{certificateInput}
+		SET certificate_name = #{nameInput}, certificate_organization = #{certAutorityInput}, certificate_pass_yn = #{status}, certificate_issue_date = #{dateInput}, certificate_upload_path = #{imageAddress}
 		WHERE member_no = #{member_no}
 		AND certificate_no = #{certificateNo}
 	</update>

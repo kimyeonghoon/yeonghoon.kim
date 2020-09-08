@@ -36,7 +36,7 @@ public class FileUploadController {
 		// 업로드 허용 확장자 지정
 		final String uploadExt = "xls|ppt|doc|xlsx|pptx|docx|hwp|csv|jpg|jpeg|png|gif|bmp|txt|pdf";
 		// 업로드 경로
-		final String uploadPath = "resouces/upload/";
+		final String uploadPath = "C:\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
 		// fileFullName 초기화
 		String fileFullName = "";
 		
@@ -63,8 +63,6 @@ public class FileUploadController {
 				MultipartFile file = (MultipartFile) files.get(key);
 				
 				if(file.getSize() > 0) {
-					// 파일 실제 이름
-					String fileRealName = file.getOriginalFilename();
 					// 파일명 변경
 					String fileTempName = unixtime + "_" + rs.randomAlphabetic(8);
 					// 파일 확장자 추출
@@ -74,9 +72,11 @@ public class FileUploadController {
 					if (uploadExt.toLowerCase().indexOf(fileExt) < 0) {
 						throw new Exception("Not allowded file extension : " + fileExt.toLowerCase());
 					} else {
-						fileFullName = uploadPath + fileTempName.toLowerCase() + "." +fileExt;
+						fileFullName = fileTempName.toLowerCase() + "." + fileExt;
 						file.transferTo(new File(new File(uploadPath), fileFullName));
-						fileName.add(fileFullName);
+						
+						String saveName = "resources/upload/" + fileFullName;
+						fileName.add(saveName);
 					}
 				}
 			}
