@@ -9,7 +9,7 @@
 			   b.brief_history_education AS educationInput,
 			   b.brief_history_career AS careerInput,
 			   b.brief_history_certificate AS certificateInput,
-			   b.brief_history_upload_path AS imageInput
+			   b.brief_history_upload_path AS imageAddress
 		
 		FROM member m INNER JOIN brief_history b
 						  	  ON m.member_no = b.member_no
@@ -27,7 +27,7 @@
 		SET brief_history_education = #{educationInput},
 			brief_history_career = #{careerInput},
 			brief_history_certificate = #{certificateInput},
-			brief_history_upload_path = #{imageInput}
+			brief_history_upload_path = #{imageAddress}
 		WHERE member_no = 1
 		;
 	</update>

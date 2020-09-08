@@ -78,7 +78,8 @@ public class ProfileController {
 	public String getBriefHistoryAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-
+		
+		System.out.println(params);
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		params.put("member_no", currentUser);
 		

@@ -17,6 +17,8 @@
 <script src="resources/jquery/jquery-ui.js"></script>
 <!-- jQuery UI CSS -->
 <link rel="stylesheet" href="resources/jquery/jquery-ui.css">
+<!-- jQuery Form -->
+<script src="resources/jquery/jquery.form.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	loginStatusMenu('${sMember_no}');

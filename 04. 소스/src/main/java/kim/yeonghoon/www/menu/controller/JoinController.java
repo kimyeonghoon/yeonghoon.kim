@@ -58,6 +58,8 @@ public class JoinController {
 		// 전화번호 합치기
 		String telephone = params.get("telFirstNo") + params.get("telNo");
 		params.put("telephone", telephone);
+		
+		System.out.println(params);
 
 		// 패스워드 암호화
 		params.put("passwordInput", pwEncoder.encode(params.get("passwordInput")));

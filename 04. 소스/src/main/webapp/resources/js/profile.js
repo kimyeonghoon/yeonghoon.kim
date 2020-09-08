@@ -150,7 +150,7 @@ function modalPopup(id) {
 	html += "<form action=\"#\" method=\"post\" id=\"actionForm\">"
 	html += "<div class=\"modal-body\">";
 	switch (id) {
-		case "1-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"1-2\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">이름</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">생년</span></div><input type=\"number\" class=\"form-control\" id=\"yearInput\" name=\"yearInput\" maxlength=\"4\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">주소</span></div><input type=\"text\" class=\"form-control\" id=\"addressInput\" name=\"addressInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학력</span></div><input type=\"text\" class=\"form-control\" id=\"educationInput\" name=\"educationInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">경력</span></div><input type=\"text\" class=\"form-control\" id=\"careerInput\" name=\"careerInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격</span></div><input type=\"text\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">사진</span></div><input type=\"file\" class=\"form-control\" id=\"imageInput\" name=\"imageInput\"></div>";
+		case "1-2": html += "<input type=\"hidden\" id=\"modSelect\" value=\"1-2\" /><input type=\"hidden\" id=\"imageAddress\" name=\"imageAddress\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">이름</span></div><input type=\"text\" class=\"form-control\" id=\"nameInput\" name=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">생년</span></div><input type=\"number\" class=\"form-control\" id=\"yearInput\" name=\"yearInput\" maxlength=\"4\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">주소</span></div><input type=\"text\" class=\"form-control\" id=\"addressInput\" name=\"addressInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학력</span></div><input type=\"text\" class=\"form-control\" id=\"educationInput\" name=\"educationInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">경력</span></div><input type=\"text\" class=\"form-control\" id=\"careerInput\" name=\"careerInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">자격</span></div><input type=\"text\" class=\"form-control\" id=\"certificateInput\" name=\"certificateInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">사진</span></div><input type=\"file\" accept=\"image/*\" class=\"form-control\" id=\"imageInput\" name=\"imageInput\"><div id=\"uploadBtn\" class=\"btn bg-primary text-light\">업로드</div></div>";
 				  break;
 		case "2-1": html += "<input type=\"hidden\" id=\"addSelect\" value=\"2-1\" /><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학교명</span></div><input type=\"text\" class=\"form-control\" name=\"nameInput\" id=\"nameInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">학과명</span></div><input type=\"text\" class=\"form-control\" name=\"departmentInput\" id=\"departmentInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">상태</span></div><select class=\"form-control\" name=\"status\" id=\"status\"><option value=\"0\">상태 선택</option><option value=\"1\">졸업</option><option value=\"2\">수료</option><option value=\"3\">재적</option><option value=\"4\">퇴학</option></select></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">입학년월</span></div><input type=\"text\" class=\"form-control\" name=\"admissionInput\" id=\"admissionInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">졸업년월</span></div><input type=\"text\" class=\"form-control\" name=\"graduatedInput\" id=\"graduatedInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">기타사항</span></div><input type=\"text\" class=\"form-control\" name=\"etcInput\" id=\"etcInput\"></div><div class=\"input-group\"><div class=\"input-group-prepend\"><span class=\"input-group-text\">증명서류</span></div><input type=\"file\" class=\"form-control\" name=\"certificateInput\" id=\"certificateInput\"></div>";
 				  break;
@@ -258,6 +258,11 @@ function modalPopup(id) {
 	if(id == "6-2") {
 		certificateOneView();
 	}
+	if(id == "1-2") {
+		$("#uploadBtn").on("click", function() {
+			fileUpload();
+		});
+	}
 }
 
 function getBriefHistory() {
@@ -329,7 +334,7 @@ function redrawBriefHistory() {
 				if(res.modBtn != undefined) {
 					html += res.modBtn;
 				}
-				html += "<img src=\"../image/img_avatar1.png\" style=\"width: 150px; height: 180px;\">";
+				html += "<img src=\"" + res.briefHistory.imageAddress + "\" style=\"width: 150px; height: 180px;\">";
 				html += "</div><p class=\"text-center font-weight-bold pt-3\">";
 				html += res.briefHistory.nameInput + "(" + res.briefHistory.yearInput + "년생, 34세)</p>";
 				html += "<table class=\"table table-borderless table-sm d-flex justify-content-center\">";
@@ -1453,4 +1458,25 @@ function certificateDel() {
 			console.log("error : " + error);
 		}			
 	});
+}
+
+// 파일 업로드
+function fileUpload() {
+	$("#actionForm").attr("enctype", "multipart/form-data");
+	$("#actionForm").attr("action", "fileUploadAjax");
+	var fileForm = $("#actionForm");
+	fileForm.ajaxForm({ 
+		success: function(res){
+			if(res.result =="success"){
+				$("#imageAddress").val(res.fileName[0]);
+				alert("업로드가 완료되었습니다.");
+			} else {
+				alert("저장실패");
+			} 
+		}, //ajax error
+		error: function(){
+			alert("에러발생!!"); 
+		}
+	});  // ajaxForm 할당
+	fileForm.submit(); // ajaxForm 실행
 }

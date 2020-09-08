@@ -42,6 +42,7 @@ function validateCheck() {
 		$("[name='popupCheck']").val("11");
 		modalPopup();
 	} else {
+		$("#addressInput").removeAttr("disabled");
 		$("#joinCheck").attr("action", "addUser");
 		addUser();
 	}
@@ -142,6 +143,7 @@ function emailCheck() {
 // 회원가입 AJAX
 function addUser() {
 	var params = $("#joinCheck").serialize();
+	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "addUserAjax", 
