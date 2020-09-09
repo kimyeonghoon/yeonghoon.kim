@@ -26,7 +26,7 @@
 						<a href="portpolio2.html" class="dropdown-item">[개인프로젝트] yeonghoon.kim</a>
 					</div>
 				<li class="nav-item">
-					<a href="board.html" class="nav-link">게시판</a>
+					<a href="board" class="nav-link">게시판</a>
 				</li>
 				<li class="nav-item">
 					<a href="gallary.html" class="nav-link">갤러리</a>
