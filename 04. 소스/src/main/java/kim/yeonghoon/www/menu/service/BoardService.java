@@ -25,6 +25,11 @@ public class BoardService implements IBoardService {
 		return iBoardDao.getBoardListCnt();
 	}
 
+	@Override
+	public HashMap<String, String> getBoardContent(HashMap<String, String> params) throws Throwable {
+		return iBoardDao.getBoardContent(params);
+	}
+
 
 	
 }

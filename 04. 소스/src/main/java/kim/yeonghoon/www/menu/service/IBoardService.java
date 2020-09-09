@@ -9,6 +9,8 @@ public interface IBoardService {
 
 	public int getBoardListCnt() throws Throwable;
 
+	public HashMap<String, String> getBoardContent(HashMap<String, String> params) throws Throwable;
+
 
 
 }

@@ -99,8 +99,7 @@ function modalPopup() {
 	html += "</div>";
 	html += "</div>";
 	html += "</div>";
-	$("#contentsArea").prepend(html);
-	$("#notifyModal").modal("show");
+	$("#boardDetail").prepend(html);
 }
 
 // 다음 주소 API

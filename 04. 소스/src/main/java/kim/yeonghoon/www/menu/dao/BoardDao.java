@@ -24,5 +24,10 @@ public class BoardDao implements IBoardDao {
 		return sqlSession.selectOne("board.getBoardListCnt");
 	}
 
+	@Override
+	public HashMap<String, String> getBoardContent(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("board.getBoardContent", params);
+	}
+
 	
 }

@@ -31,6 +31,14 @@ public class BoardController {
 		
 		return mav;
 	}
+
+	@RequestMapping(value = "/boardDetail")
+	public ModelAndView boardDetail(ModelAndView mav, HttpSession session) {
+		
+		mav.setViewName("boardDetail");
+		
+		return mav;
+	}
 	
 	@RequestMapping(value = "getBoardListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -68,6 +76,24 @@ public class BoardController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "getBoardContentAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String getBoardContentAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		try {
+			HashMap<String,String> getBoardContent = iBoardService.getBoardContent(params);
+			modelMap.put("getBoardContent", getBoardContent);
+			modelMap.put("result", "success");
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 

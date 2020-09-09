@@ -17,6 +17,17 @@ function redrawList() {
 					html += "</tr>";
 				}
 				$("#boardList").html(html);
+				
+				$("#boardList > tr").on("click", function() {
+					if($(this).attr("data-bNo") != null) {
+						$("#boardNo").val($(this).attr("data-bNo"));
+						$("#actionForm").attr("action", "boardDetail");
+						$("#actionForm").submit();
+					} else {
+						return false;
+					}
+				});
+				
 			} else if(res.result == "fail") {
 				alert("error");
 			}
@@ -35,13 +46,13 @@ function redrawListCnt() {
 		url : "getBoardListCntAjax", 
 		dataType : "json",
 		success : function(res) {
+			var html = "";
 			if(res.result == "success") {
-				var html = "";
 				html += " - " + res.getBoardListCnt + "개";
-				$("#boardListCnt").prepend(html);
 			} else if(res.result == "fail") {
-				alert("총 게시글 수를 불러올 수 없습니다.");
+				html += "게시글이 존재하지 않습니다.";
 			}
+			$("#boardListCnt").prepend(html);
 		},
 		error : function(request, status, error) {
 			console.log("text : " + request.responseTxt);

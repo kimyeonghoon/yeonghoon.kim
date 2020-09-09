@@ -10,6 +10,7 @@
 		FROM board_content b INNER JOIN member m
 									 ON b.member_no = m.member_no
 		WHERE b.board_no = 1
+		AND board_content_del_time IS NULL
 		ORDER BY board_content_no DESC
 	</select>
 	<select id="getBoardListCnt" parameterType="hashmap" resultType="Integer">
@@ -17,5 +18,15 @@
 		FROM board_content
 		WHERE board_no = 1
 		AND board_content_del_time IS NULL
+	</select>
+	<select id="getBoardContent" parameterType="hashmap" resultType="hashmap">
+		SELECT m.member_name AS member_name,
+			   DATE_FORMAT(b.board_content_reg_time, '%Y-%m-%d %H:%m:%s')AS reg_time,
+			   b.board_content_name AS content_name,
+			   b.board_content_detail AS content_detail
+		FROM board_content b INNER JOIN (SELECT member_no, member_name
+										 FROM member) AS m
+									 ON b.member_no = m.member_no
+		WHERE b.board_content_no = #{boardNo}
 	</select>
 </mapper>
