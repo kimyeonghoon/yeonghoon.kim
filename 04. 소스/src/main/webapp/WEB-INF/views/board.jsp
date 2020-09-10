@@ -21,7 +21,7 @@
 		redrawListCnt();
 		// 등록 버튼 클릭 이벤트
 		$("#addBtn").on("click", function() {
-			location.href="board_add.html";
+			location.href="boardAdd";
 		});
 	});
 </script>
@@ -56,11 +56,11 @@
 		</div>
 		<table class="table table-hover text-center table-sm">
 			<colgroup class="d-none">
-				<col class="d-xl-table-cell" width="20%"></col>
+				<col class="d-xl-table-cell" width="10%"></col>
 				<col width="*"></col>
-				<col class="d-xl-table-cell" width="20%"></col>
+				<col class="d-xl-table-cell" width="10%"></col>
 				<col width="10%"></col>
-				<col class="d-xl-table-cell" width="20%"></col>
+				<col class="d-xl-table-cell" width="10%"></col>
 			</colgroup>
 			<thead class="thead-light">
 				<tr>
@@ -76,7 +76,7 @@
 		</table>
 		<div>
 			<div>
-				<div id="addBtn" class="btn btn-secondary d-inline-block float-right">등록</div>
+				${addBtn}
 				<ul class="pagination justify-content-center">
 					<li class="page-item disabled"><a class="page-link" href="http://google.com">이전</a></li>
 					<li class="page-item"><a class="page-link" href="#">1</a></li>

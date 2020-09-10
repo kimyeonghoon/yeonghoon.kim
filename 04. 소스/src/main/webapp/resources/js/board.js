@@ -10,7 +10,11 @@ function redrawList() {
 				for(var i = 0; i < res.boardList.length; i++) {
 					html += "<tr data-bNo=" + res.boardList[i].content_no + ">";
 					html += "<td class=\"d-none d-xl-table-cell\">" + res.boardList[i].content_no + "</td>";
-					html += "<td class=\"text-left\">" + res.boardList[i].content_name + "</td>";
+					html += "<td class=\"text-left\">" + res.boardList[i].content_name;
+					if(res.boardList[i].commentCnt != undefined) {
+						html += " [<b>" + res.boardList[i].commentCnt + "</b>]";
+					}
+					html += "</td>";
 					html += "<td class=\"d-none d-xl-table-cell\">" + res.boardList[i].member_name + "</td>";
 					html += "<td>" + res.boardList[i].reg_time + "</td>";
 					html += "<td class=\"d-none d-xl-table-cell\">" + res.boardList[i].hit + "</td>";

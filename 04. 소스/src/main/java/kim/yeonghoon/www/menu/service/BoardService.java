@@ -30,6 +30,31 @@ public class BoardService implements IBoardService {
 		return iBoardDao.getBoardContent(params);
 	}
 
+	@Override
+	public void boardContentHit(HashMap<String, String> params) throws Throwable {
+		iBoardDao.boardContentHit(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getComment(HashMap<String, String> params) throws Throwable {
+		return iBoardDao.getComment(params);
+	}
+
+	@Override
+	public int commentAdd(HashMap<String, String> params) throws Throwable {
+		return iBoardDao.commentAdd(params);
+	}
+
+	@Override
+	public int commentDel(HashMap<String, String> params) throws Throwable {
+		return iBoardDao.commentDel(params);
+	}
+
+	@Override
+	public int commentMod(HashMap<String, String> params) throws Throwable {
+		return iBoardDao.commentMod(params);
+	}
+
 
 	
 }

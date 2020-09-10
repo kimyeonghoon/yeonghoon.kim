@@ -29,5 +29,30 @@ public class BoardDao implements IBoardDao {
 		return sqlSession.selectOne("board.getBoardContent", params);
 	}
 
+	@Override
+	public void boardContentHit(HashMap<String, String> params) throws Throwable {
+		sqlSession.update("board.boardContentHit",params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getComment(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("board.getComment", params);
+	}
+
+	@Override
+	public int commentAdd(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("board.commentAdd", params);
+	}
+
+	@Override
+	public int commentDel(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("board.commentDel",params);
+	}
+
+	@Override
+	public int commentMod(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("board.commentMod",params);
+	}
+
 	
 }

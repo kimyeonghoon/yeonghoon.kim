@@ -25,16 +25,23 @@ public class BoardController {
 	IBoardService iBoardService;
 	
 	@RequestMapping(value = "/board")
-	public ModelAndView board(ModelAndView mav, HttpSession session) {
-		
-		mav.setViewName("board");
-		
+	public ModelAndView board(@RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		if(currentUser.equals("1")) {
+			mav.addObject("addBtn", "<div id='addBtn' class='btn btn-secondary d-inline-block float-right'>등록</div>");
+		}
 		return mav;
 	}
 
 	@RequestMapping(value = "/boardDetail")
-	public ModelAndView boardDetail(ModelAndView mav, HttpSession session) {
+	public ModelAndView boardDetail(@RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {
 		
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		if(params.get("userNo").equals(currentUser)) {
+			mav.addObject("modBtn", "<div class='btn btn-secondary  float-right mr-2' style='display: inline-block;' id='modifyBtn'>수정</div>");
+			mav.addObject("delBtn", "<div class='btn btn-secondary  float-right' style='display: inline-block;' id='deleteBtn'>삭제</div>");
+		}
+
 		mav.setViewName("boardDetail");
 		
 		return mav;
@@ -87,6 +94,8 @@ public class BoardController {
 		
 		try {
 			HashMap<String,String> getBoardContent = iBoardService.getBoardContent(params);
+			iBoardService.boardContentHit(params);
+			
 			modelMap.put("getBoardContent", getBoardContent);
 			modelMap.put("result", "success");
 		} catch (Throwable e) {
@@ -96,5 +105,111 @@ public class BoardController {
 		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
+	
+	@RequestMapping(value = "getCommentAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String getCommentAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		try {
+			List<HashMap<String,String>> getComment = iBoardService.getComment(params);
+			modelMap.put("getComment", getComment);
+			modelMap.put("result", "success");
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
 
+	@RequestMapping(value = "commentAddAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String commentAddAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		
+		try {
+			if(currentUser.equals(params.get("userNo"))) {
+				int commentAdd = iBoardService.commentAdd(params);
+				if(commentAdd > 0) {
+					modelMap.put("result", "success");
+				} else {
+					modelMap.put("result", "fail");
+				}
+			} else {
+				session.invalidate();
+				params.put("userNo", null);
+				modelMap.put("result", "abnormal");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "commentDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String commentDelAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		System.out.println(params);
+		
+		try {
+			if(currentUser.equals(params.get("uNo"))) {
+				int commentDel = iBoardService.commentDel(params);
+				if(commentDel > 0) {
+					modelMap.put("result", "success");
+				} else {
+					modelMap.put("result", "fail");
+				}
+			} else {
+				session.invalidate();
+				modelMap.put("result", "abnormal");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "commentModAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String commentModAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		
+		System.out.println(params);
+		
+		try {
+			if(currentUser.equals(params.get("uNo"))) {
+				int commentMod = iBoardService.commentMod(params);
+				if(commentMod > 0) {
+					modelMap.put("result", "success");
+				} else {
+					modelMap.put("result", "fail");
+				}
+			} else {
+				session.invalidate();
+				modelMap.put("result", "abnormal");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 }
