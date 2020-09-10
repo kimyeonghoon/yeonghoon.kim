@@ -17,6 +17,14 @@ function redrawContent() {
 				html += res.getBoardContent.member_name;
 				html += "</td></tr><tr class=\"table-secondary\"><td class=\"font-weight-bold text-center\">제목</td><td>";
 				html += res.getBoardContent.content_name;
+				if(res.getBoardContent.path1 != undefined) {
+					html += "</td></tr><tr class=\"table-secondary\"><td class=\"font-weight-bold text-center\">첨부파일#1</td><td>";
+					html += "<a href=\"" + res.getBoardContent.path1 + "\" + >" + res.getBoardContent.origianl_name1 + "</a>";
+				}
+				if(res.getBoardContent.path2 != undefined) {
+					html += "</td></tr><tr class=\"table-secondary\"><td class=\"font-weight-bold text-center\">첨부파일#2</td><td>";
+					html += "<a href=\"" + res.getBoardContent.path2 + "\" + >" + res.getBoardContent.origianl_name2 + "</a>";
+				}
 				html += "</td></tr><tr><td class=\"p-3\" colspan=\"2\"><div class=\"row\"><div class=\"col-sm-1\"></div><div class=\"col-sm-10 pt-5 pb-5\" >";
 				html += res.getBoardContent.content_detail;
 				html += "</div><div class=\"col-sm-1\"></div></div></td></tr>";

@@ -1,6 +1,7 @@
 package kim.yeonghoon.www.utils.controller;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -9,17 +10,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -34,7 +36,7 @@ public class FileUploadController {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		
 		// 업로드 허용 확장자 지정
-		final String uploadExt = "xls|ppt|doc|xlsx|pptx|docx|hwp|csv|jpg|jpeg|png|gif|bmp|txt|pdf";
+		final String uploadExt = "zip|xls|ppt|doc|xlsx|pptx|docx|hwp|csv|jpg|jpeg|png|gif|bmp|txt|pdf";
 		// 업로드 경로
 		final String uploadPath = "C:\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
 		// fileFullName 초기화
@@ -52,6 +54,7 @@ public class FileUploadController {
 		
 		// 파일이 여러 개 들어올 수 있어서 리스트로 담음
 		List<String> fileName = new ArrayList<String>();
+		List<String> originalName = new ArrayList<String>();
 		
 		try {
 			@SuppressWarnings("rawtypes")
@@ -72,11 +75,13 @@ public class FileUploadController {
 					if (uploadExt.toLowerCase().indexOf(fileExt) < 0) {
 						throw new Exception("Not allowded file extension : " + fileExt.toLowerCase());
 					} else {
+						String originalFileName = file.getOriginalFilename();
 						fileFullName = fileTempName.toLowerCase() + "." + fileExt;
 						file.transferTo(new File(new File(uploadPath), fileFullName));
 						
 						String saveName = "resources/upload/" + fileFullName;
 						fileName.add(saveName);
+						originalName.add(originalFileName);
 					}
 				}
 			}
@@ -87,8 +92,73 @@ public class FileUploadController {
 		}
 		
 		modelMap.put("fileName", fileName);
+		modelMap.put("originalName", originalName);
 	
 		return mapper.writeValueAsString(modelMap);
+	}
+	
+	// ck editor 이미지 업로드용
+	@RequestMapping(value = "/imageUpload", method = RequestMethod.POST)
+	public void editorImageUpload(HttpServletRequest request, HttpServletResponse response,
+		@RequestParam MultipartFile upload, ModelAndView modelAndView) throws Throwable {
+		PrintWriter printWriter = null;
+		Calendar c =  Calendar.getInstance();
+		Long unixtime = c.getTimeInMillis() / 1000;
+		RandomStringUtils rs = new RandomStringUtils();
+		
+		try {
+			String uploadExts = "jpg|jpeg|png|gif|bmp"; // 확장자
+			String uploadPath = "C:\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
+			String fileFullName = "";
+
+			File fileDir = new File(uploadPath);
+
+			if (!fileDir.exists()) {
+				fileDir.mkdirs(); // 디렉토리가 존재하지 않는다면 생성
+			}
+
+			if (upload.getSize() > 0) {
+				String fileTempName = unixtime + "_" + rs.randomAlphabetic(8);
+				String fileExt = FilenameUtils.getExtension(upload.getOriginalFilename()).toLowerCase(); // 파일
+
+				if (uploadExts.toLowerCase().indexOf(fileExt) >= 0) {
+					fileFullName = fileTempName.toLowerCase() + "." + fileExt;
+					upload.transferTo(new File(fileDir, fileFullName));
+
+				} else {
+					// 파일 확장자가 틀릴 경우
+					printWriter = response.getWriter();
+
+					printWriter.println("<script type='text/javascript'>alert('파일 확장자가 지원을 하지 않습니다.');</script>");
+					printWriter.flush();
+					printWriter.close();
+				}
+
+				// 성공 시
+				String callback = request.getParameter("CKEditorFuncNum");
+
+				printWriter = response.getWriter();
+
+				printWriter.println("<script type='text/javascript'>" + "window.parent.CKEDITOR.tools.callFunction("
+						+ callback + ",'" + "resources/upload/" + fileFullName + "','이미지를 업로드 하였습니다.'" + ")</script>");
+				printWriter.flush();
+				printWriter.close();
+
+			} else {
+				// 파일 크기가 0이거나 없는 경우
+				printWriter = response.getWriter();
+
+				printWriter.println("<script type='text/javascript'>alert('파일 업로드에 실패하였습니다.');</script>");
+				printWriter.flush();
+				printWriter.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (printWriter != null) {
+				printWriter.close();
+			}
+		}
 	}
 
 }

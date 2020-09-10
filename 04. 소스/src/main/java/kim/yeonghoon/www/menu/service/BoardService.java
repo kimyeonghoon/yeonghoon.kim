@@ -55,6 +55,16 @@ public class BoardService implements IBoardService {
 		return iBoardDao.commentMod(params);
 	}
 
+	@Override
+	public int boardAdd(HashMap<String, String> params) throws Throwable {
+		return iBoardDao.boardAdd(params);
+	}
+
+	@Override
+	public int getBoardContentNo() throws Throwable {
+		return iBoardDao.getBoardContentNo();
+	}
+
 
 	
 }

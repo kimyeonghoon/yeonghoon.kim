@@ -54,5 +54,16 @@ public class BoardDao implements IBoardDao {
 		return sqlSession.update("board.commentMod",params);
 	}
 
+	@Override
+	public int boardAdd(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("board.boardAdd", params);
+	}
+
+	@Override
+	public int getBoardContentNo() throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("board.getBoardContentNo");
+	}
+
 	
 }

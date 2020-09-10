@@ -21,6 +21,10 @@ public interface IBoardService {
 
 	public int commentMod(HashMap<String, String> params) throws Throwable;
 
+	public int boardAdd(HashMap<String, String> params) throws Throwable;
+
+	public int getBoardContentNo() throws Throwable;
+
 
 
 }

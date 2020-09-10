@@ -37,8 +37,12 @@
 			location.href="board.html";
 		});
 	});
-
 </script>
+<style type="text/css">
+a {
+	color: black;
+}
+</style>
 </head>
 <body>
 <!-- nav 영역 -->

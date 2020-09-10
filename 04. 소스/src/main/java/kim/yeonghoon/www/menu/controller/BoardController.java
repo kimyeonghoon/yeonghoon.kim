@@ -32,6 +32,59 @@ public class BoardController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value = "/boardAdd")
+	public ModelAndView board(ModelAndView mav, HttpSession session) {
+	
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		String currentUserName = String.valueOf(session.getAttribute("sMember_name"));
+		
+		if(!currentUser.equals("1")) {
+			mav.setViewName("redirect:/board");
+		} else {
+			mav.addObject("member_no", currentUser);
+			mav.addObject("member_name", currentUserName);
+			mav.setViewName("boardAdd");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value = "boardAddAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String boardAddAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		params.put("boardNo", "1");
+		
+		if(params.get("attach1") == "") {
+			params.put("attach1", null);
+		}
+		if(params.get("attach2") == "") {
+			params.put("attach2", null);
+		}
+		if(params.get("originalName1") == "") {
+			params.put("originalName1", null);
+		}
+		if(params.get("originalName1") == "") {
+			params.put("originalName2", null);
+		}
+		
+		System.out.println(params);
+		
+		try {
+			int getBoardContentNo = iBoardService.getBoardContentNo();
+			params.put("autoIncrement", Integer.toString(getBoardContentNo));
+			int boardAddCnt = iBoardService.boardAdd(params);
+			modelMap.put("boardAddCnt", boardAddCnt);
+			modelMap.put("result", "success");
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		return mapper.writeValueAsString(modelMap);
+	}
+
 
 	@RequestMapping(value = "/boardDetail")
 	public ModelAndView boardDetail(@RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {

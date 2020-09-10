@@ -26,13 +26,21 @@
 		AND board_content_del_time IS NULL
 	</select>
 	<select id="getBoardContent" parameterType="hashmap" resultType="hashmap">
-		SELECT m.member_name AS member_name,
+SELECT m.member_name AS member_name,
 			   DATE_FORMAT(b.board_content_reg_time, '%Y-%m-%d %H:%m:%s') AS reg_time,
 			   b.board_content_name AS content_name,
-			   b.board_content_detail AS content_detail
+			   b.board_content_detail AS content_detail,
+			   c.path1,
+			   c.path2,
+			   c.origianl_name1,
+			   c.origianl_name2
 		FROM board_content b INNER JOIN (SELECT member_no, member_name
 										 FROM member) AS m
-									 ON b.member_no = m.member_no
+									     ON b.member_no = m.member_no
+						LEFT OUTER JOIN (SELECT board_content_file_path1 AS path1, board_content_file_path2 AS path2, board_content_file_name1 AS origianl_name1, board_content_file_name2 AS origianl_name2, board_content_no
+							 			 FROM board_content_file
+							 			 WHERE board_content_no = #{boardNo}) AS c
+							 		 ON 1 = 1
 		WHERE b.board_content_no = #{boardNo}
 	</select>
 	<update id="boardContentHit" parameterType="hashmap">
@@ -78,5 +86,20 @@
 		AND comment_no = #{coNo}
 		AND member_no = #{uNo}
 	</update>
+	
+	<select id="getBoardContentNo" resultType="Integer">
+		SELECT AUTO_INCREMENT AS autoIncrement
+		FROM information_schema.tables
+		WHERE table_name = 'board_content'
+		AND table_schema = DATABASE()
+	</select>
+	<insert id="boardAdd" parameterType="hashmap">
+		INSERT INTO board_content (board_no, member_no, board_content_name, board_content_detail, board_content_reg_time)
+		VALUES (#{boardNo}, #{userNo}, #{contentName}, #{contentDetail}, NOW())
+		;
+		INSERT INTO board_content_file (board_content_no, board_content_file_path1, board_content_file_path2, board_content_file_name1, board_content_file_name2)
+		VALUES (#{autoIncrement}, #{attach1}, #{attach2}, #{attachOriginal1}, #{attachOriginal2})
+		;
+	</insert>
 	
 </mapper>
