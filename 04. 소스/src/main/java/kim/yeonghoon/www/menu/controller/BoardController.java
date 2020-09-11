@@ -34,7 +34,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/boardAdd")
-	public ModelAndView board(ModelAndView mav, HttpSession session) {
+	public ModelAndView boardAdd(ModelAndView mav, HttpSession session) {
 	
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		String currentUserName = String.valueOf(session.getAttribute("sMember_name"));
@@ -45,6 +45,33 @@ public class BoardController {
 			mav.addObject("member_no", currentUser);
 			mav.addObject("member_name", currentUserName);
 			mav.setViewName("boardAdd");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value = "/boardMod")
+	public ModelAndView boardMod(@RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {
+		
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		
+		params.put("boardNo", params.get("bNo"));
+		
+		if(!currentUser.equals("1")) {
+			mav.setViewName("redirect:/board");
+		} else {
+			
+			try {
+				HashMap<String, String> contentMap = iBoardService.getBoardContent(params);
+				mav.addAllObjects(contentMap);
+				
+				System.out.println(contentMap);
+				mav.setViewName("boardMod");
+				
+			} catch (Throwable e) {
+				e.printStackTrace();
+				mav.setViewName("redirect:/board");
+			}
+
 		}
 		return mav;
 	}
@@ -66,7 +93,7 @@ public class BoardController {
 		if(params.get("originalName1") == "") {
 			params.put("originalName1", null);
 		}
-		if(params.get("originalName1") == "") {
+		if(params.get("originalName2") == "") {
 			params.put("originalName2", null);
 		}
 		
@@ -90,7 +117,11 @@ public class BoardController {
 	public ModelAndView boardDetail(@RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {
 		
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
-		if(params.get("userNo").equals(currentUser)) {
+		System.out.println(params.get("authNo"));
+		System.out.println(currentUser);
+		System.out.println(currentUser.equals(params.get("authNo")));
+		
+		if(currentUser.equals(params.get("authNo"))) {
 			mav.addObject("modBtn", "<div class='btn btn-secondary  float-right mr-2' style='display: inline-block;' id='modifyBtn'>수정</div>");
 			mav.addObject("delBtn", "<div class='btn btn-secondary  float-right' style='display: inline-block;' id='deleteBtn'>삭제</div>");
 		}
@@ -262,6 +293,74 @@ public class BoardController {
 			modelMap.put("result", "fail");
 		}
 		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "contentDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String contentDelAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
+		
+		try {
+			if(currentUser.equals(params.get("uNo"))) {
+				int contentDel = iBoardService.contentDel(params);
+				if(contentDel > 0) {
+					modelMap.put("result", "success");
+				} else {
+					modelMap.put("result", "fail");
+				}
+			} else {
+				session.invalidate();
+				modelMap.put("result", "abnormal");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
+		System.out.println(mapper.writeValueAsString(modelMap));
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "boardModAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String boardModAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		if(params.get("attach1") == "") {
+			params.put("attach1", null);
+		}
+		if(params.get("attach2") == "") {
+			params.put("attach2", null);
+		}
+		if(params.get("originalName1") == "") {
+			params.put("originalName1", null);
+		}
+		if(params.get("originalName2") == "") {
+			params.put("originalName2", null);
+		}
+		
+		
+		try {
+			int contentFileCheck = iBoardService.contentFileCheck(params);
+			params.put("contentFileCheck", Integer.toString(contentFileCheck));
+			System.out.println("contentFileCheck : " + params);
+			
+			int boardModCnt = iBoardService.boardMod(params);
+			
+			if(boardModCnt > 0) {
+				modelMap.put("result", "success");
+			} else {
+				modelMap.put("result", "error");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("result", "fail");
+		}
 		return mapper.writeValueAsString(modelMap);
 	}
 	

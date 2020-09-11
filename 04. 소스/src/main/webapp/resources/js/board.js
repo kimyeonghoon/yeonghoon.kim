@@ -8,7 +8,7 @@ function redrawList() {
 			if(res.result == "success") {
 				var html = "";
 				for(var i = 0; i < res.boardList.length; i++) {
-					html += "<tr data-bNo=" + res.boardList[i].content_no + ">";
+					html += "<tr data-bNo=\"" + res.boardList[i].content_no + "\"data-authNo=\"" + res.boardList[i].auth_no + "\">";
 					html += "<td class=\"d-none d-xl-table-cell\">" + res.boardList[i].content_no + "</td>";
 					html += "<td class=\"text-left\">" + res.boardList[i].content_name;
 					if(res.boardList[i].commentCnt != undefined) {
@@ -25,6 +25,7 @@ function redrawList() {
 				$("#boardList > tr").on("click", function() {
 					if($(this).attr("data-bNo") != null) {
 						$("#boardNo").val($(this).attr("data-bNo"));
+						$("#authNo").val($(this).attr("data-authNo"));
 						$("#actionForm").attr("action", "boardDetail");
 						$("#actionForm").submit();
 					} else {

@@ -61,8 +61,27 @@ public class BoardDao implements IBoardDao {
 
 	@Override
 	public int getBoardContentNo() throws Throwable {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("board.getBoardContentNo");
+	}
+
+	@Override
+	public int contentDel(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("board.contentDel", params);
+	}
+
+	@Override
+	public int boardMod(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("board.boardMod", params);
+	}
+
+	@Override
+	public int contentFileNew(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("board.contentFileNew", params);
+	}
+
+	@Override
+	public int contentFileCheck(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("board.contentFileCheck", params);
 	}
 
 	

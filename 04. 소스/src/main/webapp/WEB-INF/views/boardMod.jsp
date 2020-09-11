@@ -14,7 +14,7 @@
 <!-- ckeditor Form -->
 <script src="resources/ckeditor/ckeditor.js"></script>
 <!-- boardAdd js -->
-<script src="resources/js/boardAdd.js"></script>
+<script src="resources/js/boardMod.js"></script>
 <!-- jQuery Form -->
 <script src="resources/jquery/jquery.form.js"></script>
 <script type="text/javascript">
@@ -31,9 +31,9 @@
 			});
 			
 			// 등록 버튼 클릭 이벤트
-			$("#addBtn").on("click", function() {
+			$("#modBtn").on("click", function() {
 				$("#contentDetail").val(CKEDITOR.instances['contentDetail'].getData());
-				boardAdd();
+				boardMod();
 			});
 			// 파일 업로드 버튼 클릭 이벤트
 			$("#fileUpload").on("click", function() {
@@ -55,10 +55,11 @@
 <div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area">
 	<form action="#" method="post" id="actionForm" enctype="multipart/form-data">
 		<input type="hidden" id="userNo" name="userNo" value="${member_no}">
-		<input type="hidden" id="attach1" name="attach1">
-		<input type="hidden" id="attach2" name="attach2">
-		<input type="hidden" id="attachOriginal1" name="attachOriginal1">
-		<input type="hidden" id="attachOriginal2" name="attachOriginal2">
+		<input type="hidden" id="boardNo" name="boardNo" value="${boardNo}">
+		<input type="hidden" id="attach1" name="attach1" value="${path1}">
+		<input type="hidden" id="attach2" name="attach2" value="${path2}">
+		<input type="hidden" id="attachOriginal1" name="attachOriginal1" value="${origianl_name1}">
+		<input type="hidden" id="attachOriginal2" name="attachOriginal2" value="${origianl_name2}">
 		
 		<table class="table table-sm table-borderless border">
 			<colgroup>
@@ -72,15 +73,21 @@
 				</tr>
 				<tr>
 					<td class="font-weight-bold">제목</td>
-					<td><input type="text" name="contentName" class="form-control"></td>
+					<td><input type="text" name="contentName" class="form-control" value="${content_name}"></td>
 				</tr>
 				<tr class="table-secondary">
 					<td class="p-3" colspan="2">
-						<textarea id="contentDetail" name="contentDetail"></textarea>					
+						<textarea id="contentDetail" name="contentDetail">${content_detail}</textarea>					
 					</td>
 				</tr>
 				<tr class="table-warning">
 					<td class="p-0" colspan="2" id="uploadedFile">
+					<c:if test="${path1 != null}">
+						<div>업로드된 첨부파일 1 - <a href="${path1}" target="_blank">${origianl_name1}</a></div>
+					</c:if>
+					<c:if test="${path2 != null}">
+						<div>업로드된 첨부파일 2 - <a href="${path2}" target="_blank">${origianl_name2}</a></div>
+					</c:if>
 					</td>
 				</tr>
 				<tr>
@@ -98,7 +105,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<div id="addBtn" class="btn btn-secondary" style="display: inline-block;">등록</div>
+		<div id="modBtn" class="btn btn-secondary" style="display: inline-block;">수정</div>
 		<div id="cancelBtn" class="btn btn-secondary float-right" style="display: inline-block;">취소</div>
 	</form>
 </div>

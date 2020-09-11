@@ -1,11 +1,10 @@
-// 게시글 등록
-function boardAdd() {
-	$("#actionForm").attr("action", "boardAddAjax");
+// 게시글 수정
+function boardMod() {
+	$("#actionForm").attr("action", "boardModAjax");
 	var params = $("#actionForm").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
-		url : "boardAddAjax", 
+		url : "boardModAjax", 
 		dataType : "json",
 		data : params,
 		success : function(res) {

@@ -6,6 +6,7 @@
 			   b.board_content_name AS content_name,
 			   m.member_name AS member_name,
 			   c.commentCnt,
+			   b.member_no AS auth_no,
 			   DATE_FORMAT(b.board_content_reg_time, '%Y-%m-%d') AS reg_time,
 			   b.board_content_hit AS hit
 			FROM board_content b INNER JOIN member m
@@ -26,10 +27,12 @@
 		AND board_content_del_time IS NULL
 	</select>
 	<select id="getBoardContent" parameterType="hashmap" resultType="hashmap">
-SELECT m.member_name AS member_name,
+		SELECT m.member_name AS member_name,
+			   m.member_no AS member_no,		
 			   DATE_FORMAT(b.board_content_reg_time, '%Y-%m-%d %H:%m:%s') AS reg_time,
 			   b.board_content_name AS content_name,
 			   b.board_content_detail AS content_detail,
+			   b.board_content_no AS boardNo,
 			   c.path1,
 			   c.path2,
 			   c.origianl_name1,
@@ -96,10 +99,42 @@ SELECT m.member_name AS member_name,
 	<insert id="boardAdd" parameterType="hashmap">
 		INSERT INTO board_content (board_no, member_no, board_content_name, board_content_detail, board_content_reg_time)
 		VALUES (#{boardNo}, #{userNo}, #{contentName}, #{contentDetail}, NOW())
-		;
-		INSERT INTO board_content_file (board_content_no, board_content_file_path1, board_content_file_path2, board_content_file_name1, board_content_file_name2)
-		VALUES (#{autoIncrement}, #{attach1}, #{attach2}, #{attachOriginal1}, #{attachOriginal2})
-		;
+		<if test="attach1 != '' and attach1 != null">
+			;
+			INSERT INTO board_content_file (board_content_no, board_content_file_path1, board_content_file_path2, board_content_file_name1, board_content_file_name2)
+			VALUES (#{autoIncrement}, #{attach1}, #{attach2}, #{attachOriginal1}, #{attachOriginal2})
+			;
+		</if>
 	</insert>
-	
+
+	<update id="contentDel" parameterType="hashmap">
+		UPDATE board_content
+		SET board_content_del_time = NOW()
+		WHERE board_content_no = #{bNo}
+		AND member_no = #{uNo}
+	</update>
+	<update id="boardMod" parameterType="hashmap">
+		UPDATE board_content
+		SET board_content_name = #{contentName}, board_content_detail = #{contentDetail}, board_content_mod_time = NOW()
+		WHERE board_content_no = #{boardNo}
+		AND member_no = #{userNo}
+		;
+		<choose>
+		   <when test="contentFileCheck == '1'">
+			   	UPDATE board_content_file
+				SET board_content_file_path1 = #{attach1}, board_content_file_path2 = #{attach2}, board_content_file_name1 = #{attachOriginal1}, board_content_file_name2 = #{attachOriginal2}
+				WHERE board_content_no = #{boardNo}
+		   </when>
+		   <otherwise>
+				INSERT INTO board_content_file (board_content_no, board_content_file_path1, board_content_file_path2, board_content_file_name1, board_content_file_name2)
+				VALUES (#{boardNo}, #{attach1}, #{attach2}, #{attachOriginal1}, #{attachOriginal2})
+		   </otherwise>
+	   </choose>
+		;
+	</update>
+	<select id="contentFileCheck" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(*)
+		FROM board_content_file
+		WHERE board_content_no = #{boardNo}
+	</select>
 </mapper>

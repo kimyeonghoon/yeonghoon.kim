@@ -19,11 +19,11 @@ function redrawContent() {
 				html += res.getBoardContent.content_name;
 				if(res.getBoardContent.path1 != undefined) {
 					html += "</td></tr><tr class=\"table-secondary\"><td class=\"font-weight-bold text-center\">첨부파일#1</td><td>";
-					html += "<a href=\"" + res.getBoardContent.path1 + "\" + >" + res.getBoardContent.origianl_name1 + "</a>";
+					html += "<a href=\"" + res.getBoardContent.path1 + "\" target=\"_blank\">" + res.getBoardContent.origianl_name1 + "</a>";
 				}
 				if(res.getBoardContent.path2 != undefined) {
 					html += "</td></tr><tr class=\"table-secondary\"><td class=\"font-weight-bold text-center\">첨부파일#2</td><td>";
-					html += "<a href=\"" + res.getBoardContent.path2 + "\" + >" + res.getBoardContent.origianl_name2 + "</a>";
+					html += "<a href=\"" + res.getBoardContent.path2 + "\" target=\"_blank\">" + res.getBoardContent.origianl_name2 + "</a>";
 				}
 				html += "</td></tr><tr><td class=\"p-3\" colspan=\"2\"><div class=\"row\"><div class=\"col-sm-1\"></div><div class=\"col-sm-10 pt-5 pb-5\" >";
 				html += res.getBoardContent.content_detail;
@@ -154,21 +154,22 @@ function modalPopup() {
 	}
 	html += "</div>";
 	html += "<div class=\"modal-body\">";
+	html += "<form id=\"contentForm\" action=\"#\" method=\"post\"><input type=hidden id=\"coNo\" name=\"coNo\" /><input type=hidden id=\"uNo\" name=\"uNo\" /><input type=hidden id=\"bNo\" name=\"bNo\" />";
 	if($("[name='popupCheck']").val() == "1") {
 		html += "게시물을 삭제하시겠습니까?";
 	} else if($("[name='popupCheck']").val() == "2") {
 		html += "게시물을 수정하시겠습니까?";
 	} else if($("[name='popupCheck']").val() == "3") {
-		html += "<form id=\"delForm\" action=\"#\" method=\"post\"><input type=hidden id=\"coNo\" name=\"coNo\" /><input type=hidden id=\"uNo\" name=\"uNo\" /><input type=hidden id=\"bNo\" name=\"bNo\" />댓글을 삭제하시겠습니까?";
+		html += "댓글을 삭제하시겠습니까?";
 	} else if($("[name='popupCheck']").val() == "4") {
-		html += "<form id=\"modForm\" action=\"#\" method=\"post\"><input type=hidden id=\"coNo\" name=\"coNo\" /><input type=hidden id=\"uNo\" name=\"uNo\" /><input type=hidden id=\"bNo\" name=\"bNo\" /><textarea id=\"modCommentTextarea\" name=\"comment\" rows=\"3\" style=\"width: 100%\"></textarea>";
+		html += "<textarea id=\"modCommentTextarea\" name=\"comment\" rows=\"3\" style=\"width: 100%\"></textarea>";
 	}
-	html += "</div>";
+	html += "</form></div>";
 	html += "<div class=\"modal-footer\">";
 	if($("[name='popupCheck']").val() == "1") {
-		html += "<button type=\"button\" class=\"btn btn-danger\">삭제</button>";
+		html += "<button id=\"delContentBtn\" type=\"button\" class=\"btn btn-danger\">삭제</button>";
 	} else if($("[name='popupCheck']").val() == "2") {
-		html += "<button type=\"button\" class=\"btn btn-danger\">수정</button>";
+		html += "<button id=\"modContentBtn\" type=\"button\" class=\"btn btn-danger\">수정</button>";
 	} else if($("[name='popupCheck']").val() == "3") {
 		html += "<button id=\"delCommentBtn\" type=\"button\" class=\"btn btn-danger\">삭제</button></form>";
 	} else if($("[name='popupCheck']").val() == "4") {
@@ -186,17 +187,39 @@ function modalPopup() {
 		commentOne();
 	}
 	
+	if($("[name='popupCheck']").val() == "1") {
+		$("#uNo").val($("#userNo").val());
+		$("#bNo").val($("#boardNo").val());
+		
+		$("#delContentBtn").on("click", function() {
+			$("#contentForm").attr("action", "contentDelAjax");
+			contentDel();
+		});
+	}
+	
+	if($("[name='popupCheck']").val() == "2") {
+		$("#uNo").val($("#userNo").val());
+		$("#bNo").val($("#boardNo").val());
+		
+		$("#modContentBtn").on("click", function() {
+			$("#contentForm").attr("action", "boardMod");
+			$("#contentForm").submit();
+			$("#notifyModal").modal("hide");
+		});
+	}
+	
 	if($("[name='popupCheck']").val() == "3" || $("[name='popupCheck']").val() == "4") {
 		$("#coNo").val($("#commentNo").val());
 		$("#uNo").val($("#userNo").val());
 		$("#bNo").val($("#boardNo").val());
 		
 		$("#modCommentBtn").on("click", function() {
+			$("#contentForm").attr("action", "commentModAjax");
 			commentMod();
 
 		});
 		$("#delCommentBtn").on("click", function() {
-			$("#delForm").attr("action", "commentDelAjax");
+			$("#contentForm").attr("action", "commentDelAjax");
 			commentDel();
 		});
 	}
@@ -233,7 +256,7 @@ function commentAdd() {
 //코멘트 삭제
 function commentDel() {
 	$("#delForm").attr("action", "commentDelAjax");
-	var params = $("#delForm").serialize();
+	var params = $("#contentForm").serialize();
 	console.log(params);
 	$.ajax({
 		type : "post",			  
@@ -260,8 +283,7 @@ function commentDel() {
 
 //코멘트 수정
 function commentMod() {
-	$("#modForm").attr("action", "commentModAjax");
-	var params = $("#modForm").serialize();
+	var params = $("#contentForm").serialize();
 	console.log(params);
 	$.ajax({
 		type : "post",			  
@@ -272,6 +294,32 @@ function commentMod() {
 			if(res.result == "success") {
 				$("#notifyModal").modal("hide");
 				redrawComment();
+			} else if(res.result == "fail") {
+				alert("error");
+			} else if(res.result == "abnormal") {
+				alert("로그인해주세요.")
+				location.href = "login";
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+// 글 삭제
+function contentDel() {
+	var params = $("#contentForm").serialize();
+	console.log(params);
+	$.ajax({
+		type : "post",			  
+		url : "contentDelAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			if(res.result == "success") {
+				location.href = "board";
 			} else if(res.result == "fail") {
 				alert("error");
 			} else if(res.result == "abnormal") {

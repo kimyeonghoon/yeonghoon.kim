@@ -39,6 +39,7 @@
 	<form id="actionForm" action="#" method="post">
 		<input type=hidden id="userNo" name="userNo" value="${param.userNo}" />
 		<input type=hidden id="boardNo" name="boardNo" value="${param.boardNo}" />
+		<input type=hidden id="authNo" name="authNo" />
 		<div class="row mb-3">
 			<div class="col-md-4 d-none d-sm-block">총 게시물 수<span id="boardListCnt"></span></div>
 			<div class="col-md-8 p-0 pl-3">

@@ -65,6 +65,26 @@ public class BoardService implements IBoardService {
 		return iBoardDao.getBoardContentNo();
 	}
 
+	@Override
+	public int contentDel(HashMap<String, String> params) throws Throwable {
+		return iBoardDao.contentDel(params);
+	}
+
+	@Override
+	public int boardMod(HashMap<String, String> params) throws Throwable {
+		return iBoardDao.boardMod(params);
+	}
+
+	@Override
+	public int contentFileNew(HashMap<String, String> params) throws Throwable {
+		return iBoardDao.contentFileNew(params);
+	}
+
+	@Override
+	public int contentFileCheck(HashMap<String, String> params) throws Throwable {
+		return iBoardDao.contentFileCheck(params);
+	}
+
 
 	
 }

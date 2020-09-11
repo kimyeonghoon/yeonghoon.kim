@@ -25,6 +25,14 @@ public interface IBoardService {
 
 	public int getBoardContentNo() throws Throwable;
 
+	public int contentDel(HashMap<String, String> params) throws Throwable;
+
+	public int boardMod(HashMap<String, String> params) throws Throwable;
+
+	public int contentFileNew(HashMap<String, String> params) throws Throwable;
+
+	public int contentFileCheck(HashMap<String, String> params) throws Throwable;
+
 
 
 }

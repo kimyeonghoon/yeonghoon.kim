@@ -50,6 +50,7 @@ a {
 <!-- 본문 영역 -->
 <form id="actionForm" action="#" method="post">
 	<input type="hidden" name="popupCheck" />
+	<input type=hidden id="authNo" name="authNo" value="${param.authNo}" />
 	<input type=hidden id="userNo" name="userNo" value="${param.userNo}" />
 	<input type=hidden id="boardNo" name="boardNo" value="${param.boardNo}" />
 	<input type=hidden id="commentNo" name="commentNo" />
