@@ -21,8 +21,8 @@ public class BoardService implements IBoardService {
 	}
 
 	@Override
-	public int getBoardListCnt() throws Throwable {
-		return iBoardDao.getBoardListCnt();
+	public int getBoardListCnt(HashMap<String, String> params) throws Throwable {
+		return iBoardDao.getBoardListCnt(params);
 	}
 
 	@Override

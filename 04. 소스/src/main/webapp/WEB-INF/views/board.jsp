@@ -19,6 +19,17 @@
 		$("#userNo").val(${sMember_no});
 		reloadList();
 		redrawListCnt();
+		
+		// search 값을 전달받은 경우 #search의 value를 전달받은 값으로 변경
+		if("${param.searchTxt}" != "") {
+			$("#searchTxt").val("${param.searchTxt}");
+		}
+		
+		// search 값을 전달받은 경우 #search의 value를 전달받은 값으로 변경
+		if("${param.searchGbn}" != "") {
+			$("#searchGbn").val("${param.searchGbn}");
+		}
+		
 		// 등록 버튼 클릭 이벤트
 		$("#addBtn").on("click", function() {
 			location.href="boardAdd";
@@ -27,9 +38,29 @@
 			$("#page").val("${param.page}");
 		}
 		
+		// 검색 버튼 동작
+		$("#searchBtn").on("click", function() {
+			if($("#searchGbn").val() == '0' || $("#searchGbn").val() == null) {
+				alert("검색 구분을 선택해주세요.");
+			} else if($("#searchTxt").val() == '' || $("#searchTxt").val() == null) {
+				alert("검색어를 입력해주세요.");
+			} else {
+				$("#page").val("1");
+				reloadList();
+			}
+		});
+		
+		// 검색창에서 엔터키 무력화
+		$("[name='searchTxt']").on("keypress", function() {
+			if(event.keyCode == 13) {
+				$("#searchBtn").click();
+				return false;
+			}		
+		});
+		
 		// 페이징 버튼 동작
 		$("#paging").on("click", ".page-link", function() {
-			$("#page").val($(this).attr("name"));
+			$("#page").val($(this).attr("data-no"));
 			reloadList();
 		});
 	});
@@ -54,14 +85,14 @@
 			<div class="col-md-4 d-none d-sm-block">총 게시물 수<span id="boardListCnt"></span></div>
 			<div class="col-md-8 p-0 pl-3">
 				<div class="float-right form-check-inline">
-					<select class="form-control">
+					<select class="form-control" id="searchGbn" name="searchGbn">
 						<option value="0">구분</option>
 						<option value="1">제목</option>
 						<option value="2">내용</option>
 						<option value="3">제목+내용</option>
 					</select>
-					<input type="text" class="form-control">
-					<button type="button" class="btn btn-secondary form-control">검색</button>
+					<input type="text" class="form-control" id="searchTxt" name="searchTxt">
+					<button type="button" class="btn btn-secondary form-control" id="searchBtn">검색</button>
 				</div>
 			</div>
 		</div>
@@ -89,7 +120,7 @@
 			<div>
 				${addBtn}
 				<ul class="pagination justify-content-center" id="paging">
-					<li class="page-item"><div class="page-link" name="1"><<</div></li>
+					<li class="page-item"><div class="page-link" data-no="1"><<</div></li>
 					<li class="page-item"><div class="page-link"><</div></li>
 					<li class="page-item"><a class="page-link" href="#">1</a></li>
 					<li class="page-item active"><a class="page-link" href="#">2</a></li>

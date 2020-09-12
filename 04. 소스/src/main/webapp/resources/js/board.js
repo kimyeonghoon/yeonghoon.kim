@@ -25,19 +25,24 @@ function reloadList() {
 // 게시글 그리기
 function redrawList(boardList) {
 	var html = "";
-	for(var i = 0; i < boardList.length; i++) {
-		html += "<tr data-bNo=\"" + boardList[i].content_no + "\"data-authNo=\"" + boardList[i].auth_no + "\">";
-		html += "<td class=\"d-none d-xl-table-cell\">" + boardList[i].content_no + "</td>";
-		html += "<td class=\"text-left\">" + boardList[i].content_name;
-		if(boardList[i].commentCnt != undefined) {
-			html += " [<b>" + boardList[i].commentCnt + "</b>]";
+	if(boardList.length > 0) {
+		for(var i = 0; i < boardList.length; i++) {
+			html += "<tr data-bNo=\"" + boardList[i].content_no + "\"data-authNo=\"" + boardList[i].auth_no + "\">";
+			html += "<td class=\"d-none d-xl-table-cell\">" + boardList[i].content_no + "</td>";
+			html += "<td class=\"text-left\">" + boardList[i].content_name;
+			if(boardList[i].commentCnt != undefined) {
+				html += " [<b>" + boardList[i].commentCnt + "</b>]";
+			}
+			html += "</td>";
+			html += "<td class=\"d-none d-xl-table-cell\">" + boardList[i].member_name + "</td>";
+			html += "<td>" + boardList[i].reg_time + "</td>";
+			html += "<td class=\"d-none d-xl-table-cell\">" + boardList[i].hit + "</td>";
+			html += "</tr>";
 		}
-		html += "</td>";
-		html += "<td class=\"d-none d-xl-table-cell\">" + boardList[i].member_name + "</td>";
-		html += "<td>" + boardList[i].reg_time + "</td>";
-		html += "<td class=\"d-none d-xl-table-cell\">" + boardList[i].hit + "</td>";
-		html += "</tr>";
+	} else {
+		html += "<tr><td colspan=\"5\">게시글이 존재하지 않습니다.</td></tr>";
 	}
+	
 	$("#boardList").html(html);
 	
 	$("#boardList > tr").on("click", function() {
@@ -63,7 +68,7 @@ function redrawListCnt() {
 			if(res.result == "success") {
 				html += " - " + res.getBoardListCnt + "개";
 			} else if(res.result == "fail") {
-				html += "게시글이 존재하지 않습니다.";
+
 			}
 			$("#boardListCnt").prepend(html);
 		},
@@ -78,28 +83,28 @@ function redrawListCnt() {
 function redrawPaging(pagingMap) {
 	var html = "";
 	
-	html += "<li class=\"page-item\"><div class=\"page-link\" name=\"1\"><<</div></li>";
+	html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"1\"><<</div></li>";
 	
 	if($("#page").val() == 1) {
-		html += "<li class=\"page-item\"><div class=\"page-link\" name=\"1\"><</div></li>";
+		html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"1\"><</div></li>";
 	} else {
-		html += "<li class=\"page-item\"><div class=\"page-link\" name=\"" + ($("#page").val() * 1 - 1) + "\"><</div></li>";
+		html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"" + ($("#page").val() * 1 - 1) + "\"><</div></li>";
 	}
 	
 	for(var i = pagingMap.startPageCount ; i <= pagingMap.endPageCount ; i++) {
 		if(i == $("#page").val()) {
-			html += "<li class=\"page-item active\"><div class=\"page-link\" name=\"" + i + "\"><b>" + i + "</b></div>";
+			html += "<li class=\"page-item active\"><div class=\"page-link\" data-no=\"" + i + "\"><b>" + i + "</b></div>";
 		} else {
-			html += "<li class=\"page-item\"><div class=\"page-link\" name=\"" + i + "\">" + i + "</div>";
+			html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"" + i + "\">" + i + "</div>";
 		}
 	}
 	
 	if($("#page").val() == pagingMap.maxPageCount) {
-		html += "<li class=\"page-item\"><div class=\"page-link\" name=\"" + pagingMap.maxPageCount + "\">></div></li>";
+		html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"" + pagingMap.maxPageCount + "\">></div></li>";
 	} else {
-		html += "<li class=\"page-item\"><div class=\"page-link\" name=\"" + ($("#page").val() * 1 + 1) + "\">></div></li>";
+		html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"" + ($("#page").val() * 1 + 1) + "\">></div></li>";
 	}
-	html += "<li class=\"page-item\"><div class=\"page-link\" name=\"" + pagingMap.maxPageCount + "\">>></div></li>";
+	html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"" + pagingMap.maxPageCount + "\">>></div></li>";
 
 	console.log("pagingMap.startPageCount : " + pagingMap.startPageCount);
 	console.log("pagingMap.endPageCount : " + pagingMap.endPageCount);

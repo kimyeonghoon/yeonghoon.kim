@@ -7,7 +7,7 @@ public interface IBoardService {
 
 	public List<HashMap<String, String>> getBoardList(HashMap<String, String> params) throws Throwable;
 
-	public int getBoardListCnt() throws Throwable;
+	public int getBoardListCnt(HashMap<String, String> params) throws Throwable;
 
 	public HashMap<String, String> getBoardContent(HashMap<String, String> params) throws Throwable;
 
@@ -32,7 +32,5 @@ public interface IBoardService {
 	public int contentFileNew(HashMap<String, String> params) throws Throwable;
 
 	public int contentFileCheck(HashMap<String, String> params) throws Throwable;
-
-
 
 }

@@ -1,6 +1,5 @@
 package kim.yeonghoon.www.menu.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -153,7 +152,7 @@ public class BoardController {
 			int currentPage = Integer.parseInt(params.get("page"));
 			
 			// [paging - 2] 총 게시물 수를 구함
-			int getBoardListCnt = iBoardService.getBoardListCnt();
+			int getBoardListCnt = iBoardService.getBoardListCnt(params);
 			
 			// [paging - 3] 페이지당 게시글 수 지정(10개) : (취득한 현재 페이지 - 1) * 10
 			int viewCount = 10;
@@ -205,8 +204,6 @@ public class BoardController {
 			
 			modelMap.put("pagingMap", paging);
 
-			System.out.println(paging);
-			
 			List<HashMap<String,String>> boardList = iBoardService.getBoardList(params);
 			modelMap.put("boardList", boardList);
 			modelMap.put("result", "success");
@@ -214,6 +211,7 @@ public class BoardController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
+		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	@RequestMapping(value = "getBoardListCntAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
@@ -226,7 +224,7 @@ public class BoardController {
 		params.put("member_no", currentUser);
 		
 		try {
-			int getBoardListCnt = iBoardService.getBoardListCnt();
+			int getBoardListCnt = iBoardService.getBoardListCnt(params);
 			modelMap.put("getBoardListCnt", getBoardListCnt);
 			modelMap.put("result", "success");
 		} catch (Throwable e) {

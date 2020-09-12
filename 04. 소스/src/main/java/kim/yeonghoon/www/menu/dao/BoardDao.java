@@ -20,8 +20,8 @@ public class BoardDao implements IBoardDao {
 	}
 
 	@Override
-	public int getBoardListCnt() throws Throwable {
-		return sqlSession.selectOne("board.getBoardListCnt");
+	public int getBoardListCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("board.getBoardListCnt", params);
 	}
 
 	@Override
