@@ -1,5 +1,6 @@
 package kim.yeonghoon.www.menu.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,7 +141,72 @@ public class BoardController {
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		params.put("member_no", currentUser);
 		
+		System.out.println(params.get("page"));
+		
+		// 페이지값을 못받아올 경우 1페이지로 지정(최초 접속)
+		if(params.get("page") == null) {
+			params.put("page", "1");
+		}
+		
 		try {
+			// [paging - 1] 현재 페이지 취득
+			int currentPage = Integer.parseInt(params.get("page"));
+			
+			// [paging - 2] 총 게시물 수를 구함
+			int getBoardListCnt = iBoardService.getBoardListCnt();
+			
+			// [paging - 3] 페이지당 게시글 수 지정(10개) : (취득한 현재 페이지 - 1) * 10
+			int viewCount = 10;
+			params.put("limitCnt", Integer.toString(viewCount));
+			params.put("limitStart", Integer.toString(((currentPage - 1) * 10)));
+			
+			// [paging - 4] 페이징 개수 지정(5개)
+			int pageCount = 5;
+
+			/*
+			 	[paging - 5] 총 페이지 계산
+			 	1) 총게시물 수 % 페이지당 게시글의 결과가 0일 아닐 경우 : 총 게시물 수 / 페이지당 게시글 수 
+			 	2) 총게시물 수 % 페이지당 게시글의 결과가 0일 경우 : 총게시물 수 / 페이지당 게시글 수  + 1
+			 */ 
+			int maxPageCount = 0;
+			if(getBoardListCnt % viewCount > 0) {
+				maxPageCount = (getBoardListCnt / viewCount) + 1;
+			} else {
+				maxPageCount = getBoardListCnt / viewCount;
+			}
+			/*
+			 	[paging - 6] 현재 페이지 기준 시작 페이지 번호 계산
+			 	1) 현재 페이지 % 페이징 개수의 결과가 0이 아닐 경우 : (현재 페이지 / 페이징 개수) + 1 
+			 	2) 현재 페이지 % 페이징 개수의 결과가 0일 경우 : 현재 페이지 - 페이징 개수 + 1
+			 */
+			int startPageCount = 0;
+			if(currentPage % pageCount != 0) {
+				startPageCount = (currentPage / pageCount) * pageCount + 1;
+			} else {
+				startPageCount = currentPage - pageCount + 1;
+			}
+			
+			/*
+			 	[paging - 7] 현재 페이지 기준 종료 페이지 번호 계산
+			 	시작 페이지 + 페이징 개수 - 1(단, 최대 페이지보다 클 경우  종료페이지는 최대페이지로...)
+			 */
+			int endPageCount = startPageCount + pageCount - 1;
+			
+			if(endPageCount >= maxPageCount) {
+				endPageCount = maxPageCount;
+			}
+			
+			
+			HashMap<String,Integer> paging = new HashMap<String,Integer>();
+			paging.put("startPageCount", startPageCount);
+			paging.put("endPageCount", endPageCount);
+			paging.put("maxPageCount", maxPageCount);
+			paging.put("currentPage", currentPage);
+			
+			modelMap.put("pagingMap", paging);
+
+			System.out.println(paging);
+			
 			List<HashMap<String,String>> boardList = iBoardService.getBoardList(params);
 			modelMap.put("boardList", boardList);
 			modelMap.put("result", "success");

@@ -17,11 +17,20 @@
 	$(document).ready(function() {
 		loginStatusMenu(${sMember_no});
 		$("#userNo").val(${sMember_no});
-		redrawList();
+		reloadList();
 		redrawListCnt();
 		// 등록 버튼 클릭 이벤트
 		$("#addBtn").on("click", function() {
 			location.href="boardAdd";
+		});
+		if("${param.page}" != "") {
+			$("#page").val("${param.page}");
+		}
+		
+		// 페이징 버튼 동작
+		$("#paging").on("click", ".page-link", function() {
+			$("#page").val($(this).attr("name"));
+			reloadList();
 		});
 	});
 </script>
@@ -39,6 +48,7 @@
 	<form id="actionForm" action="#" method="post">
 		<input type=hidden id="userNo" name="userNo" value="${param.userNo}" />
 		<input type=hidden id="boardNo" name="boardNo" value="${param.boardNo}" />
+		<input type="hidden" name="page" id="page" value="1" />
 		<input type=hidden id="authNo" name="authNo" />
 		<div class="row mb-3">
 			<div class="col-md-4 d-none d-sm-block">총 게시물 수<span id="boardListCnt"></span></div>
@@ -78,12 +88,14 @@
 		<div>
 			<div>
 				${addBtn}
-				<ul class="pagination justify-content-center">
-					<li class="page-item disabled"><a class="page-link" href="http://google.com">이전</a></li>
+				<ul class="pagination justify-content-center" id="paging">
+					<li class="page-item"><div class="page-link" name="1"><<</div></li>
+					<li class="page-item"><div class="page-link"><</div></li>
 					<li class="page-item"><a class="page-link" href="#">1</a></li>
 					<li class="page-item active"><a class="page-link" href="#">2</a></li>
 					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">다음</a></li>
+					<li class="page-item"><a class="page-link" href="#">></a></li>
+					<li class="page-item"><a class="page-link" href="#">>></a></li>
 				</ul>
 			</div>
 		</div>

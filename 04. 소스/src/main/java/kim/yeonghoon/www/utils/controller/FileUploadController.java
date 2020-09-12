@@ -38,7 +38,7 @@ public class FileUploadController {
 		// 업로드 허용 확장자 지정
 		final String uploadExt = "show|zip|xls|ppt|doc|xlsx|pptx|docx|hwp|csv|jpg|jpeg|png|gif|bmp|txt|pdf";
 		// 업로드 경로
-		final String uploadPath = "C:\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
+		String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload";
 		// fileFullName 초기화
 		String fileFullName = "";
 		
@@ -108,7 +108,7 @@ public class FileUploadController {
 		
 		try {
 			String uploadExts = "jpg|jpeg|png|gif|bmp"; // 확장자
-			String uploadPath = "C:\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
+			String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload";
 			String fileFullName = "";
 
 			File fileDir = new File(uploadPath);

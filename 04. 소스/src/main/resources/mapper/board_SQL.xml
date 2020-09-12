@@ -19,6 +19,7 @@
 		WHERE b.board_no = 1
 		AND board_content_del_time IS NULL
 		ORDER BY b.board_content_no DESC
+		LIMIT ${limitStart}, ${limitCnt}
 	</select>
 	<select id="getBoardListCnt" parameterType="hashmap" resultType="Integer">
 		SELECT COUNT(board_content_no) AS bCount
