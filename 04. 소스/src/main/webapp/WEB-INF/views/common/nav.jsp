@@ -29,7 +29,7 @@
 					<a href="board" class="nav-link">게시판</a>
 				</li>
 				<li class="nav-item">
-					<a href="gallary.html" class="nav-link">갤러리</a>
+					<a href="gallery" class="nav-link">갤러리</a>
 				</li>
 			</ul>
 			<!-- 우측 매뉴 -->

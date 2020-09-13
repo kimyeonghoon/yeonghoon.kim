@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,11 +23,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import kim.yeonghoon.www.menu.service.IGalleryService;
 
 @Controller
 public class FileUploadController {
 
+	@Autowired
+	IGalleryService iGalleryService;
+	
+	
 	@RequestMapping(value = "/fileUploadAjax", method = RequestMethod.POST,  produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String fileUploadAjax(HttpServletRequest request, ModelAndView modelAndView) throws Throwable {
@@ -38,7 +46,7 @@ public class FileUploadController {
 		// 업로드 허용 확장자 지정
 		final String uploadExt = "show|zip|xls|ppt|doc|xlsx|pptx|docx|hwp|csv|jpg|jpeg|png|gif|bmp|txt|pdf";
 		// 업로드 경로
-		String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload";
+		String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
 		// fileFullName 초기화
 		String fileFullName = "";
 		
@@ -108,7 +116,7 @@ public class FileUploadController {
 		
 		try {
 			String uploadExts = "jpg|jpeg|png|gif|bmp"; // 확장자
-			String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload";
+			String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
 			String fileFullName = "";
 
 			File fileDir = new File(uploadPath);
@@ -136,7 +144,7 @@ public class FileUploadController {
 
 				// 성공 시
 				String callback = request.getParameter("CKEditorFuncNum");
-
+				
 				printWriter = response.getWriter();
 
 				printWriter.println("<script type='text/javascript'>" + "window.parent.CKEDITOR.tools.callFunction("

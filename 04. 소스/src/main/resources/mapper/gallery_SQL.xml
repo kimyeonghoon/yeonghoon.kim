@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gallery">
+	<select id="getGalleryList" parameterType="hashmap" resultType="hashmap">
+			SELECT b.board_content_no AS content_no,
+			   b.board_content_name AS content_name,
+			   b.board_content_detail AS content_detail,
+			   m.member_name AS member_name,
+			   c.commentCnt,
+			   t.thumbnail_path,
+			   b.member_no AS auth_no,
+			   DATE_FORMAT(b.board_content_reg_time, '%y/%m/%d') AS reg_time,
+			   b.board_content_hit AS hit
+			FROM board_content b INNER JOIN member m
+									     ON b.member_no = m.member_no
+						    	 LEFT OUTER JOIN (SELECT COUNT(board_content_no) AS commentCnt, board_content_no
+												  FROM comment
+												  WHERE comment_del_time IS NULL
+												  GROUP BY board_content_no) c
+											  ON b.board_content_no = c.board_content_no
+							  	 LEFT OUTER JOIN (SELECT gallery_thumbnail_path AS thumbnail_path, board_content_no
+								 				  FROM gallery_thumbnail) t
+											  ON b.board_content_no = t.board_content_no
+		WHERE b.board_no = 2
+		AND b.board_content_del_time IS NULL
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 1">
+					AND b.board_content_name LIKE CONCAT('%',#{searchTxt},'%')
+				</when>
+				<when test="searchGbn == 2">
+					AND REGEXP_REPLACE(b.board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%')
+				</when>
+				<when test="searchGbn == 3">
+					AND (b.board_content_name LIKE CONCAT('%',#{searchTxt},'%')
+						 OR REGEXP_REPLACE(b.board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%'))
+				</when>
+			</choose>
+		</if>
+		ORDER BY b.board_content_no DESC
+		LIMIT ${limitStart}, ${limitCnt}
+	</select>
+	<select id="getGalleryListCnt" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(board_content_no) AS bCount
+		FROM board_content
+		WHERE board_no = 2
+		AND board_content_del_time IS NULL
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 1">
+					AND board_content_name LIKE CONCAT('%',#{searchTxt},'%')
+				</when>
+				<when test="searchGbn == 2">
+					AND REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%')
+				</when>
+				<when test="searchGbn == 3">
+					AND (board_content_name LIKE CONCAT('%',#{searchTxt},'%')
+						 OR REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%'))
+				</when>
+			</choose>
+		</if>
+	</select>
+	<select id="getBoardContent" parameterType="hashmap" resultType="hashmap">
+		SELECT m.member_name AS member_name,
+			   m.member_no AS member_no,		
+			   DATE_FORMAT(b.board_content_reg_time, '%Y-%m-%d %H:%m:%s') AS reg_time,
+			   b.board_content_name AS content_name,
+			   b.board_content_detail AS content_detail,
+			   b.board_content_no AS boardNo,
+			   c.path1,
+			   c.path2,
+			   c.origianl_name1,
+			   c.origianl_name2
+		FROM board_content b INNER JOIN (SELECT member_no, member_name
+										 FROM member) AS m
+									     ON b.member_no = m.member_no
+						LEFT OUTER JOIN (SELECT board_content_file_path1 AS path1, board_content_file_path2 AS path2, board_content_file_name1 AS origianl_name1, board_content_file_name2 AS origianl_name2, board_content_no
+							 			 FROM board_content_file
+							 			 WHERE board_content_no = #{boardNo}) AS c
+							 		 ON 1 = 1
+		WHERE b.board_content_no = #{boardNo}
+	</select>
+	<update id="boardContentHit" parameterType="hashmap">
+		UPDATE board_content
+		SET board_content_hit = (SELECT board_content_hit
+		   						 FROM board_content
+								 WHERE board_content_no = #{boardNo}) + 1
+		WHERE board_content_no = #{boardNo}
+	</update>
+	<select id="getComment" parameterType="hashmap" resultType="hashmap">
+	SELECT m.member_name AS member_name,
+		   m.member_no AS member_no,
+		   DATE_FORMAT(c.comment_reg_time, '%Y-%m-%d %H:%m:%s') AS reg_time,
+		   c.comment_no AS comment_no,
+		   c.comment_content AS comment_content
+	FROM comment c INNER JOIN (SELECT member_name, member_no
+							   FROM member
+							   WHERE member_delete_yn = 1) m
+						   ON c.member_no = m.member_no
+	WHERE comment_del_time IS NULL
+	AND board_content_no = #{boardNo}
+	<if test="commentNo != null and commentNo != ''">
+		AND comment_no = #{commentNo}
+	</if>
+	ORDER BY reg_time ASC
+	</select>
+	<insert id="commentAdd" parameterType="hashmap">
+		INSERT INTO comment (board_content_no, member_no, comment_content, comment_reg_time)
+		VALUES (#{boardNo}, #{userNo}, #{comment}, NOW());
+	</insert>
+	<update id="commentDel" parameterType="hashmap">
+		UPDATE comment
+		SET comment_del_time = NOW()
+		WHERE board_content_no = #{bNo}
+		AND comment_no = #{coNo}
+		AND member_no = #{uNo}
+	</update>
+	<update id="commentMod" parameterType="hashmap">
+		UPDATE comment
+		SET comment_mod_time = NOW(),
+		comment_content = #{comment}
+		WHERE board_content_no = #{bNo}
+		AND comment_no = #{coNo}
+		AND member_no = #{uNo}
+	</update>
+	
+	<select id="getGalleryContentNo" resultType="Integer">
+		SELECT AUTO_INCREMENT AS autoIncrement
+		FROM information_schema.tables
+		WHERE table_name = 'board_content'
+		AND table_schema = DATABASE()
+	</select>
+	<insert id="galleryAdd" parameterType="hashmap">
+		INSERT INTO board_content (board_no, member_no, board_content_name, board_content_detail, board_content_reg_time)
+		VALUES (#{boardNo}, #{userNo}, #{contentName}, #{contentDetail}, NOW())
+	</insert>
+
+	<update id="contentDel" parameterType="hashmap">
+		UPDATE board_content
+		SET board_content_del_time = NOW()
+		WHERE board_content_no = #{bNo}
+		AND member_no = #{uNo}
+	</update>
+	<update id="boardMod" parameterType="hashmap">
+		UPDATE board_content
+		SET board_content_name = #{contentName}, board_content_detail = #{contentDetail}, board_content_mod_time = NOW()
+		WHERE board_content_no = #{boardNo}
+		AND member_no = #{userNo}
+		;
+		<choose>
+		   <when test="contentFileCheck == '1'">
+			   	UPDATE board_content_file
+				SET board_content_file_path1 = #{attach1}, board_content_file_path2 = #{attach2}, board_content_file_name1 = #{attachOriginal1}, board_content_file_name2 = #{attachOriginal2}
+				WHERE board_content_no = #{boardNo}
+		   </when>
+		   <otherwise>
+				INSERT INTO board_content_file (board_content_no, board_content_file_path1, board_content_file_path2, board_content_file_name1, board_content_file_name2)
+				VALUES (#{boardNo}, #{attach1}, #{attach2}, #{attachOriginal1}, #{attachOriginal2})
+		   </otherwise>
+	   </choose>
+		;
+	</update>
+	<select id="contentFileCheck" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(*)
+		FROM board_content_file
+		WHERE board_content_no = #{boardNo}
+	</select>
+	<insert id="addThumbnail" parameterType="hashmap">
+		INSERT INTO gallery_thumbnail(board_content_no, gallery_thumbnail_path)
+		VALUES (#{autoIncrement}, #{thumbnailPath});
+	</insert>
+</mapper>

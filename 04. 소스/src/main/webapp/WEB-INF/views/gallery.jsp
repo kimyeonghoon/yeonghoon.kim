@@ -6,13 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>yeonghoon.kim :: 게시판</title>
+<title>yeonghoon.kim :: 갤러리</title>
 <!-- 헤더 영역 -->
 <c:import url="/header"></c:import>
 <!-- 공통 js -->
 <script src="resources/js/common.js"></script>
-<!-- board js -->
-<script src="resources/js/board.js"></script>
+<!-- gallery js -->
+<script src="resources/js/gallery.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		loginStatusMenu(${sMember_no});
@@ -32,7 +32,7 @@
 		
 		// 등록 버튼 클릭 이벤트
 		$("#addBtn").on("click", function() {
-			location.href="boardAdd";
+			location.href="galleryAdd";
 		});
 		if("${param.page}" != "") {
 			$("#page").val("${param.page}");
@@ -78,11 +78,11 @@
 <div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area">
 	<form id="actionForm" action="#" method="post">
 		<input type=hidden id="userNo" name="userNo" value="${param.userNo}" />
-		<input type=hidden id="boardNo" name="boardNo" value="${param.boardNo}" />
+		<input type=hidden id="galleryNo" name="galleryNo" value="${param.galleryNo}" />
 		<input type="hidden" name="page" id="page" value="1" />
 		<input type=hidden id="authNo" name="authNo" />
 		<div class="row mb-3">
-			<div class="col-md-4 d-none d-sm-block">총 게시물 수<span id="boardListCnt"></span></div>
+			<div class="col-md-4 d-none d-sm-block">총 게시물 수<span id="galleryListCnt"></span></div>
 			<div class="col-md-8 p-0 pl-3">
 				<div class="float-right form-check-inline">
 					<select class="form-control" id="searchGbn" name="searchGbn">
@@ -96,26 +96,8 @@
 				</div>
 			</div>
 		</div>
-		<table class="table table-hover text-center table-sm">
-			<colgroup class="d-none">
-				<col class="d-xl-table-cell" width="10%"></col>
-				<col width="*"></col>
-				<col class="d-xl-table-cell" width="10%"></col>
-				<col width="10%"></col>
-				<col class="d-xl-table-cell" width="10%"></col>
-			</colgroup>
-			<thead class="thead-light">
-				<tr>
-					<th class="d-none d-xl-table-cell">NO</th>
-					<th>TITLE</th>
-					<th class="d-none d-xl-table-cell">AUTHOR</th>
-					<th>DATE</th>
-					<th class="d-none d-xl-table-cell">HIT</th>
-				</tr>
-			</thead>
-			<tbody id ="boardList">
-			</tbody>
-		</table>
+		<div class="row" id="galleryList">
+		</div>
 		<div>
 			<div>
 				${addBtn}
