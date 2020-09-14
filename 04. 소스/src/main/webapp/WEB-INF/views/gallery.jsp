@@ -78,7 +78,7 @@
 <div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area">
 	<form id="actionForm" action="#" method="post">
 		<input type=hidden id="userNo" name="userNo" value="${param.userNo}" />
-		<input type=hidden id="galleryNo" name="galleryNo" value="${param.galleryNo}" />
+		<input type=hidden id="boardNo" name="boardNo" value="${param.boardNo}" />
 		<input type="hidden" name="page" id="page" value="1" />
 		<input type=hidden id="authNo" name="authNo" />
 		<div class="row mb-3">

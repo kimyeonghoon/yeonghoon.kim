@@ -29,7 +29,7 @@ public class GalleryDao implements IGalleryDao {
 
 	@Override
 	public void galleryContentHit(HashMap<String, String> params) throws Throwable {
-		sqlSession.update("gallery.GalleryContentHit",params);
+		sqlSession.update("gallery.galleryContentHit",params);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class GalleryDao implements IGalleryDao {
 
 	@Override
 	public int galleryMod(HashMap<String, String> params) throws Throwable {
-		return sqlSession.update("gallery.GalleryMod", params);
+		return sqlSession.update("gallery.galleryMod", params);
 	}
 
 	@Override

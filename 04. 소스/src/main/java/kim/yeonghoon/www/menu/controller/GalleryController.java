@@ -63,7 +63,7 @@ public class GalleryController {
 		
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		
-		params.put("galleryNo", params.get("bNo"));
+		params.put("boardNo", params.get("bNo"));
 		
 		if(!currentUser.equals("1")) {
 			mav.setViewName("redirect:/gallery");
@@ -215,7 +215,6 @@ public class GalleryController {
 			paging.put("endPageCount", endPageCount);
 			paging.put("maxPageCount", maxPageCount);
 			paging.put("currentPage", currentPage);
-			
 			modelMap.put("pagingMap", paging);
 
 			List<HashMap<String,String>> galleryList = iGalleryService.getGalleryList(params);
@@ -408,24 +407,37 @@ public class GalleryController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		if(params.get("attach1") == "") {
-			params.put("attach1", null);
-		}
-		if(params.get("attach2") == "") {
-			params.put("attach2", null);
-		}
-		if(params.get("originalName1") == "") {
-			params.put("originalName1", null);
-		}
-		if(params.get("originalName2") == "") {
-			params.put("originalName2", null);
-		}
-		
 		
 		try {
-			int contentFileCheck = iGalleryService.contentFileCheck(params);
-			params.put("contentFileCheck", Integer.toString(contentFileCheck));
-			System.out.println("contentFileCheck : " + params);
+			// 썸네일 변경 X
+			if (params.get("prevThumbnail") == params.get("thumbnail")) {
+				params.put("fileStatus", "notModified"); 
+		
+			// 썸네일 등록/수정
+			} else {
+				String webRoot = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\"; 
+				String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
+				String uploadFileName = params.get("thumbnail");
+				String fileInput = webRoot + uploadFileName;
+				String fileName = uploadFileName.replace("resources/upload/", "");
+				String fileExt = fileName.substring(fileName.length()-3, fileName.length());
+				
+				BufferedImage sourceImage = ImageIO.read(new File(fileInput));
+				BufferedImage thumnailImage = Scalr.resize(sourceImage, 200, 200);
+				String thumnailImgName = "s_" + fileName;
+				File newFile = new File(uploadPath + thumnailImgName);
+				ImageIO.write(thumnailImage, fileExt, newFile);
+
+				// 썸네일 등록
+				if(params.get("prevThumbnail") != null && params.get("prevThumbnail") != "") {
+					params.put("fileStatus", "modFile");
+				// 썸네일 수정
+				} else {
+					params.put("fileStatus", "newFile");
+				}
+				
+				params.put("thumbnailPath", "resources/upload/" + thumnailImgName);
+			}
 			
 			int galleryModCnt = iGalleryService.galleryMod(params);
 			

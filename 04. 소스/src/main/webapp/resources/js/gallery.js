@@ -34,6 +34,9 @@ function redrawList(galleryList) {
 			html += galleryList[i].thumbnail_path + "\" />";
 			html += "</div><div class=\"card-body bg-dark text-light\">";
 			html += galleryList[i].content_name;
+			if(galleryList[i].commentCnt != undefined) {
+				html += " [<b>" + galleryList[i].commentCnt + "</b>]";
+			}
 			html += "</div><div class=\"card-footer font-weight-bold\"><span class=\"mr-2\">";
 			html += galleryList[i].member_name;
 			html += "</span>&nbsp;<span class=\"mr-2\">";
@@ -49,11 +52,10 @@ function redrawList(galleryList) {
 	$("#galleryList").html(html);
 	
 	$("#galleryList > div").on("click", function() {
-		alert("이미지 클릭");
 		if($(this).attr("data-bNo") != null) {
 			$("#boardNo").val($(this).attr("data-bNo"));
 			$("#authNo").val($(this).attr("data-authNo"));
-			$("#actionForm").attr("action", "boardDetail");
+			$("#actionForm").attr("action", "galleryDetail");
 			$("#actionForm").submit();
 		} else {
 			return false;

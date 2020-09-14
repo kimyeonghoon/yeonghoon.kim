@@ -6,18 +6,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>yeonghoon.kim :: 게시판</title>
+<title>yeonghoon.kim :: 갤러리</title>
 <!-- 헤더 영역 -->
 <c:import url="/header"></c:import>
 <!-- 공통 js -->
 <script src="resources/js/common.js"></script>
 <!-- ckeditor Form -->
 <script src="resources/ckeditor/ckeditor.js"></script>
-<!-- boardAdd js -->
-<script src="resources/js/boardMod.js"></script>
+<!-- galleryMod js -->
+<script src="resources/js/galleryMod.js"></script>
 <!-- jQuery Form -->
 <script src="resources/jquery/jquery.form.js"></script>
 <script type="text/javascript">
+var thumbnail_address = 'aaa';
 	$(document).ready(function() {
 		loginStatusMenu(${sMember_no});
 		$(document).ready(function() {
@@ -30,14 +31,11 @@
 				height : "450px"
 			});
 			
-			// 등록 버튼 클릭 이벤트
+			// 수정 버튼 클릭 이벤트
 			$("#modBtn").on("click", function() {
 				$("#contentDetail").val(CKEDITOR.instances['contentDetail'].getData());
-				boardMod();
-			});
-			// 파일 업로드 버튼 클릭 이벤트
-			$("#fileUpload").on("click", function() {
-				fileUpload();
+				$()
+				galleryMod();
 			});
 			// 취소 버튼 클릭 이벤트
 			$("#cancelBtn").on("click", function() {
@@ -56,11 +54,7 @@
 	<form action="#" method="post" id="actionForm" enctype="multipart/form-data">
 		<input type="hidden" id="userNo" name="userNo" value="${member_no}">
 		<input type="hidden" id="boardNo" name="boardNo" value="${boardNo}">
-		<input type="hidden" id="attach1" name="attach1" value="${path1}">
-		<input type="hidden" id="attach2" name="attach2" value="${path2}">
-		<input type="hidden" id="attachOriginal1" name="attachOriginal1" value="${origianl_name1}">
-		<input type="hidden" id="attachOriginal2" name="attachOriginal2" value="${origianl_name2}">
-		
+		<input type="hidden" name="prevThumbnail" id="prevThumbnail" value="${thumbnail_path}" />
 		<table class="table table-sm table-borderless border">
 			<colgroup>
 				<col width="25%"></col>
@@ -80,27 +74,10 @@
 						<textarea id="contentDetail" name="contentDetail">${content_detail}</textarea>					
 					</td>
 				</tr>
-				<tr class="table-warning">
-					<td class="p-0" colspan="2" id="uploadedFile">
-					<c:if test="${path1 != null}">
-						<div>업로드된 첨부파일 1 - <a href="${path1}" target="_blank">${origianl_name1}</a></div>
-					</c:if>
-					<c:if test="${path2 != null}">
-						<div>업로드된 첨부파일 2 - <a href="${path2}" target="_blank">${origianl_name2}</a></div>
-					</c:if>
-					</td>
-				</tr>
-				<tr>
-					<td class="font-weight-bold">첨부파일1
-						<input type="file" id="file1" name="file1" />
-					</td>
-					<td rowspan="2" class="p-3">
-						<button id="fileUpload" type="button" class="btn btn-primary">파일 업로드</button>
-					</td>
-				</tr>
-				<tr>
-					<td class="font-weight-bold">첨부파일2
-						<input type="file" id="file2" name="file2" />
+				<tr class="table-secondary">
+					<td class="p-3" colspan="2">
+						썸네일로 사용할 이미지 주소 입력 : <input type="text" id="thumbnail" name="thumbnail" value="${thumbnail_path}" /><br/>					
+						<span class="text-danger">(*업로드된 이미지 우클릭 해서 주소 확인)</span>
 					</td>
 				</tr>
 			</tbody>
