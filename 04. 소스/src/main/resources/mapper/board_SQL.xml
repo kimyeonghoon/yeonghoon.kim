@@ -150,7 +150,7 @@
 		AND member_no = #{userNo}
 		;
 		<choose>
-		   <when test="contentFileCheck == '1'">
+		   <when test="contentFileCheck gt 0">
 			   	UPDATE board_content_file
 				SET board_content_file_path1 = #{attach1}, board_content_file_path2 = #{attach2}, board_content_file_name1 = #{attachOriginal1}, board_content_file_name2 = #{attachOriginal2}
 				WHERE board_content_no = #{boardNo}

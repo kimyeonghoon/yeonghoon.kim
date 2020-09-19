@@ -233,6 +233,20 @@
 		<version>1</version>
 	</dependency>
 	
+	<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-shade-plugin -->
+	<dependency>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-shade-plugin</artifactId>
+	    <version>2.1</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk -->
+	<dependency>
+	    <groupId>com.amazonaws</groupId>
+	    <artifactId>aws-java-sdk</artifactId>
+	    <version>1.11.860</version>
+	</dependency>
+		
+	
 	<!-- thumnail 생성에 필요 -->
 	<dependency>
 	    <groupId>org.imgscalr</groupId>

@@ -2,6 +2,7 @@ package kim.yeonghoon.www.utils.controller;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -24,6 +25,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kim.yeonghoon.www.menu.service.IGalleryService;
@@ -33,7 +40,6 @@ public class FileUploadController {
 
 	@Autowired
 	IGalleryService iGalleryService;
-	
 	
 	@RequestMapping(value = "/fileUploadAjax", method = RequestMethod.POST,  produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -87,9 +93,18 @@ public class FileUploadController {
 						fileFullName = fileTempName.toLowerCase() + "." + fileExt;
 						file.transferTo(new File(new File(uploadPath), fileFullName));
 						
-						String saveName = "resources/upload/" + fileFullName;
+						String saveName = "https://kr.object.iwinv.kr/yeonghoon.kim/" + fileFullName;
 						fileName.add(saveName);
 						originalName.add(originalFileName);
+						
+				        final AmazonS3 s3 = AmazonS3ClientBuilder.standard()
+				        .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
+				        		"kr.object.iwinv.kr", "default"))
+				        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("key1", "key2")))
+				        .build();
+						
+						
+						s3.putObject(new PutObjectRequest("yeonghoon.kim", fileFullName, new File(new File(uploadPath), fileFullName)));
 					}
 				}
 			}
@@ -132,6 +147,18 @@ public class FileUploadController {
 				if (uploadExts.toLowerCase().indexOf(fileExt) >= 0) {
 					fileFullName = fileTempName.toLowerCase() + "." + fileExt;
 					upload.transferTo(new File(fileDir, fileFullName));
+					
+					
+					String saveName = "https://kr.object.iwinv.kr/yeonghoon.kim/" + fileFullName;
+					
+			        final AmazonS3 s3 = AmazonS3ClientBuilder.standard()
+			        .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
+			        		"kr.object.iwinv.kr", "default"))
+			        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("key1", "key2")))
+			        .build();
+					
+					
+					s3.putObject(new PutObjectRequest("yeonghoon.kim", fileFullName, new File(new File(uploadPath), fileFullName)));
 
 				} else {
 					// 파일 확장자가 틀릴 경우
@@ -148,7 +175,7 @@ public class FileUploadController {
 				printWriter = response.getWriter();
 
 				printWriter.println("<script type='text/javascript'>" + "window.parent.CKEDITOR.tools.callFunction("
-						+ callback + ",'" + "resources/upload/" + fileFullName + "','이미지를 업로드 하였습니다.'" + ")</script>");
+						+ callback + ",'" + "https://kr.object.iwinv.kr/yeonghoon.kim/" + fileFullName + "','이미지를 업로드 하였습니다.'" + ")</script>");
 				printWriter.flush();
 				printWriter.close();
 
