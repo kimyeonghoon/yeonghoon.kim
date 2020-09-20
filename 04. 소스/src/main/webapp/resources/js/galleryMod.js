@@ -2,7 +2,6 @@
 function galleryMod() {
 	$("#actionForm").attr("action", "galleryModAjax");
 	var params = $("#actionForm").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "galleryModAjax", 
@@ -10,7 +9,8 @@ function galleryMod() {
 		data : params,
 		success : function(res) {
 			if(res.result == "success") {
-				location.href="gallery";
+				$("#actionForm").attr("action", "galleryDetail");
+				$("#actionForm").submit();
 			} else if(res.result == "fail") {
 				alert("error");
 			}

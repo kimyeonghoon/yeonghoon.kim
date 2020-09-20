@@ -6,7 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LayoutController {
-
+	
 	@RequestMapping (value = "/header")
 	public ModelAndView header(ModelAndView mav) {
 		mav.setViewName("common/header");

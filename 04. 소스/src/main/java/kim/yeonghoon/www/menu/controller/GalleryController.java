@@ -72,8 +72,6 @@ public class GalleryController {
 			try {
 				HashMap<String, String> contentMap = iGalleryService.getGalleryContent(params);
 				mav.addAllObjects(contentMap);
-				
-				System.out.println(contentMap);
 				mav.setViewName("galleryMod");
 				
 			} catch (Throwable e) {
@@ -131,9 +129,6 @@ public class GalleryController {
 	public ModelAndView galleryDetail(@RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {
 		
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
-		System.out.println(params.get("authNo"));
-		System.out.println(currentUser);
-		System.out.println(currentUser.equals(params.get("authNo")));
 		
 		if(currentUser.equals(params.get("authNo"))) {
 			mav.addObject("modBtn", "<div class='btn btn-secondary  float-right mr-2' style='display: inline-block;' id='modifyBtn'>수정</div>");
@@ -153,8 +148,6 @@ public class GalleryController {
 		
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		params.put("member_no", currentUser);
-		
-		System.out.println(params.get("page"));
 		
 		// 페이지값을 못받아올 경우 1페이지로 지정(최초 접속)
 		if(params.get("page") == null) {
@@ -224,7 +217,6 @@ public class GalleryController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	@RequestMapping(value = "getGalleryListCntAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
@@ -263,7 +255,6 @@ public class GalleryController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -281,7 +272,6 @@ public class GalleryController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 
@@ -310,7 +300,6 @@ public class GalleryController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -321,7 +310,6 @@ public class GalleryController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
-		System.out.println(params);
 		
 		try {
 			if(currentUser.equals(params.get("uNo"))) {
@@ -339,7 +327,6 @@ public class GalleryController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -350,8 +337,6 @@ public class GalleryController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
-		
-		System.out.println(params);
 		
 		try {
 			if(currentUser.equals(params.get("uNo"))) {
@@ -369,7 +354,6 @@ public class GalleryController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -397,7 +381,6 @@ public class GalleryController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	

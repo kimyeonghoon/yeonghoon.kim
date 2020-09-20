@@ -1433,7 +1433,6 @@ function certificateDel() {
 	$("#certificateNo").val($("#pickCertificate").val());
 	$("#actionForm").attr("action", "certificateDelAjax");
 	var params = $("#actionForm").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "certificateDelAjax", 

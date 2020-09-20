@@ -4,7 +4,7 @@
 <div class="container">
 	<nav class="navbar bg-dark navbar-dark navbar-expand-md sticky-top">
 		<!-- 메인 -->
-		<a href="main" class="navbar-brand font-weight-bold">
+		<a href="./" class="navbar-brand font-weight-bold">
 			yeonghoon.kim
 		</a>
 		<!-- 네비바 토글 버튼 -->

@@ -2,7 +2,6 @@
 function redrawContent() {
 	$("#actionForm").attr("action", "getGalleryContentAjax");
 	var params = $("#actionForm").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "getGalleryContentAjax", 
@@ -46,7 +45,6 @@ function redrawComment() {
 	$("#commentNo").val(null);
 	$("#actionForm").attr("action", "getGalleryCommentAjax");
 	var params = $("#actionForm").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "getGalleryCommentAjax", 
@@ -118,7 +116,6 @@ function redrawComment() {
 function commentOne() {
 	$("#actionForm").attr("action", "getCommentAjax");
 	var params = $("#actionForm").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "getGalleryCommentAjax", 
@@ -154,7 +151,7 @@ function modalPopup() {
 	}
 	html += "</div>";
 	html += "<div class=\"modal-body\">";
-	html += "<form id=\"contentForm\" action=\"#\" method=\"post\"><input type=hidden id=\"coNo\" name=\"coNo\" /><input type=hidden id=\"uNo\" name=\"uNo\" /><input type=hidden id=\"bNo\" name=\"bNo\" />";
+	html += "<form id=\"contentForm\" action=\"#\" method=\"post\"><input type=hidden id=\"aNo\" name=\"aNo\" /><input type=hidden id=\"coNo\" name=\"coNo\" /><input type=hidden id=\"uNo\" name=\"uNo\" /><input type=hidden id=\"bNo\" name=\"bNo\" />";
 	if($("[name='popupCheck']").val() == "1") {
 		html += "게시물을 삭제하시겠습니까?";
 	} else if($("[name='popupCheck']").val() == "2") {
@@ -200,6 +197,7 @@ function modalPopup() {
 	if($("[name='popupCheck']").val() == "2") {
 		$("#uNo").val($("#userNo").val());
 		$("#bNo").val($("#boardNo").val());
+		$("#aNo").val($("#authNo").val());
 		
 		$("#modContentBtn").on("click", function() {
 			$("#contentForm").attr("action", "galleryMod");
@@ -230,7 +228,6 @@ function modalPopup() {
 function commentAdd() {
 	$("#actionForm").attr("action", "galleryCommentAddAjax");
 	var params = $("#actionForm").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "galleryCommentAddAjax", 
@@ -257,7 +254,6 @@ function commentAdd() {
 function commentDel() {
 	$("#delForm").attr("action", "galleryCommentDelAjax");
 	var params = $("#contentForm").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "galleryCommentDelAjax", 
@@ -284,7 +280,6 @@ function commentDel() {
 //코멘트 수정
 function commentMod() {
 	var params = $("#contentForm").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "galleryCommentModAjax", 
@@ -311,7 +306,6 @@ function commentMod() {
 // 글 삭제
 function contentDel() {
 	var params = $("#contentForm").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "galleryContentDelAjax", 

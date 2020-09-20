@@ -63,8 +63,6 @@ public class BoardController {
 			try {
 				HashMap<String, String> contentMap = iBoardService.getBoardContent(params);
 				mav.addAllObjects(contentMap);
-				
-				System.out.println(contentMap);
 				mav.setViewName("boardMod");
 				
 			} catch (Throwable e) {
@@ -97,8 +95,6 @@ public class BoardController {
 			params.put("originalName2", null);
 		}
 		
-		System.out.println(params);
-		
 		try {
 			int getBoardContentNo = iBoardService.getBoardContentNo();
 			params.put("autoIncrement", Integer.toString(getBoardContentNo));
@@ -117,9 +113,6 @@ public class BoardController {
 	public ModelAndView boardDetail(@RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {
 		
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
-		System.out.println(params.get("authNo"));
-		System.out.println(currentUser);
-		System.out.println(currentUser.equals(params.get("authNo")));
 		
 		if(currentUser.equals(params.get("authNo"))) {
 			mav.addObject("modBtn", "<div class='btn btn-secondary  float-right mr-2' style='display: inline-block;' id='modifyBtn'>수정</div>");
@@ -139,8 +132,6 @@ public class BoardController {
 		
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		params.put("member_no", currentUser);
-		
-		System.out.println(params.get("page"));
 		
 		// 페이지값을 못받아올 경우 1페이지로 지정(최초 접속)
 		if(params.get("page") == null) {
@@ -211,7 +202,6 @@ public class BoardController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	@RequestMapping(value = "getBoardListCntAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
@@ -250,7 +240,6 @@ public class BoardController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -268,7 +257,6 @@ public class BoardController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 
@@ -297,7 +285,6 @@ public class BoardController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -308,7 +295,6 @@ public class BoardController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
-		System.out.println(params);
 		
 		try {
 			if(currentUser.equals(params.get("uNo"))) {
@@ -326,7 +312,6 @@ public class BoardController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -338,7 +323,6 @@ public class BoardController {
 		
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		
-		System.out.println(params);
 		
 		try {
 			if(currentUser.equals(params.get("uNo"))) {
@@ -356,7 +340,6 @@ public class BoardController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -384,7 +367,6 @@ public class BoardController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		System.out.println(mapper.writeValueAsString(modelMap));
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -411,7 +393,6 @@ public class BoardController {
 		try {
 			int contentFileCheck = iBoardService.contentFileCheck(params);
 			params.put("contentFileCheck", Integer.toString(contentFileCheck));
-			System.out.println("contentFileCheck : " + params);
 			
 			int boardModCnt = iBoardService.boardMod(params);
 			

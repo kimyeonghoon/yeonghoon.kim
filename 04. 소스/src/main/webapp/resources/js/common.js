@@ -14,7 +14,7 @@ function loginStatusMenu(no) {
 		html += "<a href=\"configure\" class=\"nav-link text-warning\">설정</a>";
 		html += "</li>";
 		html += "<li class=\"nav-item\">";
-		html += "<a href=\"logout\" class=\"nav-link text-danger\">로그아웃</a>";
+		html += "<a href=\"./\" class=\"nav-link text-danger\">로그아웃</a>";
 	}
 	html += "</li>";
 	$("#loginStatus").prepend(html);

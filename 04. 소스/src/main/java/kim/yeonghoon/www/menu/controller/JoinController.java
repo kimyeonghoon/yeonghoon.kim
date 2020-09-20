@@ -59,8 +59,6 @@ public class JoinController {
 		String telephone = params.get("telFirstNo") + params.get("telNo");
 		params.put("telephone", telephone);
 		
-		System.out.println(params);
-
 		// 패스워드 암호화
 		params.put("passwordInput", pwEncoder.encode(params.get("passwordInput")));
 		

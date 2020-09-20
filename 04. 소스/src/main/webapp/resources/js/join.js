@@ -142,7 +142,6 @@ function emailCheck() {
 // 회원가입 AJAX
 function addUser() {
 	var params = $("#joinCheck").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "addUserAjax", 

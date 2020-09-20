@@ -92,7 +92,7 @@
 						<option value="3">제목+내용</option>
 					</select>
 					<input type="text" class="form-control" id="searchTxt" name="searchTxt">
-					<button type="button" class="btn btn-secondary form-control" id="searchBtn">검색</button>
+					<button type="button" class="btn btn-secondary form-control" id="searchBtn">&#x1F50E;</button>
 				</div>
 			</div>
 		</div>

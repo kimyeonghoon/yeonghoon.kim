@@ -25,7 +25,7 @@ public class ProfileController {
 	@Autowired
 	IProfileService iProfileService;
 	
-	@RequestMapping(value = "profile")
+	@RequestMapping({ "/", "/profile" })
 	public ModelAndView profile(@RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) throws Throwable {
 		mav.setViewName("profile");
 		
@@ -79,7 +79,6 @@ public class ProfileController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		System.out.println(params);
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		params.put("member_no", currentUser);
 		

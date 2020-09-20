@@ -55,6 +55,7 @@
 <div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area">
 	<form action="#" method="post" id="actionForm" enctype="multipart/form-data">
 		<input type="hidden" id="userNo" name="userNo" value="${member_no}">
+		<input type="hidden" id="boardNo" name="authNo" value="${param.aNo}">
 		<input type="hidden" id="boardNo" name="boardNo" value="${boardNo}">
 		<input type="hidden" id="attach1" name="attach1" value="${path1}">
 		<input type="hidden" id="attach2" name="attach2" value="${path2}">

@@ -2,7 +2,6 @@
 function boardAdd() {
 	$("#actionForm").attr("action", "boardAddAjax");
 	var params = $("#actionForm").serialize();
-	console.log(params);
 	$.ajax({
 		type : "post",			  
 		url : "boardAddAjax", 

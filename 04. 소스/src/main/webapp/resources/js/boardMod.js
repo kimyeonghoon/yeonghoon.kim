@@ -9,7 +9,8 @@ function boardMod() {
 		data : params,
 		success : function(res) {
 			if(res.result == "success") {
-				location.href="board";
+				$("#actionForm").attr("action", "boardDetail");
+				$("#actionForm").submit();
 			} else if(res.result == "fail") {
 				alert("error");
 			}
