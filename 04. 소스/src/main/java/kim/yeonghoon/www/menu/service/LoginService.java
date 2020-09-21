@@ -27,7 +27,4 @@ public class LoginService implements ILoginService {
 	public int getUserCheck(HashMap<String, String> params) throws Throwable {
 		return iLoginDao.getUserCheck(params);
 	}
-
-
-	
 }

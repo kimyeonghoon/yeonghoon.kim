@@ -63,6 +63,7 @@
 			$("#page").val($(this).attr("data-no"));
 			reloadList();
 		});
+		$("#gallery").attr("class", "nav-link active");
 	});
 </script>
 <style type="text/css">

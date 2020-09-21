@@ -10,6 +10,4 @@ public interface ILoginService {
 
 	public int getUserCheck(HashMap<String, String> params) throws Throwable;
 
-
-
 }

@@ -24,6 +24,8 @@ $(document).ready(function() {
 	loginStatusMenu('${sMember_no}');
 	// 프로필 초기화
 	init_profile();
+	$("#profile").attr("class", "nav-link active");
+	
 });
 </script>
 </head>

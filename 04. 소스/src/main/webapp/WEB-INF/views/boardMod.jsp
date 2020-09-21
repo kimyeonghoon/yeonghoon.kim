@@ -43,6 +43,7 @@
 			$("#cancelBtn").on("click", function() {
 				location.href="board";
 			});
+			$("#board").attr("class", "nav-link active");
 		});
 	});
 	

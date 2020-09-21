@@ -99,17 +99,15 @@ public class GalleryController {
 			modelMap.put("result", "success");
 			
 			if(params.get("thumbnail") != null && params.get("thumbnail") != "") {
-				String webRoot = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\"; 
 				String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
 				String uploadFileName = params.get("thumbnail");
-				String fileInput = webRoot + uploadFileName;
-				String fileName = uploadFileName.replace("resources/upload/", "");
-				String fileExt = fileName.substring(fileName.length()-3, fileName.length());
+				String fileInput = uploadPath + uploadFileName;
+				String fileExt = uploadFileName.substring(uploadFileName.length()-3, uploadFileName.length());
 				
 				
 				BufferedImage sourceImage = ImageIO.read(new File(fileInput));
 				BufferedImage thumnailImage = Scalr.resize(sourceImage, 200, 200);
-				String thumnailImgName = "s_" + fileName;
+				String thumnailImgName = "s_" + uploadFileName;
 				File newFile = new File(uploadPath + thumnailImgName);
 				ImageIO.write(thumnailImage, fileExt, newFile);
 				

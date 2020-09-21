@@ -13,7 +13,7 @@ public class LogoutController {
 	@RequestMapping(value = "/logout")
 	public ModelAndView login(ModelAndView mav, HttpSession session) {
 		session.invalidate();
-		mav.setViewName("redirect:main");
+		mav.setViewName("redirect:/");
 		return mav;
 	}
 	

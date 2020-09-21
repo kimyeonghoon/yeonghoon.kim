@@ -42,7 +42,7 @@ function loginUser() {
 		data : params,
 		success : function(res) {
 			if(res.result == "success") {
-				history.back();
+				location.href ="./"
 			} else if(res.result == "fail"){
 				$("[name='popupCheck']").val("3");
 				modalPopup();
@@ -54,3 +54,4 @@ function loginUser() {
 		}			
 	});
 }
+

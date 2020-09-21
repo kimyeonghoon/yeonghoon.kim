@@ -16,20 +16,20 @@
 			<!-- 좌측메뉴 -->
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a href="profile" class="nav-link">프로필</a>
+					<a href="profile" class="nav-link" id="profile">프로필</a>
 				</li>
 				<!-- 2단 메뉴(드롭다운) -->
 				<li class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">포트폴리오</a>
+					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="portpolio">포트폴리오</a>
 					<div class="dropdown-menu">
 						<a href="portpolio1.html" class="dropdown-item">[학원프로젝트] VanillaERP</a>
 						<a href="portpolio2.html" class="dropdown-item">[개인프로젝트] yeonghoon.kim</a>
 					</div>
 				<li class="nav-item">
-					<a href="board" class="nav-link">게시판</a>
+					<a href="board" class="nav-link" id="board">게시판</a>
 				</li>
 				<li class="nav-item">
-					<a href="gallery" class="nav-link">갤러리</a>
+					<a href="gallery" class="nav-link" id="gallery">갤러리</a>
 				</li>
 			</ul>
 			<!-- 우측 매뉴 -->

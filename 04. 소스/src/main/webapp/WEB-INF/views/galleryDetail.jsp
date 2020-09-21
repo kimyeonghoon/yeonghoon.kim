@@ -36,6 +36,7 @@
 		$("#listBtn").on("click", function() {
 			location.href="gallery";
 		});
+		$("#gallery").attr("class", "nav-link active");
 	});
 </script>
 <style type="text/css">

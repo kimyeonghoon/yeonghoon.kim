@@ -100,7 +100,7 @@ public class FileUploadController {
 				        final AmazonS3 s3 = AmazonS3ClientBuilder.standard()
 				        .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
 				        		"kr.object.iwinv.kr", "default"))
-				        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("key1", "key2")))
+				        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("V59OXUSBVOJFIF2600G4", "MEXv6qG0uGfFB7CE26YlwUXrM0uSAM20fhDrbRLF")))
 				        .build();
 						
 						
@@ -154,7 +154,7 @@ public class FileUploadController {
 			        final AmazonS3 s3 = AmazonS3ClientBuilder.standard()
 			        .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
 			        		"kr.object.iwinv.kr", "default"))
-			        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("key1", "key2")))
+			        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("V59OXUSBVOJFIF2600G4", "MEXv6qG0uGfFB7CE26YlwUXrM0uSAM20fhDrbRLF")))
 			        .build();
 					
 					

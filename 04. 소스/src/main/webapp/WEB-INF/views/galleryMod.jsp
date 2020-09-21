@@ -41,6 +41,7 @@ var thumbnail_address = 'aaa';
 			$("#cancelBtn").on("click", function() {
 				location.href="board";
 			});
+			$("#gallery").attr("class", "nav-link active");
 		});
 	});
 	
@@ -77,7 +78,7 @@ var thumbnail_address = 'aaa';
 				<tr class="table-secondary">
 					<td class="p-3" colspan="2">
 						썸네일로 사용할 이미지 주소 입력 : <input type="text" id="thumbnail" name="thumbnail" value="${thumbnail_path}" /><br/>					
-						<span class="text-danger">(*업로드된 이미지 우클릭 해서 주소 확인)</span>
+						<span class="text-danger">(*업로드된 이미지 우클릭 해서 파일명 확인)</span>
 					</td>
 				</tr>
 			</tbody>
