@@ -5,13 +5,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FilenameUtils;
 import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -99,7 +96,7 @@ public class GalleryController {
 			modelMap.put("result", "success");
 			
 			if(params.get("thumbnail") != null && params.get("thumbnail") != "") {
-				String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
+				String uploadPath = "/usr/local/tomcat-8.5.55/webapps/yeonghoonkim/yeonghoonkim/resources/upload/";
 				String uploadFileName = params.get("thumbnail");
 				String fileInput = uploadPath + uploadFileName;
 				String fileExt = uploadFileName.substring(uploadFileName.length()-3, uploadFileName.length());
@@ -396,16 +393,14 @@ public class GalleryController {
 		
 			// 썸네일 등록/수정
 			} else {
-				String webRoot = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\"; 
 				String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
 				String uploadFileName = params.get("thumbnail");
-				String fileInput = webRoot + uploadFileName;
-				String fileName = uploadFileName.replace("resources/upload/", "");
-				String fileExt = fileName.substring(fileName.length()-3, fileName.length());
+				String fileInput = uploadPath + uploadFileName;
+				String fileExt = fileInput.substring(fileInput.length()-3, fileInput.length());
 				
 				BufferedImage sourceImage = ImageIO.read(new File(fileInput));
 				BufferedImage thumnailImage = Scalr.resize(sourceImage, 200, 200);
-				String thumnailImgName = "s_" + fileName;
+				String thumnailImgName = "s_" + fileInput;
 				File newFile = new File(uploadPath + thumnailImgName);
 				ImageIO.write(thumnailImage, fileExt, newFile);
 

@@ -2,7 +2,6 @@ package kim.yeonghoon.www.utils.controller;
 
 import java.io.File;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -100,7 +99,7 @@ public class FileUploadController {
 				        final AmazonS3 s3 = AmazonS3ClientBuilder.standard()
 				        .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
 				        		"kr.object.iwinv.kr", "default"))
-				        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("V59OXUSBVOJFIF2600G4", "MEXv6qG0uGfFB7CE26YlwUXrM0uSAM20fhDrbRLF")))
+				        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("WSWSD38GXD11C8H6S7W5", "EVYVe82i7HrgBvyKFSZCsXS54DfzQgobGF3cR1oE")))
 				        .build();
 						
 						
@@ -154,7 +153,7 @@ public class FileUploadController {
 			        final AmazonS3 s3 = AmazonS3ClientBuilder.standard()
 			        .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
 			        		"kr.object.iwinv.kr", "default"))
-			        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("V59OXUSBVOJFIF2600G4", "MEXv6qG0uGfFB7CE26YlwUXrM0uSAM20fhDrbRLF")))
+			        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("WSWSD38GXD11C8H6S7W5", "EVYVe82i7HrgBvyKFSZCsXS54DfzQgobGF3cR1oE")))
 			        .build();
 					
 					

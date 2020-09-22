@@ -55,4 +55,9 @@
 	
 	<!-- Transaction Manager -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- AOP 범위 설정 -->
+	<aop:aspectj-autoproxy />
+	<beans:bean id="commonAOP" class="kim.yeonghoon.www.common.controller.CommonAOP" />
+	
 </beans:beans>
