@@ -1,4 +1,16 @@
-// 게시판을 다시 그리는 function
+/**
+ * gallery 페이지에서 사용하는 function을 모아둔 js 파일
+ */
+
+
+/**
+ * board 페이지의 요소(게시글, 페이징, 게시글 수)를 다시 로딩할 때 사용
+ * 
+ * @param params 전송되어 영향을 미치는 params은 현재 페이지 번호(page)이다.
+ * @see redrawList(galleryList)
+ * @see redrawPaging(pagingMap)
+ * @see redrawListCnt()
+ */
 function reloadList() { 
 	var params = $("#actionForm").serialize();
 	$.ajax({
@@ -10,6 +22,7 @@ function reloadList() {
 			if(res.result == "success") {
 				redrawList(res.galleryList);
 				redrawPaging(res.pagingMap);
+				redrawListCnt();
 			} else {
 				alert("에러 발생");
 			}
@@ -22,8 +35,19 @@ function reloadList() {
 }
 
 
-// 게시글 그리기
+/**
+ * 게시글 리스트를 그릴 때 사용하는 function
+ * 
+ * galleryList - content_no(글 번호), auth_no(작성자 번호), thumbnail_path(썸네일 경로),
+ * 				 content_name(제목), commentCnt(게시글에 달린 코멘트 개수),
+ * 				 member_name(작성자명), reg_time(등록일/시간), hit(조회수)
+ * 
+ * @param galleryList 현재 페이지에 해당하는 값들이 넘어옴
+ * @see reloadList()
+ * 
+ */
 function redrawList(galleryList) {
+	// 갤러리 리스트를 그림
 	var html = "";
 	if(galleryList.length > 0) {
 		for(var i = 0; i < galleryList.length; i++) {
@@ -49,8 +73,10 @@ function redrawList(galleryList) {
 		alert("갤러리를 불러올 수 없습니다.");
 	}
 	
+	// 변수에 담긴 내용을 가지고 html 게시글 부분 재생성
 	$("#galleryList").html(html);
 	
+	// 갤러리 클릭 이벤트 걸어줌
 	$("#galleryList > div").on("click", function() {
 		if($(this).attr("data-bNo") != null) {
 			$("#boardNo").val($(this).attr("data-bNo"));
@@ -63,7 +89,9 @@ function redrawList(galleryList) {
 	});
 }
 
-//총 글 갯수 그리기
+/**
+ * 현재 갤러리의 총 게시물 수를 표시. 불러오지 못할 경우 아무 것도 표시하지 않음
+ */
 function redrawListCnt() {
 	$.ajax({
 		type : "post",			  
@@ -73,47 +101,12 @@ function redrawListCnt() {
 			var html = "";
 			if(res.result == "success") {
 				html += " - " + res.getGalleryListCnt + "개";
-			} else if(res.result == "fail") {
-
 			}
-			$("#galleryListCnt").prepend(html);
+			$("#galleryListCnt").html(html);
 		},
 		error : function(request, status, error) {
 			console.log("text : " + request.responseTxt);
 			console.log("error : " + error);
 		}			
 	});
-}
-
-// 페이징 그리기
-function redrawPaging(pagingMap) {
-	var html = "";
-	
-	html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"1\"><<</div></li>";
-	
-	if($("#page").val() == 1) {
-		html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"1\"><</div></li>";
-	} else {
-		html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"" + ($("#page").val() * 1 - 1) + "\"><</div></li>";
-	}
-	
-	for(var i = pagingMap.startPageCount ; i <= pagingMap.endPageCount ; i++) {
-		if(i == $("#page").val()) {
-			html += "<li class=\"page-item active\"><div class=\"page-link\" data-no=\"" + i + "\"><b>" + i + "</b></div>";
-		} else {
-			html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"" + i + "\">" + i + "</div>";
-		}
-	}
-	
-	if($("#page").val() == pagingMap.maxPageCount) {
-		html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"" + pagingMap.maxPageCount + "\">></div></li>";
-	} else {
-		html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"" + ($("#page").val() * 1 + 1) + "\">></div></li>";
-	}
-	html += "<li class=\"page-item\"><div class=\"page-link\" data-no=\"" + pagingMap.maxPageCount + "\">>></div></li>";
-
-	console.log("pagingMap.startPageCount : " + pagingMap.startPageCount);
-	console.log("pagingMap.endPageCount : " + pagingMap.endPageCount);
-	console.log("pagingMap.maxPageCount : " + pagingMap.maxPageCount);
-	$("#paging").html(html);
 }

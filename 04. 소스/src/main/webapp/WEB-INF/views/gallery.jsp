@@ -15,10 +15,19 @@
 <script src="resources/js/gallery.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		// nav에 표시될 내용을 위해 사용(로그인, 비로그인 상태에 따라 표시되는 것이 다름)
 		loginStatusMenu(${sMember_no});
+		
+		// nav메뉴에서 현재 위치 표시(갤러리)
+		$("#gallery").attr("class", "nav-link active");
+		
+		// 현재 로그인한 유저의 정보를 할당
 		$("#userNo").val(${sMember_no});
-		reloadList();
-		redrawListCnt();
+
+		// page 값을 전달받은 경우 #page의 value를 전달받은 값으로 변경
+		if("${param.page}" != "") {
+			$("#page").val("${param.page}");
+		}
 		
 		// search 값을 전달받은 경우 #search의 value를 전달받은 값으로 변경
 		if("${param.searchTxt}" != "") {
@@ -30,40 +39,16 @@
 			$("#searchGbn").val("${param.searchGbn}");
 		}
 		
+		// 갤러리 초기화
+		init();
+		
+		// 게시글, 페이징, 총게시물 수 그리기
+		reloadList();
+		
 		// 등록 버튼 클릭 이벤트
 		$("#addBtn").on("click", function() {
 			location.href="galleryAdd";
 		});
-		if("${param.page}" != "") {
-			$("#page").val("${param.page}");
-		}
-		
-		// 검색 버튼 동작
-		$("#searchBtn").on("click", function() {
-			if($("#searchGbn").val() == '0' || $("#searchGbn").val() == null) {
-				alert("검색 구분을 선택해주세요.");
-			} else if($("#searchTxt").val() == '' || $("#searchTxt").val() == null) {
-				alert("검색어를 입력해주세요.");
-			} else {
-				$("#page").val("1");
-				reloadList();
-			}
-		});
-		
-		// 검색창에서 엔터키 무력화
-		$("[name='searchTxt']").on("keypress", function() {
-			if(event.keyCode == 13) {
-				$("#searchBtn").click();
-				return false;
-			}		
-		});
-		
-		// 페이징 버튼 동작
-		$("#paging").on("click", ".page-link", function() {
-			$("#page").val($(this).attr("data-no"));
-			reloadList();
-		});
-		$("#gallery").attr("class", "nav-link active");
 	});
 </script>
 <style type="text/css">
