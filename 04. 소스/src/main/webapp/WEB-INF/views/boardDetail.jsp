@@ -24,12 +24,12 @@
 		// 게시물 삭제 버튼 클릭 이벤트
 		$("#deleteBtn").on("click", function() {
 			$("[name='popupCheck']").val("1");
-			modalPopup();
+			modalPopup(1);
 		});
 		// 게시물 수정 버튼 클릭 이벤트
 		$("#modifyBtn").on("click", function() {
 			$("[name='popupCheck']").val("2");
-			modalPopup();
+			modalPopup(2);
 		});
 		
 		// 목록 버튼 클릭 이벤트
