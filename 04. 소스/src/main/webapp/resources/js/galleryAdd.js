@@ -9,7 +9,9 @@ function galleryAdd() {
 		data : params,
 		success : function(res) {
 			if(res.result == "success") {
-				location.href="gallery";
+				$("#boardNo").val(res.boardNo);
+				$("#actionForm").attr("action", "galleryDetail");
+				$("#actionForm").submit();
 			} else if(res.result == "fail") {
 				alert("error");
 			}

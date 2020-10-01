@@ -6,10 +6,6 @@
 /**
  * board 페이지의 요소(게시글, 페이징, 게시글 수)를 다시 로딩할 때 사용
  * 
- * @param params 전송되어 영향을 미치는 params은 현재 페이지 번호(page)이다.
- * @see redrawList(boardList)
- * @see redrawPaging(pagingMap)
- * @see redrawListCnt()
  */
 function reloadList() { 
 	var params = $("#actionForm").serialize();
@@ -40,9 +36,6 @@ function reloadList() {
  * 
  * boardList - content_no(글 번호), auth_no(작성자 번호), content_name(제목), commentCnt(게시글에 달린 코멘트 개수),
  * 				  member_name(작성자명), reg_time(등록일/시간), hit(조회수)
- * 
- * @param boardList 현재 페이지에 해당하는 값들이 넘어옴
- * @see reloadList()
  * 
  */
 function redrawList(boardList) {

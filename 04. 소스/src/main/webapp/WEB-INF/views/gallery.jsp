@@ -39,8 +39,8 @@
 			$("#searchGbn").val("${param.searchGbn}");
 		}
 		
-		// 갤러리 초기화
-		init();
+		// 검색 버튼 이벤트 할당
+		searchBtnEvent();
 		
 		// 게시글, 페이징, 총게시물 수 그리기
 		reloadList();

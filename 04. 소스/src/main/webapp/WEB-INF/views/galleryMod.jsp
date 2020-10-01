@@ -34,7 +34,9 @@ var thumbnail_address = 'aaa';
 			// 수정 버튼 클릭 이벤트
 			$("#modBtn").on("click", function() {
 				$("#contentDetail").val(CKEDITOR.instances['contentDetail'].getData());
-				$()
+				if($("#thumbnail").val() == '') {
+					$("#thumbnail").val(null);
+				}
 				galleryMod();
 			});
 			// 취소 버튼 클릭 이벤트
@@ -55,6 +57,7 @@ var thumbnail_address = 'aaa';
 	<form action="#" method="post" id="actionForm" enctype="multipart/form-data">
 		<input type="hidden" id="userNo" name="userNo" value="${member_no}">
 		<input type="hidden" id="boardNo" name="boardNo" value="${boardNo}">
+		<input type="hidden" id="authNo" name="authNo" value="${param.aNo}">
 		<input type="hidden" name="prevThumbnail" id="prevThumbnail" value="${thumbnail_path}" />
 		<table class="table table-sm table-borderless border">
 			<colgroup>
@@ -77,7 +80,7 @@ var thumbnail_address = 'aaa';
 				</tr>
 				<tr class="table-secondary">
 					<td class="p-3" colspan="2">
-						썸네일로 사용할 이미지 주소 입력 : <input type="text" id="thumbnail" name="thumbnail" value="${thumbnail_path}" /><br/>					
+						썸네일로 사용할 이미지 주소 입력 : <input type="text" id="thumbnail" name="thumbnail" /><br/>					
 						<span class="text-danger">(*업로드된 이미지 우클릭 해서 파일명 확인)</span>
 					</td>
 				</tr>

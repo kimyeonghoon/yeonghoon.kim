@@ -18,7 +18,12 @@ function loginStatusMenu(no) {
 	$("#loginStatus").prepend(html);
 }
 
-function init() {
+
+/**
+ * // 검색 버튼 이벤트 할당
+ * 
+ */
+function searchBtnEvent() {
 	// 검색 버튼 동작
 	$("#searchBtn").on("click", function() {
 		if($("#searchGbn").val() == '0' || $("#searchGbn").val() == null) {
@@ -45,9 +50,6 @@ function init() {
  * 페이징을 그릴 때 사용하는 function
  * 
  * pagingMap - startPageCount(첫 페이지), endPageCount(마지막 페이지), maxPageCount(페이지 총 갯수)
- * 
- * @param pagingMap 현재 페이지에 해당하는 값들이 넘어옴
- * @see reloadList()
  * 
  */
 function redrawPaging(pagingMap) {

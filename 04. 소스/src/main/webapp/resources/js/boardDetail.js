@@ -9,8 +9,6 @@
  * getBoardContent - reg_time(등록시간), member_name(작성자명), content_name(제목), path1(첨부파일1 주소), path2(첨부파일2 주소)
  * 					 origianl_name1(첨부파일1 원래이름), origianl_name2(첨부파일2 원래이름), content_detail(내용)
  * 
- * @param params 현재 게시글의 번호를 서버로 보냄
- * 
  */
 function redrawContent() {
 	$("#actionForm").attr("action", "getBoardContentAjax");
@@ -64,8 +62,6 @@ function redrawContent() {
  * 
  * getBoardContent - reg_time(등록시간), member_name(작성자명), content_name(제목), path1(첨부파일1 주소), path2(첨부파일2 주소)
  * 					 origianl_name1(첨부파일1 원래이름), origianl_name2(첨부파일2 원래이름), content_detail(내용)
- * 
- * @param params 현재 게시글의 번호를 보냄
  * 
  */
 function redrawComment() {
@@ -133,8 +129,6 @@ function redrawComment() {
  * 
  * getComment - comment_content(코멘트 내용)
  * 
- * @param params 현재 게시글의 번호와 코멘트의 번호를 보냄
- * 
  */
 function commentOne() {
 	$("#actionForm").attr("action", "getCommentAjax");
@@ -188,7 +182,7 @@ function commentButtonEvent() {
 
 /**
  * 팝업창 내 버튼 이벤트 할당하는 function
- * 본문 수정/삭제, 코멘트 수정/삭제
+ * 본문 수정(2)/삭제(1), 코멘트 수정(4)/삭제(3)
  * 
  */
 function popupButtonEvent(no) {
@@ -206,26 +200,16 @@ function popupButtonEvent(no) {
 				 $("#notifyModal").modal("hide");
 			 });
 			 break;
-	// 코멘트 삭제 팝업
-	case 3 : $("#modCommentBtn").on("click", function() {
-				 $("#contentForm").attr("action", "commentModAjax");
-			 	 commentMod();
-			 });
-			 $("#delCommentBtn").on("click", function() {
-				 $("#contentForm").attr("action", "commentDelAjax");
-				 commentDel();
-			 });
-			 break;
-	// 코멘트 수정 팝업
-	case 4 : $("#modCommentBtn").on("click", function() {
-			 	 $("#contentForm").attr("action", "commentModAjax");
-				 commentMod();
-			 });
-			 $("#delCommentBtn").on("click", function() {
-				 $("#contentForm").attr("action", "commentDelAjax");
-				 commentDel();
-			 });
-			 break;
+	// 코멘트 수정(4), 삭제(3) 팝업
+	case 3 : case 4 : $("#modCommentBtn").on("click", function() {
+					$("#contentForm").attr("action", "commentModAjax");
+				 	commentMod();
+				});
+				$("#delCommentBtn").on("click", function() {
+					$("#contentForm").attr("action", "commentDelAjax");
+					commentDel();
+				});
+				break;
 	}
 }
 
@@ -307,6 +291,7 @@ function contentDel() {
 		dataType : "json",
 		data : params,
 		success : function(res) {
+			// 본문 삭제 성공한다면 게시판 첫 페이지로 이동
 			if(res.result == "success") {
 				location.href = "board";
 			} else if(res.result == "fail") {
@@ -337,14 +322,8 @@ function commentAdd() {
 		dataType : "json",
 		data : params,
 		success : function(res) {
-			if(res.result == "success") {
-				redrawComment();
-			} else if(res.result == "fail") {
-				alert("error");
-			} else if(res.result == "abnormal") {
-				alert("로그인해주세요.")
-				location.href = "login";
-			}
+			// 댓글 추가 결과 반환 시 동작
+			commentResult(res);
 		},
 		error : function(request, status, error) {
 			console.log("text : " + request.responseTxt);
@@ -366,15 +345,9 @@ function commentMod() {
 		dataType : "json",
 		data : params,
 		success : function(res) {
-			if(res.result == "success") {
-				$("#notifyModal").modal("hide");
-				redrawComment();
-			} else if(res.result == "fail") {
-				alert("error");
-			} else if(res.result == "abnormal") {
-				alert("로그인해주세요.")
-				location.href = "login";
-			}
+			// 댓글 수정 결과 반환 시 동작
+			commentResult(res);
+			$("#notifyModal").modal("hide");
 		},
 		error : function(request, status, error) {
 			console.log("text : " + request.responseTxt);
@@ -397,19 +370,29 @@ function commentDel() {
 		dataType : "json",
 		data : params,
 		success : function(res) {
-			if(res.result == "success") {
-				$("#notifyModal").modal("hide");
-				redrawComment();
-			} else if(res.result == "fail") {
-				alert("error");
-			} else if(res.result == "abnormal") {
-				alert("로그인해주세요.")
-				location.href = "login";
-			}
+			// 댓글 삭제 결과 반환 시 동작
+			commentResult(res);
+			$("#notifyModal").modal("hide");
 		},
 		error : function(request, status, error) {
 			console.log("text : " + request.responseTxt);
 			console.log("error : " + error);
 		}			
 	});
+}
+
+
+/**
+ * 댓글 관련 Ajax 성공 시 공통적으로 동작하는 부분 처리
+ * 
+ */
+function commentResult(res) {
+	if(res.result == "success") {
+		redrawComment();
+	} else if(res.result == "fail") {
+		alert("error");
+	} else if(res.result == "abnormal") {
+		alert("로그인해주세요.")
+		location.href = "login";
+	}
 }
