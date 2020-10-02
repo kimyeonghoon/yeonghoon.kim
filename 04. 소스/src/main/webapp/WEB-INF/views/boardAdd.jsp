@@ -14,12 +14,13 @@
 <!-- ckeditor Form -->
 <script src="resources/ckeditor/ckeditor.js"></script>
 <!-- boardAdd js -->
-<script src="resources/js/boardAdd.js"></script>
+<script src="resources/js/boardAddAndDel.js"></script>
 <!-- jQuery Form -->
 <script src="resources/jquery/jquery.form.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		loginStatusMenu(${sMember_no});
+		
 		$(document).ready(function() {
 			// CKEDITOR 붙이기
 			CKEDITOR.replace("contentDetail", {
@@ -45,6 +46,7 @@
 			});
 			$("#board").attr("class", "nav-link active");
 		});
+		
 	});
 	
 </script>
@@ -54,9 +56,13 @@
 <c:import url="/nav"></c:import>
 <!-- 본문 영역 -->
 <div class="p-3 border border border-top-0 border-bottom-0 border-dark contents_area">
+	<form action="boardDetail" method="post" id="prevPage">
+		<input type="hidden" id="uNo" name="userNo" value="${member_no}">
+		<input type="hidden" id="bNo" name="boardNo">
+		<input type="hidden" id="aNo" name="authNo" value="${member_no}">
+	</form>
 	<form action="#" method="post" id="actionForm" enctype="multipart/form-data">
 		<input type="hidden" id="userNo" name="userNo" value="${member_no}">
-		<input type="hidden" id="boardNo" name="boardNo">
 		<input type="hidden" id="authNo" name="authNo" value="${member_no}">
 		<input type="hidden" id="attach1" name="attach1">
 		<input type="hidden" id="attach2" name="attach2">

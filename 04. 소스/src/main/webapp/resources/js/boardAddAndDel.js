@@ -1,5 +1,5 @@
 /**
- * boardAdd 페이지에서 사용하는 function을 모아둔 js 파일
+ * boardAdd/boardDel 페이지에서 사용하는 function을 모아둔 js 파일
  */
 
 
@@ -18,9 +18,36 @@ function boardAdd() {
 		success : function(res) {
 			// 성공하면 작성글 확인할 수 있는 페이지로 이동.
 			if(res.result == "success") {
-				$("#boardNo").val(res.boardNo);
-				$("#actionForm").attr("action", "boardDetail");
-				$("#actionForm").submit();
+				$("#bNo").val(res.boardNo);
+				$("#prevPage").submit();
+			} else if(res.result == "fail") {
+				alert("error");
+			}
+		},
+		error : function(request, status, error) {
+			console.log("text : " + request.responseTxt);
+			console.log("error : " + error);
+		}			
+	});
+}
+
+
+/**
+ * 글 작성 후 수정 버튼 클릭 시 동작하는 Ajax
+ * 
+ */
+function boardMod() {
+	$("#actionForm").attr("action", "boardModAjax");
+	var params = $("#actionForm").serialize();
+	$.ajax({
+		type : "post",			  
+		url : "boardModAjax", 
+		dataType : "json",
+		data : params,
+		success : function(res) {
+			// 성공하면 작성글 확인할 수 있는 페이지로 이동.
+			if(res.result == "success") {
+				$("#prevPage").submit();
 			} else if(res.result == "fail") {
 				alert("error");
 			}
@@ -45,7 +72,6 @@ function fileUpload() {
 		alert("첨부할 파일을 선택해주세요");
 		return false;
 	}
-	
 	$("#actionForm").attr("action", "fileUploadAjax");
 	var fileForm = $("#actionForm");
 	fileForm.ajaxForm({ 
@@ -76,7 +102,7 @@ function fileUpload() {
 				alert("업로드가 완료되었습니다.");
 				
 			} else {
-				alert("저장실패");
+				alert("저장 실패");
 			} 
 		},
 		error: function(){

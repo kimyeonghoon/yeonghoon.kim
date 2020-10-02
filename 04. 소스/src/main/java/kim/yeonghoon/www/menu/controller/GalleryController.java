@@ -93,6 +93,7 @@ public class GalleryController {
 			params.put("autoIncrement", Integer.toString(getGalleryContentNo));
 			int galleryAddCnt = iGalleryService.galleryAdd(params);
 			modelMap.put("galleryAddCnt", galleryAddCnt);
+			modelMap.put("boardNo", getGalleryContentNo);
 			modelMap.put("result", "success");
 			
 			if(params.get("thumbnail") != null && params.get("thumbnail") != "") {
@@ -391,6 +392,9 @@ public class GalleryController {
 			if (params.get("prevThumbnail") == params.get("thumbnail")) {
 				params.put("fileStatus", "notModified"); 
 		
+			// 썸네일 수정을 안했을 경우
+			} else if(params.get("thumnail") == null) {
+				params.put("fileStatus", "thumnailDelete");
 			// 썸네일 등록/수정
 			} else {
 				String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";

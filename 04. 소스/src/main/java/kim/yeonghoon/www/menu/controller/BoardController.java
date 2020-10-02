@@ -53,7 +53,6 @@ public class BoardController {
 	public ModelAndView boardMod(@RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {
 		
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
-		
 		params.put("boardNo", params.get("bNo"));
 		
 		if(!currentUser.equals("1")) {
@@ -100,6 +99,7 @@ public class BoardController {
 			params.put("autoIncrement", Integer.toString(getBoardContentNo));
 			int boardAddCnt = iBoardService.boardAdd(params);
 			modelMap.put("boardAddCnt", boardAddCnt);
+			modelMap.put("boardNo", getBoardContentNo);
 			modelMap.put("result", "success");
 		} catch (Throwable e) {
 			e.printStackTrace();

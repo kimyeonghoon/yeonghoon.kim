@@ -16,6 +16,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		loginStatusMenu(${sMember_no});
+		
 		if($("#boardNo").val() == '') {
 			location.href="board";
 		}
