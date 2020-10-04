@@ -51,11 +51,8 @@
 		});
 	});
 </script>
-<style type="text/css">
-.page-link {
-	color: black;
-}
-</style>
+<!-- gallery css -->
+<link rel="stylesheet" type="text/css" href="resources/css/gallery.css" />
 </head>
 <body>
 <!-- nav 영역 -->
@@ -68,7 +65,7 @@
 		<input type="hidden" name="page" id="page" value="1" />
 		<input type=hidden id="authNo" name="authNo" />
 		<div class="row mb-3">
-			<div class="col-md-4 d-none d-sm-block">총 게시물 수<span id="galleryListCnt"></span></div>
+			<div id="boardCnt" class="col-md-4 d-none d-sm-block">총 게시물 수<span id="galleryListCnt"></span></div>
 			<div class="col-md-8 p-0 pl-3">
 				<div class="float-right form-check-inline">
 					<select class="form-control" id="searchGbn" name="searchGbn">

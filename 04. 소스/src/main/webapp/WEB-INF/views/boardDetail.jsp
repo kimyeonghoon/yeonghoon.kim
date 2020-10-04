@@ -15,31 +15,42 @@
 <script src="resources/js/boardDetail.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		// nav에 표시될 내용을 위해 사용(로그인, 비로그인 상태에 따라 표시되는 것이 다름)
 		loginStatusMenu(${sMember_no});
 		
+		// boardNo의 값이 없을 경우 board로 이동시킴
 		if($("#boardNo").val() == '') {
 			location.href="board";
 		}
+		
+		// 내용 그리기
 		redrawContent();
+		
+		// 코멘트 그리기
 		redrawComment();
+
 		// 게시물 삭제 버튼 클릭 이벤트
 		$("#deleteBtn").on("click", function() {
 			$("[name='popupCheck']").val("1");
-			modalPopup(1);
+			modalPopup(1, 1);
 		});
 		// 게시물 수정 버튼 클릭 이벤트
 		$("#modifyBtn").on("click", function() {
 			$("[name='popupCheck']").val("2");
-			modalPopup(2);
+			modalPopup(2, 1);
 		});
 		
 		// 목록 버튼 클릭 이벤트
 		$("#listBtn").on("click", function() {
 			location.href="board.html";
 		});
+		
+		// nav메뉴에서 현재 위치 표시(게시판)
 		$("#board").attr("class", "nav-link active");
 	});
 </script>
+<!-- boardDetail css -->
+<link rel="stylesheet" type="text/css" href="resources/css/boardDetail.css" />
 <style type="text/css">
 a {
 	color: black;

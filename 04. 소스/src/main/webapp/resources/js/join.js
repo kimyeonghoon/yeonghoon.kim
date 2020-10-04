@@ -1,55 +1,63 @@
 /**
-n * join js 파일
+ * join js 파일
  */
 
-// 회원가입 유효성 체크
+
+/**
+ * 회원가입 유효성 체크
+ */
 function validateCheck() {
+	// 이메일 형식 체크를 위해 함수를 변수로 담음
 	var inputEmailcheck = emailCheck();
+	// 이메일 비어있는지 확인
 	if($("#emailInput").val() == '' || $("#emailInput").val() == null) {
-		$("[name='popupCheck']").val("0");
-		modalPopup();
+		joinModalPopup(0);
+	// 이메일 형식 확인
 	} else if(!inputEmailcheck) {
-		$("[name='popupCheck']").val("1");
-		modalPopup();
+		joinModalPopup(1);
+	// 패스워드 항목 비어있는지 확인
 	} else if($("#passwordInput").val() == '' || $("#passwordInput").val() == null) {
-		$("[name='popupCheck']").val("2");
-		modalPopup();
+		joinModalPopup(2);
+	// 패스워드 확인 항목 비어있는지 확인
 	} else if($("#passwordCheckInput").val() == '' || $("#passwordCheckInput").val() == null) {
-		$("[name='popupCheck']").val("3");
-		modalPopup();
+		joinModalPopup(3);
+	// 패스워드 항목 비어있는지 확인
 	} else if($("#passwordInput").val() != $("#passwordCheckInput").val()) {
-		$("[name='popupCheck']").val("4");
-		modalPopup();
+		joinModalPopup(4);
+	// 이름 비어있는지 확인
 	} else if($("#nameInput").val() == '' || $("#nameInput").val() == null) {
-		$("[name='popupCheck']").val("5");
-		modalPopup();
+		joinModalPopup(5);
+	// 주소 비어있는지 확인
 	} else if($("#addressInput").val() == '' || $("#addressInput").val() == null) {
-		$("[name='popupCheck']").val("6");
-		modalPopup();
+		joinModalPopup(6);
+	// 상세주소 비어있는지 확인
 	} else if($("#detailAddressInput").val() == '' || $("#detailAddressInput").val() == null) {
-		$("[name='popupCheck']").val("7");
-		modalPopup();
+		joinModalPopup(7);
+	// 성별 체크했는지 확인
 	} else if($("input:radio[name=gender]").is(":checked") == false) {
-		$("[name='popupCheck']").val("8");
-		modalPopup();
+		joinModalPopup(8);
+	// 기지국 선택 확인
 	} else if($("#telFirstNo").val() == '' || $("#telFirstNo").val() == null || $("#telFirstNo").val() == 'notSelected') {
-		$("[name='popupCheck']").val("9");
-		modalPopup();
+		joinModalPopup(9);
+	// 전화번호가 비어있는지 확인
 	} else if($("#telNo").val() == '' || $("#telNo").val() == null || $("#telNo").val() == 'notSelected') {
-		$("[name='popupCheck']").val("10");
-		modalPopup();
+		joinModalPopup(10);
+	// 기지국을 제외한 전화번호 자리수 체크
 	} else if($("#telNo").val().length < 7) {
-		$("[name='popupCheck']").val("11");
-		modalPopup();
+		joinModalPopup(11);
 	} else {
+		// 주소 disabled 속성 제거
 		$("#addressInput").removeAttr("disabled");
 		$("#joinCheck").attr("action", "addUser");
 		addUser();
 	}
 }
 
-// 팝업창 생성
-function modalPopup() {
+
+/**
+ * 회원가입 팝업창 생성
+ */
+function joinModalPopup(no) {
 	// 기존 모달 삭제
 	$("#notifyModal").remove();
 	var html = "";
@@ -60,37 +68,38 @@ function modalPopup() {
 	html += "<h4 class=\"modal-title\">알림</h4>";
 	html += "</div>";
 	html += "<div class=\"modal-body\">";
-	switch ($("[name='popupCheck']").val()) {
-		case "0": html += "이메일을 입력해주세요.";
+	// 팝업창 생성(상황에 따라 표출되는 내용 다름)
+	switch(no) {
+		case 0 : html += "이메일을 입력해주세요.";
 				  break;
-		case "1": html += "이메일 형식이 올바르지 않습니다.";
+		case 1 : html += "이메일 형식이 올바르지 않습니다.";
 			   	  break;
-		case "2": html += "비밀번호를 입력해주세요.";
+		case 2 : html += "비밀번호를 입력해주세요.";
 				  break;
-		case "3": html += "비밀번호확인을 입력해주세요.";
+		case 3 : html += "비밀번호확인을 입력해주세요.";
 				  break;
-		case "4": html += "비밀번호가 일치하지 않습니다.";
+		case 4 : html += "비밀번호가 일치하지 않습니다.";
 				  break;
-		case "5": html += "이름을 입력해주세요.";
+		case 5 : html += "이름을 입력해주세요.";
 				  break;
-		case "6": html += "주소를 검색해주세요.";
+		case 6 : html += "주소를 검색해주세요.";
 				  break;
-		case "7": html += "상세주소를 입력해주세요.";
+		case 7 : html += "상세주소를 입력해주세요.";
 				  break;
-		case "8": html += "성별을 선택해주세요.";
+		case 8 : html += "성별을 선택해주세요.";
 				  break;
-		case "9": html += "전화번호 앞자리를 선택해주세요.";
+		case 9 : html += "전화번호 앞자리를 선택해주세요.";
 				  break;
-		case "10": html += "전화번호 뒷자리를 입력해주세요.";
+		case 10: html += "전화번호 뒷자리를 입력해주세요.";
 				  break;
-		case "11": html += "전화번호를 정확히 입력해주세요.";
-		break;
-		case "x": html += "기지국 번호를 받아올 수 없습니다. 관리자에게 문의하세요.";
-		break;
-		case "y": html += "회원가입이 완료되었습니다.";
-		break;
-		case "z": html += "사용할 수 없는 이메일입니다.";
-		break;
+		case 11: html += "전화번호를 정확히 입력해주세요.";
+				  break;
+		case 97 : html += "기지국 번호를 받아올 수 없습니다. 관리자에게 문의하세요.";
+				  break;
+		case 98 : html += "회원가입이 완료되었습니다.";
+				  break;
+		case 99 : html += "사용할 수 없는 이메일입니다.";
+				  break;
 	}
 	html += "</div>";
 	html += "<div class=\"modal-footer\">";
@@ -99,10 +108,14 @@ function modalPopup() {
 	html += "</div>";
 	html += "</div>";
 	html += "</div>";
-	$("#boardDetail").prepend(html);
+	$("#contentsArea").prepend(html);
+	$("#notifyModal").modal("show");
 }
 
-// 다음 주소 API
+
+/**
+ * 다음 주소 api
+ */
 function searchAddress() {
 	new daum.Postcode({
 	    oncomplete: function(data) {
@@ -128,7 +141,10 @@ function searchAddress() {
 	}).embed(addressSearchForm);
 }
 
-//이메일 형식 체크 함수
+
+/**
+ * 이메일 형식 체크 함수
+ */
 function emailCheck() {
 	var emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	var userInputEmail = $("#emailInput").val();
@@ -139,7 +155,10 @@ function emailCheck() {
 	}
 }
 
-// 회원가입 AJAX
+
+/**
+ * 회원가입 ajax
+ */
 function addUser() {
 	var params = $("#joinCheck").serialize();
 	$.ajax({
@@ -149,17 +168,32 @@ function addUser() {
 		data : params,
 		success : function(res) {
 			if(res.result == "success") {
-				$("[name='popupCheck']").val("y");
-				modalPopup();
-				location.href = "main";
+				// 성공 시 팝업 표시 -> 닫기 버튼 누르면 profile로 이동
+				joinModalPopup(98);
+				location.href = "profile";
 			} else if(res.result == "duplication"){
-				$("[name='popupCheck']").val("z");
-				modalPopup();
+				// 이메일이 이미 존재하는 경우
+				joinModalPopup(99);
 			}
 		},
 		error : function(request, status, error) {
 			console.log("text : " + request.responseTxt);
 			console.log("error : " + error);
 		}			
+	});
+}
+
+/**
+ * 버튼 클릭 이벤트
+ */
+function joinButtonEvent() {
+	// 회원가입 버튼 클릭 이벤트
+	$("#joinBtn").on("click", function() {
+		validateCheck();
+	});
+	// 주소 검색 버튼 클릭 이벤트
+	$("#searchAddress").on("click", function() {
+		$("#addressSearchForm").addClass("p-2 bg-secondary");
+		searchAddress();
 	});
 }

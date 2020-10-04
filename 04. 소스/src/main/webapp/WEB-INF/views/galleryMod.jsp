@@ -14,40 +14,27 @@
 <!-- ckeditor Form -->
 <script src="resources/ckeditor/ckeditor.js"></script>
 <!-- galleryMod js -->
-<script src="resources/js/galleryMod.js"></script>
+<script src="resources/js/galleryAddAndMod.js"></script>
 <!-- jQuery Form -->
 <script src="resources/jquery/jquery.form.js"></script>
 <script type="text/javascript">
-var thumbnail_address = 'aaa';
-	$(document).ready(function() {
-		loginStatusMenu(${sMember_no});
-		$(document).ready(function() {
-			// CKEDITOR 붙이기
-			CKEDITOR.replace("contentDetail", {
-				language : "ko",
-				enterMode : "2",
-				resize_enabled : false,
-				width : "100%",
-				height : "450px"
-			});
-			
-			// 수정 버튼 클릭 이벤트
-			$("#modBtn").on("click", function() {
-				$("#contentDetail").val(CKEDITOR.instances['contentDetail'].getData());
-				if($("#thumbnail").val() == '') {
-					$("#thumbnail").val(null);
-				}
-				galleryMod();
-			});
-			// 취소 버튼 클릭 이벤트
-			$("#cancelBtn").on("click", function() {
-				location.href="board";
-			});
-			$("#gallery").attr("class", "nav-link active");
-		});
-	});
+$(document).ready(function() {
+	// nav에 표시될 내용을 위해 사용(로그인, 비로그인 상태에 따라 표시되는 것이 다름)
+	loginStatusMenu(${sMember_no});
+	
+	// ckeditor 추가
+	ckeditorAdd(2);
+	
+	// 버튼 이벤트 할당
+	buttonEvent(2);
+	
+	// nav메뉴에서 현재 위치 표시(게시판)
+	$("#gallery").attr("class", "nav-link active");
+});
 	
 </script>
+<!-- galleryAddAndMod css -->
+<link rel="stylesheet" type="text/css" href="resources/css/galleryAddAndMod.css" />
 </head>
 <body>
 <!-- nav 영역 -->
@@ -66,12 +53,12 @@ var thumbnail_address = 'aaa';
 			</colgroup>
 			<tbody>
 				<tr>
-					<td class="font-weight-bold">작성자</td>
-					<td>${member_name}</td>
+					<td class="font-weight-bold cursor-defualt">작성자</td>
+					<td class="cursor-defualt">${member_name}</td>
 				</tr>
 				<tr>
-					<td class="font-weight-bold">제목</td>
-					<td><input type="text" name="contentName" class="form-control" value="${content_name}"></td>
+					<td class="font-weight-bold cursor-defualt">제목</td>
+					<td class="cursor-defualt"><input type="text" name="contentName" class="form-control" value="${content_name}"></td>
 				</tr>
 				<tr class="table-secondary">
 					<td class="p-3" colspan="2">
@@ -79,7 +66,7 @@ var thumbnail_address = 'aaa';
 					</td>
 				</tr>
 				<tr class="table-secondary">
-					<td class="p-3" colspan="2">
+					<td class="p-3 cursor-defualt" colspan="2">
 						썸네일로 사용할 이미지 주소 입력 : <input type="text" id="thumbnail" name="thumbnail" /><br/>					
 						<span class="text-danger">(*업로드된 이미지 우클릭 해서 파일명 확인)</span>
 					</td>

@@ -15,22 +15,15 @@
 <script src="resources/js/login.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		// nav에 표시될 내용을 위해 사용(로그인, 비로그인 상태에 따라 표시되는 것이 다름)
 		loginStatusMenu('${sMember_no}');
 
-		// 약력 수정버튼 클릭(팝업)
-		$("#briefHistoryModifyBtn").on("click", function(){
-			modalPopup("1-2");
-			getBriefHistory();
-		});
-		
 		// 로그인 버튼 클릭 이벤트
 		$("#loginBtn").on("click", function() {
 			if($("#emailInput").val() == '' || $("#emailInput").val() == null) {
-				$("[name='popupCheck']").val("1");
-				modalPopup();
+				loginModalPopup(1);
 			} else if($("#passwordInput").val() == '' || $("#passwordInput").val() == null) {
-				$("[name='popupCheck']").val("2");
-				modalPopup();
+				loginModalPopup(2);
 			} else {
 				$("#loginCheck").attr("loginCheckAjax");
 				loginUser();

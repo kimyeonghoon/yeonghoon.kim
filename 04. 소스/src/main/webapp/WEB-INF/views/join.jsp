@@ -17,24 +17,16 @@
 <script src="resources/js/common.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		// nav에 표시될 내용을 위해 사용(로그인, 비로그인 상태에 따라 표시되는 것이 다름)
 		loginStatusMenu('${sMember_no}');
 		
 		// 기지국 번호를 못받아올 경우(디비 문제 발생)
 		if($("#telFirstNo").attr("name") != "telFirstNo") {
-			$("[name='popupCheck']").val("x");
-			modalPopup();
+			joinModalPopup(97);
 		}
 		
-		// 회원가입 버튼 클릭 이벤트
-		$("#joinBtn").on("click", function() {
-			validateCheck();
-		});
-		
-		// 주소 검색 버튼 클릭 이벤트
-		$("#searchAddress").on("click", function() {
-			$("#addressSearchForm").addClass("p-2 bg-secondary");
-			searchAddress();
-		});
+		// 버튼 이벤트 할당
+		joinButtonEvent();
 	});
 </script>
 </head>

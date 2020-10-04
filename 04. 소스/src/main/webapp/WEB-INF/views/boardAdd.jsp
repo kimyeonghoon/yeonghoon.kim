@@ -13,43 +13,28 @@
 <script src="resources/js/common.js"></script>
 <!-- ckeditor Form -->
 <script src="resources/ckeditor/ckeditor.js"></script>
-<!-- boardAdd js -->
-<script src="resources/js/boardAddAndDel.js"></script>
+<!-- boardAddAndMod js -->
+<script src="resources/js/boardAddAndMod.js"></script>
 <!-- jQuery Form -->
 <script src="resources/jquery/jquery.form.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		// nav에 표시될 내용을 위해 사용(로그인, 비로그인 상태에 따라 표시되는 것이 다름)
 		loginStatusMenu(${sMember_no});
 		
-		$(document).ready(function() {
-			// CKEDITOR 붙이기
-			CKEDITOR.replace("contentDetail", {
-				language : "ko",
-				enterMode : "2",
-				resize_enabled : false,
-				width : "100%",
-				height : "450px"
-			});
-			
-			// 등록 버튼 클릭 이벤트
-			$("#addBtn").on("click", function() {
-				$("#contentDetail").val(CKEDITOR.instances['contentDetail'].getData());
-				boardAdd();
-			});
-			// 파일 업로드 버튼 클릭 이벤트
-			$("#fileUpload").on("click", function() {
-				fileUpload();
-			});
-			// 취소 버튼 클릭 이벤트
-			$("#cancelBtn").on("click", function() {
-				location.href="board";
-			});
-			$("#board").attr("class", "nav-link active");
-		});
+		// ckeditor 추가
+		ckeditorAdd(1);
 		
+		// 버튼 이벤트 할당
+		buttonEvent(1);
+		
+		// nav메뉴에서 현재 위치 표시(게시판)
+		$("#board").attr("class", "nav-link active");
 	});
 	
 </script>
+<!-- boardAddAndMod css -->
+<link rel="stylesheet" type="text/css" href="resources/css/boardAddAndMod.css" />
 </head>
 <body>
 <!-- nav 영역 -->
@@ -76,11 +61,11 @@
 			</colgroup>
 			<tbody>
 				<tr>
-					<td class="font-weight-bold">작성자</td>
-					<td>${member_name}</td>
+					<td class="font-weight-bold cursor-defualt">작성자</td>
+					<td class="cursor-defualt">${member_name}</td>
 				</tr>
 				<tr>
-					<td class="font-weight-bold">제목</td>
+					<td class="font-weight-bold cursor-defualt">제목</td>
 					<td><input type="text" name="contentName" class="form-control"></td>
 				</tr>
 				<tr class="table-secondary">
@@ -94,7 +79,7 @@
 				</tr>
 				<tr>
 					<td class="font-weight-bold">첨부파일1
-						<input type="file" id="file1" name="file1" />
+						<input type="file" class="cursor-pointer" id="file1" name="file1" />
 					</td>
 					<td rowspan="2" class="p-3">
 						<button id="fileUpload" type="button" class="btn btn-primary">파일 업로드</button>
@@ -102,7 +87,7 @@
 				</tr>
 				<tr>
 					<td class="font-weight-bold">첨부파일2
-						<input type="file" id="file2" name="file2" />
+						<input type="file" id="file2" class="cursor-pointer" name="file2" />
 					</td>
 				</tr>
 			</tbody>

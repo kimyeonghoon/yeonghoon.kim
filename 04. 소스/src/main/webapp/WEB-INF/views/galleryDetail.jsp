@@ -24,12 +24,12 @@
 		// 게시물 삭제 버튼 클릭 이벤트
 		$("#deleteBtn").on("click", function() {
 			$("[name='popupCheck']").val("1");
-			modalPopup();
+			modalPopup(1, 2);
 		});
 		// 게시물 수정 버튼 클릭 이벤트
 		$("#modifyBtn").on("click", function() {
 			$("[name='popupCheck']").val("2");
-			modalPopup();
+			modalPopup(2, 2);
 		});
 		
 		// 목록 버튼 클릭 이벤트
@@ -39,11 +39,8 @@
 		$("#gallery").attr("class", "nav-link active");
 	});
 </script>
-<style type="text/css">
-a {
-	color: black;
-}
-</style>
+<!-- galleryDetail css -->
+<link rel="stylesheet" type="text/css" href="resources/css/galleryDetail.css" />
 </head>
 <body>
 <!-- nav 영역 -->

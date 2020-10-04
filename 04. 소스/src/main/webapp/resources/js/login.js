@@ -2,8 +2,11 @@
  * login js 파일
  */
 
-// 팝업창 생성
-function modalPopup() {
+
+/**
+ * 팝업창 생성
+ */
+function loginModalPopup(no) {
 	// 기존 모달 삭제
 	$("#notifyModal").remove();
 	var html = "";
@@ -14,12 +17,12 @@ function modalPopup() {
 	html += "<h4 class=\"modal-title\">알림</h4>";
 	html += "</div>";
 	html += "<div class=\"modal-body\">";
-	if($("[name='popupCheck']").val() == "1") {
-		html += "메일을 입력해주세요."
-	} else if($("[name='popupCheck']").val() == "2") {
-		html += "패스워드를 입력해주세요."
-	} else if($("[name='popupCheck']").val() == "3") {
-		html += "아이디나 패스워드가 일치하지 않습니다."
+	if(no == 1) {
+		html += "메일을 입력해주세요.";
+	} else if(no == 2) {
+		html += "패스워드를 입력해주세요.";
+	} else if(no == 3) {
+		html += "아이디나 패스워드가 일치하지 않습니다.";
 	}
 	html += "</div>";
 	html += "<div class=\"modal-footer\">";
@@ -32,7 +35,10 @@ function modalPopup() {
 	$("#notifyModal").modal("show");
 }
 	
-// 로그인 AJAX
+
+/**
+ * login Ajax
+ */
 function loginUser() {
 	var params = $("#loginCheck").serialize();
 	$.ajax({
@@ -42,10 +48,9 @@ function loginUser() {
 		data : params,
 		success : function(res) {
 			if(res.result == "success") {
-				location.href ="./"
+				location.href ="profile"
 			} else if(res.result == "fail"){
-				$("[name='popupCheck']").val("3");
-				modalPopup();
+				loginModalPopup(3);
 			}
 		},
 		error : function(request, status, error) {

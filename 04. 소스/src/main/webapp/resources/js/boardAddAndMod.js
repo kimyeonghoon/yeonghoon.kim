@@ -32,6 +32,38 @@ function boardAdd() {
 }
 
 
+
+/**
+ *	 등록, 파일업로드 버튼, 취소 버튼 이벤트 할당
+ * 
+ */
+function buttonEvent(no) {
+	// 등록(1)/수정(2) 버튼 클릭 이벤트
+	if(no == 1) {
+		$("#addBtn").on("click", function() {
+			$("#contentDetail").val(CKEDITOR.instances['contentDetail'].getData());
+			boardAdd();
+		});
+	} else if(no == 2) {
+		$("#modBtn").on("click", function() {
+			$("#contentDetail").val(CKEDITOR.instances['contentDetail'].getData());
+			boardMod();
+		});
+	} else {
+		return false;
+	}
+	
+	// 파일 업로드 버튼 클릭 이벤트
+	$("#fileUpload").on("click", function() {
+		fileUpload();
+	});
+	// 취소 버튼 클릭 이벤트
+	$("#cancelBtn").on("click", function() {
+		history.back();
+	});
+}
+
+
 /**
  * 글 작성 후 수정 버튼 클릭 시 동작하는 Ajax
  * 

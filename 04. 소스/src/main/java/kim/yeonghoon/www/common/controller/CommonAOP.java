@@ -39,7 +39,6 @@ public class CommonAOP {
 		
 		// 세션 번호가 비어있지 않으면 기존 이벤트 진행. 아니면 로그인 페이지로 이동
 		if(session.getAttribute("sMember_no") != null) {
-			System.out.println("AOP!!!!");
 			mav = (ModelAndView)joinPoint.proceed();
 		} else {
 			mav.setViewName("login");

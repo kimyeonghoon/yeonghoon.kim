@@ -1,0 +1,14 @@
+@charset "UTF-8";
+#contentTable > tbody > tr:hover,
+#paging:hover,
+#addBtn,
+#searchBtn 
+{
+	cursor: pointer;
+}
+
+thead > tr:hover,
+#boardCnt
+{
+	cursor: default;
+}
