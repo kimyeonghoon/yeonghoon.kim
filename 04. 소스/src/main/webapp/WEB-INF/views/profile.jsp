@@ -13,6 +13,10 @@
 <script src="resources/js/common.js"></script>
 <!-- profile js -->
 <script src="resources/js/profile.js"></script>
+<!-- profileRedraw js -->
+<script src="resources/js/profileRedraw.js"></script>
+<!-- profileAjax js -->
+<script src="resources/js/profileAjax.js"></script>
 <!-- jQuery UI js -->
 <script src="resources/jquery/jquery-ui.js"></script>
 <!-- jQuery UI CSS -->

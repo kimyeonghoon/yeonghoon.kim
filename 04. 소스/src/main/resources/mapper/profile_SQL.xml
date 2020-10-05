@@ -26,8 +26,10 @@
 		UPDATE brief_history
 		SET brief_history_education = #{educationInput},
 			brief_history_career = #{careerInput},
-			brief_history_certificate = #{certificateInput},
-			brief_history_upload_path = #{imageAddress}
+			<if test="imageAddress != null and imageAddress != ''">
+				brief_history_upload_path = #{imageAddress},
+			</if>
+			brief_history_certificate = #{certificateInput}
 		WHERE member_no = 1
 		;
 	</update>
@@ -120,8 +122,10 @@
 			 education_status = #{status},
 			 education_startdate = #{admissionInput},
 			 education_enddate = #{graduatedInput},
-			 education_etc = #{etcInput},
-			 education_upload_path = #{imageAddress}
+			 <if test="imageAddress != null and imageAddress != ''">
+			 	education_upload_path = #{imageAddress},
+			 </if>
+			 education_etc = #{etcInput}
 		WHERE member_no = #{member_no}
 		AND education_no = #{educationNo}
 	</update>
@@ -159,7 +163,12 @@
 	<!-- 회사수정 -->
 	<update id="companyMod" parameterType="hashmap">
 		UPDATE company
-		SET company_name = #{nameInput}, company_startdate = #{joinInput}, company_enddate = #{leaveInput}, company_upload_path = #{imageAddress}
+		SET company_name = #{nameInput},
+			company_startdate = #{joinInput},
+			<if test="imageAddress != null and imageAddress != ''">
+				company_upload_path = #{imageAddress},
+			</if>
+			company_enddate = #{leaveInput}
 		WHERE company_no = #{companyNo}
 		AND member_no = #{member_no}
 	</update>
@@ -261,14 +270,28 @@
 	<!-- 교육 수정 -->
 	<update id="academyMod" parameterType="hashmap">
 		UPDATE academy 
-		SET academy_course = #{curriculumInput}, academy_content = #{contentInput}, academy_academy = #{nameInput}, academy_startdate = #{startInput}, academy_enddate = #{endInput}, academy_status_yn = #{status}, academy_upload_path = #{imageAddress}
+		SET academy_course = #{curriculumInput},
+			academy_content = #{contentInput},
+			academy_academy = #{nameInput},
+			academy_startdate = #{startInput},
+			academy_enddate = #{endInput},
+			<if test="imageAddress != null and imageAddress != ''">
+				academy_upload_path = #{imageAddress},
+			</if>
+			academy_status_yn = #{status}
 		WHERE member_no = #{member_no}
 		AND academy_no = #{academyNo}
 	</update>
 	<!-- 자격증 수정 -->
 	<update id="certificateMod" parameterType="hashmap">
 		UPDATE certificate
-		SET certificate_name = #{nameInput}, certificate_organization = #{certAutorityInput}, certificate_pass_yn = #{status}, certificate_issue_date = #{dateInput}, certificate_upload_path = #{imageAddress}
+		SET certificate_name = #{nameInput},
+			certificate_organization = #{certAutorityInput},
+			certificate_pass_yn = #{status},
+			<if test="imageAddress != null and imageAddress != ''">
+				certificate_upload_path = #{imageAddress},
+			</if>
+			certificate_issue_date = #{dateInput}
 		WHERE member_no = #{member_no}
 		AND certificate_no = #{certificateNo}
 	</update>
