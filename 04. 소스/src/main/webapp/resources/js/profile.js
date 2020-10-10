@@ -260,16 +260,22 @@ function addSelect(id) {
 		$("#imageAddress").removeAttr("name");
 	}
 	switch (id) {
+	// 학력
 	case "2-1": educationAdd();
 		break;
+	// 회사
 	case "3-1": companyAdd();
 		break;
+	// 경력
 	case "3-4": careerAdd();
 		break;
+	// 기술
 	case "4-1": techAdd();
 		break;
+	// 교육
 	case "5-1": academyAdd();
 		break;
+	// 자격증
 	case "6-1": certificateAdd();
 		break;
 	}
@@ -285,16 +291,22 @@ function modSelect(id) {
 		$("#imageAddress").removeAttr("name");
 	}
 	switch (id) {
+	// 약력
 	case "1-2": briefHistoryModify();
 		break;
+	// 학력
 	case "2-2": educationMod();
 		break;
+	// 회사
 	case "3-2": companyMod();
 		break;
+	// 경력
 	case "3-5": careerMod();
 		break;
+	// 교육
 	case "5-2": academyMod();
 		break;
+	// 자격증
 	case "6-2": certificateMod();
 		break;
 	}
@@ -306,16 +318,22 @@ function modSelect(id) {
  */
 function delSelect(id) {
 	switch (id) {
+	// 학력
 	case "2-3": educationDel();
 		break;
+	// 회사
 	case "3-3": companyDel();
 		break;
+	// 경력
 	case "3-6": careerDel();
 		break;
+	// 기술
 	case "4-3": techDel();
 		break;
+	// 교육
 	case "5-3": academyDel();
 		break;
+	// 자격증
 	case "6-3": certificateDel();
 		break;
 	}
