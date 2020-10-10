@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
+<!-- [getBoardListAjax] getBoardListCnt - 게시물 수 구하기
+	  searchTxt(검색어), searchGbn(검색구분) -->
+	<select id="getBoardListCnt" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(board_content_no) AS bCount
+		FROM board_content
+		WHERE board_no = 1
+		AND board_content_del_time IS NULL
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 1">
+					AND board_content_name LIKE CONCAT('%',#{searchTxt},'%')
+				</when>
+				<when test="searchGbn == 2">
+					AND REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%')
+				</when>
+				<when test="searchGbn == 3">
+					AND (board_content_name LIKE CONCAT('%',#{searchTxt},'%')
+						 OR REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%'))
+				</when>
+			</choose>
+		</if>
+	</select>
+<!-- [getBoardListAjax] getBoardList - 게시글 리스트 조회
+	  searchTxt(검색어), searchGbn(검색구분), limitStart(보여줄 리스트 시작번호), limitCnt(한페이지 리스트 갯수) -->
 	<select id="getBoardList" parameterType="hashmap" resultType="hashmap">
 			SELECT b.board_content_no AS content_no,
 			   b.board_content_name AS content_name,
@@ -36,26 +60,8 @@
 		ORDER BY b.board_content_no DESC
 		LIMIT ${limitStart}, ${limitCnt}
 	</select>
-	<select id="getBoardListCnt" parameterType="hashmap" resultType="Integer">
-		SELECT COUNT(board_content_no) AS bCount
-		FROM board_content
-		WHERE board_no = 1
-		AND board_content_del_time IS NULL
-		<if test="searchTxt != null and searchTxt != ''">
-			<choose>
-				<when test="searchGbn == 1">
-					AND board_content_name LIKE CONCAT('%',#{searchTxt},'%')
-				</when>
-				<when test="searchGbn == 2">
-					AND REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%')
-				</when>
-				<when test="searchGbn == 3">
-					AND (board_content_name LIKE CONCAT('%',#{searchTxt},'%')
-						 OR REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%'))
-				</when>
-			</choose>
-		</if>
-	</select>
+<!-- [getBoardListAjax] getBoardList - 게시글 리스트 조회
+	  boardNo(게시판 번호 - 게시판/갤러리 구분) -->
 	<select id="getBoardContent" parameterType="hashmap" resultType="hashmap">
 		SELECT m.member_name AS member_name,
 			   m.member_no AS member_no,		

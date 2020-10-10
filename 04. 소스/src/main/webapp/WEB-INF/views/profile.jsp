@@ -32,6 +32,22 @@ $(document).ready(function() {
 	
 });
 </script>
+<style type="text/css">
+.imgPopover,
+.educationModBtn,
+.educationDelBtn,
+.companyModBtn,
+.companyDelBtn,
+.careerModBtn,
+.careerDelBtn,
+.academyModBtn,
+.academyDelBtn,
+.certificateModBtn,
+.certificateDelBtn
+{
+	cursor: pointer;
+}
+</style>
 </head>
 <body>
 <!-- nav 영역 -->

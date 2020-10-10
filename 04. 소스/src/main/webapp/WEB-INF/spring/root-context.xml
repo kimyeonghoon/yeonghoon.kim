@@ -21,7 +21,7 @@
     
     <!-- Transaction Manager -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<constructor-arg ref="dataSource" />
+		<property name="dataSource" ref="dataSource"></property>
 	</bean>
     
     <bean id="dataSourceLog" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
