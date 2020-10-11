@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="profile">
-	<!-- 약력 조회 -->
+	<!-- briefHistoryAjax, bgetBriefHistoryAjax - 약력 조회 -->
 	<select id="getBriefHistory" parameterType="hashmap" resultType="hashmap">
 		SELECT m.member_name AS nameInput,
 			   m.member_birthday AS yearInput,
@@ -16,7 +16,7 @@
 						  	 AND m.member_no = #{member_no}
 	</select>
 	
-	<!-- 약력 수정 -->
+	<!-- briefHistoryModifyAjax - 약력 수정 -->
 	<update id="updateBriefHistory" parameterType="hashmap">
 		UPDATE member
 		SET member_name = #{nameInput}, member_birthday = #{yearInput}, member_address = #{addressInput}
@@ -34,48 +34,7 @@
 		;
 	</update>
 	
-	<!-- 기술 카테고리목록 받기 -->
-	<select id="getTechCategory" resultType="hashmap">
-		SELECT tech_category_name, tech_category_no
-		FROM tech_category
-		WHERE tech_category_delete_yn = 1
-	</select>
-	
-	<!-- 기술 카테고리개수 받기 -->
-	<select id="getTechCategoryCnt" resultType="Integer">
-		SELECT COUNT(*)
-		FROM tech_category
-		WHERE tech_category_delete_yn = 1
-	</select>
-	
-	<select id="getTech" parameterType="Integer" resultType="string">
-		SELECT tech_name
-		FROM tech
-		WHERE tech_category_no = #{i}
-		AND tech_delete_yn = 1
-	</select>
-	
-	<insert id="techAdd" parameterType="hashmap">
-		INSERT INTO tech(member_no, tech_category_no, tech_name)
-		VALUES (#{member_no}, #{categoryName}, #{skillNameInput})
-	</insert>
-	
-	<!-- 기술 카테고리 기술 받기 -->
-	<select id="techList" parameterType="hashmap" resultType="hashmap">
-		SELECT tech_name, tech_no
-		FROM tech
-		WHERE tech_category_no = #{categoryName}
-		AND tech_delete_yn = 1
-	</select>
-	
-	<update id="techDel" parameterType="hashmap">
-		UPDATE tech
-		SET tech_delete_yn = 0
-		WHERE tech_no = #{skillName}
-		AND member_no = #{member_no}
-		AND tech_category_no = #{categoryName}
-	</update>
-	
+	<!-- redrawEducationAjax, educationOneViewAjax - 학력 조회 -->
 	<select id="getEducation" parameterType="hashmap" resultType="hashmap">
 		SELECT education_no,
 			   education_etc AS etc,
@@ -100,21 +59,15 @@
 			AND education_no = #{educationNo}
 		</if>
 		ORDER BY education_no DESC
-		
 	</select>
 	
+	<!-- educationAddAjax - 학력 추가 -->
 	<insert id="educationAdd" parameterType="hashmap">
 		INSERT INTO education(member_no, education_name, education_department, education_status, education_startdate, education_enddate, education_etc, education_upload_path)
 		VALUES (#{member_no}, #{nameInput}, #{departmentInput}, #{status}, #{admissionInput}, #{graduatedInput}, #{etcInput}, #{imageAddress})
 	</insert>
 	
-	<update id="educationDel" parameterType="hashmap">
-		UPDATE education
-		SET education_delete_yn = 0
-		WHERE member_no = #{member_no}
-		AND education_no = #{educationNo}
-	</update>
-	
+	<!-- educationModAjax - 학력 수정 -->
 	<update id="educationMod" parameterType="hashmap">
 		UPDATE education
 		SET education_name = #{nameInput}, 
@@ -130,12 +83,15 @@
 		AND education_no = #{educationNo}
 	</update>
 	
-	<insert id="companyAdd" parameterType="hashmap">
-		INSERT INTO company (member_no, company_name, company_startdate, company_enddate, company_upload_path)
-		VALUES (#{member_no}, #{nameInput}, #{joinInput}, #{leaveInput}, #{imageAddress})
-	</insert>
+	<!-- educationDelAjax - 학력 삭제 -->
+	<update id="educationDel" parameterType="hashmap">
+		UPDATE education
+		SET education_delete_yn = 0
+		WHERE member_no = #{member_no}
+		AND education_no = #{educationNo}
+	</update>
 	
-	<!-- 회사 리스트 -->
+	<!-- 회사 리스트 조회 -->
 	<select id="companyList" resultType="hashmap">
 		SELECT company_no,
 			   company_name, 
@@ -160,7 +116,24 @@
 		ORDER BY company_no DESC
 	</select>
 	
-	<!-- 회사수정 -->
+	<!-- 경력 리스트 조회 -->
+	<select id="careerList" parameterType="hashmap" resultType="hashmap">
+		SELECT career_no, company_no, career_responsibility, career_description, career_department
+		FROM career
+		WHERE career_delete_yn = 1
+		<if test="careerNo != null and careerNo != ''">
+			AND career_no = #{careerNo}
+		</if>
+		ORDER BY career_no DESC
+	</select>
+	
+		<!-- companyAddAjax - 회사 추가 -->
+	<insert id="companyAdd" parameterType="hashmap">
+		INSERT INTO company (member_no, company_name, company_startdate, company_enddate, company_upload_path)
+		VALUES (#{member_no}, #{nameInput}, #{joinInput}, #{leaveInput}, #{imageAddress})
+	</insert>
+	
+	<!-- companyModAjax - 회사수정 -->
 	<update id="companyMod" parameterType="hashmap">
 		UPDATE company
 		SET company_name = #{nameInput},
@@ -172,7 +145,7 @@
 		WHERE company_no = #{companyNo}
 		AND member_no = #{member_no}
 	</update>
-	<!-- 회사 삭제 -->
+	<!-- companyDelAjax - 회사 삭제 -->
 	<update id="companyDel" parameterType="hashmap">
 		UPDATE company
 		SET company_delete_yn = 0
@@ -180,34 +153,72 @@
 		AND member_no = #{member_no}
 	</update>
 	
-	<!-- 경력 추가 -->
+	<!-- careerAddAjax - 경력 추가 -->
 	<insert id="careerAdd" parameterType="hashmap">
 		INSERT INTO career (company_no, career_responsibility, career_description, career_department)
 		VALUES (#{companyName}, #{taskInput}, #{careerInput}, #{departmentInput})
 	</insert>
-	<!-- 경력 리스트 -->
-	<select id="careerList" parameterType="hashmap" resultType="hashmap">
-		SELECT career_no, company_no, career_responsibility, career_description, career_department
-		FROM career
-		WHERE career_delete_yn = 1
-		<if test="careerNo != null and careerNo != ''">
-			AND career_no = #{careerNo}
-		</if>
-		ORDER BY career_no DESC
-	</select>
-	<!-- 경력 수정 -->
+
+	<!-- careerModAjax - 경력 수정 -->
 	<update id="careerMod" parameterType="hashmap">
 		UPDATE career 
 		SET career_responsibility=#{taskInput}, career_description=#{careerInput}, career_department=#{departmentInput}
 		WHERE career_no = #{careerNo}
 	</update>
-	<!-- 경력 삭제 -->
+	
+	<!-- careerDelAjax - 경력 삭제 -->
 	<update id="careerDel" parameterType="hashmap">
 		UPDATE career 
 		SET career_delete_yn = 0
 		WHERE career_no = #{careerNo}
 	</update>
-	<!-- 교육 리스트 -->
+	
+	<!-- 기술 카테고리개수 받기 -->
+	<select id="getTechCategoryCnt" resultType="Integer">
+		SELECT COUNT(*)
+		FROM tech_category
+		WHERE tech_category_delete_yn = 1
+	</select>
+	
+	<!-- 기술 카테고리목록 받기 -->
+	<select id="getTechCategory" resultType="hashmap">
+		SELECT tech_category_name, tech_category_no
+		FROM tech_category
+		WHERE tech_category_delete_yn = 1
+	</select>
+	
+	<!-- 카테고리에 있는 기술 조회 -->
+	<select id="getTech" parameterType="Integer" resultType="string">
+		SELECT tech_name
+		FROM tech
+		WHERE tech_category_no = #{i}
+		AND tech_delete_yn = 1
+	</select>
+	
+	<!-- techAddAjax - 기술 추가 -->
+	<insert id="techAdd" parameterType="hashmap">
+		INSERT INTO tech(member_no, tech_category_no, tech_name)
+		VALUES (#{member_no}, #{categoryName}, #{skillNameInput})
+	</insert>
+	
+	<!-- techCategoryListAjax - 기술 카테고리 기술 받기 -->
+	<select id="techList" parameterType="hashmap" resultType="hashmap">
+		SELECT tech_name, tech_no
+		FROM tech
+		WHERE tech_category_no = #{categoryName}
+		AND tech_delete_yn = 1
+	</select>
+	
+	<!-- techDelAjax - 보유 기술 삭제 -->
+	<update id="techDel" parameterType="hashmap">
+		UPDATE tech
+		SET tech_delete_yn = 0
+		WHERE tech_no = #{skillName}
+		AND member_no = #{member_no}
+		AND tech_category_no = #{categoryName}
+	</update>
+
+	<!-- redrawAcademyAjax, academyOneViewAjax - 교육 리스트 -->
 	<select id="getAcademy" parameterType="hashmap" resultType="hashmap">
 		SELECT academy_no, 
 			   academy_course AS course,
@@ -234,7 +245,37 @@
 		ORDER BY academy_no DESC
 	</select>
 	
-	<!-- 자격증 리스트 -->
+	<!-- academyAddAjax - 교육 추가 -->
+	<insert id="academyAdd" parameterType="hashmap">
+		INSERT INTO academy (member_no, academy_course, academy_content, academy_academy, academy_startdate, academy_enddate, academy_status_yn, academy_upload_path)
+		VALUES (#{member_no}, #{curriculumInput}, #{contentInput}, #{nameInput}, #{startInput}, #{endInput}, #{status}, #{imageAddress});
+	</insert>
+	
+	<!-- academyModAjax - 교육 수정 -->
+	<update id="academyMod" parameterType="hashmap">
+		UPDATE academy 
+		SET academy_course = #{curriculumInput},
+			academy_content = #{contentInput},
+			academy_academy = #{nameInput},
+			academy_startdate = #{startInput},
+			academy_enddate = #{endInput},
+			<if test="imageAddress != null and imageAddress != ''">
+				academy_upload_path = #{imageAddress},
+			</if>
+			academy_status_yn = #{status}
+		WHERE member_no = #{member_no}
+		AND academy_no = #{academyNo}
+	</update>
+	
+	<!-- academyDelAjax - 교육 삭제 -->
+	<update id="academyDel" parameterType="hashmap">
+		UPDATE academy 
+		SET academy_delete_yn = 0
+		WHERE member_no = #{member_no}
+		AND academy_no = #{academyNo}
+	</update>
+	
+	<!-- redrawCertificateAjax, certificateOneViewAjax - 자격증 리스트 -->
 	<select id="getCertificate" parameterType="hashmap" resultType="hashmap">
 		SELECT certificate_no AS cert_no,
 			   certificate_name AS cert_name,
@@ -257,32 +298,14 @@
 		</if>
 		ORDER BY cert_no DESC
 	</select>
-	<!-- 교육 추가 -->
-	<insert id="academyAdd" parameterType="hashmap">
-		INSERT INTO academy (member_no, academy_course, academy_content, academy_academy, academy_startdate, academy_enddate, academy_status_yn, academy_upload_path)
-		VALUES (#{member_no}, #{curriculumInput}, #{contentInput}, #{nameInput}, #{startInput}, #{endInput}, #{status}, #{imageAddress});
-	</insert>
-	<!-- 자격증 추가 -->
+
+	<!-- certificateAddAjax - 자격증 추가 -->
 	<insert id="certificateAdd" parameterType="hashmap">
 		INSERT INTO certificate (member_no, certificate_name, certificate_organization, certificate_pass_yn, certificate_issue_date, certificate_upload_path)
 		VALUES (#{member_no}, #{nameInput}, #{certAutorityInput}, #{status}, #{dateInput}, #{imageAddress});	
 	</insert>
-	<!-- 교육 수정 -->
-	<update id="academyMod" parameterType="hashmap">
-		UPDATE academy 
-		SET academy_course = #{curriculumInput},
-			academy_content = #{contentInput},
-			academy_academy = #{nameInput},
-			academy_startdate = #{startInput},
-			academy_enddate = #{endInput},
-			<if test="imageAddress != null and imageAddress != ''">
-				academy_upload_path = #{imageAddress},
-			</if>
-			academy_status_yn = #{status}
-		WHERE member_no = #{member_no}
-		AND academy_no = #{academyNo}
-	</update>
-	<!-- 자격증 수정 -->
+
+	<!-- certificateModAjax - 자격증 수정 -->
 	<update id="certificateMod" parameterType="hashmap">
 		UPDATE certificate
 		SET certificate_name = #{nameInput},
@@ -295,14 +318,8 @@
 		WHERE member_no = #{member_no}
 		AND certificate_no = #{certificateNo}
 	</update>
-	<!-- 교육 삭제 -->
-	<update id="academyDel" parameterType="hashmap">
-		UPDATE academy 
-		SET academy_delete_yn = 0
-		WHERE member_no = #{member_no}
-		AND academy_no = #{academyNo}
-	</update>
-	<!-- 자격증 삭제 -->
+
+	<!-- certificateDelAjax - 자격증 삭제 -->
 	<update id="certificateDel" parameterType="hashmap">
 		UPDATE certificate
 		SET certificate_delete_yn = 0

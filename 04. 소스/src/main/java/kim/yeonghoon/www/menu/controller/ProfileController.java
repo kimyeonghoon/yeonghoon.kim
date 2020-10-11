@@ -677,7 +677,7 @@ public class ProfileController {
 		
 
 	/**
-	 * [tech] techAddAjax - 보유기술 삭제  ajax
+	 * [tech] techDelAjax - 보유기술 삭제  ajax
 	 */
 	@RequestMapping(value = "/techDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -840,49 +840,49 @@ public class ProfileController {
 	}
 	
 	
+	/**
+	 * [certificate] redrawCertificateAjax - 자격증 조회 후 profile에 그리는 ajax
+	 */
 	@RequestMapping(value = "/redrawCertificateAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String redrawCertificateAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
+		// 세션 번호 취득
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
-		
 		if(currentUser.equals("1")) {
+			// 관리자로 접속했을 때 자격증 수정/삭제 버튼 view로 전달
 			modelMap.put("certificateModDelBtn",
 					"&nbsp;<span id=\"certificateModBtn\" class=\"certificateModBtn\">&#x1F6E0;</span>&nbsp;<span id=\"certificateDelBtn\" class=\"certificateDelBtn\">&#x1F5D1;</span>");
-			params.put("member_no", currentUser);
-		} else {
-			params.put("member_no", "1");
 		}
-		
+		params.put("member_no", "1");
 		try {
+			// 자격증 조회
 			List<HashMap<String,String>> getCertificate = iProfileService.getCertificate(params);
-			
 			modelMap.put("getCertificate", getCertificate);
 			modelMap.put("result", "success");
 		} catch (Throwable e) {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
 
-	
+	/**
+	 * [certificate] certificateAddAjax - 자격증  추가 ajax
+	 */
 	@RequestMapping(value = "/certificateAddAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String certificateAddAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
+		// 세션 번호 취득
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		params.put("member_no", currentUser);
 		try {
-			
+			// 자격증 추가
 			int certificateAddCnt = iProfileService.certificateAdd(params);
-			
 			if(certificateAddCnt > 0) {
 				modelMap.put("result", "success");
 			} else {
@@ -892,49 +892,48 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
 
-	
+	/**
+	 * [certificate] certificateOneViewAjax - 자격증 수정 팝업 뜰 때 선택한 자격증 조회 후 form에 값 넣어주는 ajax
+	 */
 	@RequestMapping(value = "/certificateOneViewAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String certificateOneViewAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
+		// 세션 번호 취득
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		params.put("member_no", currentUser);
 		try {
-			
+			// 자격증 조회
 			List<HashMap<String,String>> getCertificate = iProfileService.getCertificate(params);
-			
 			modelMap.put("getCertificate", getCertificate);
 			modelMap.put("result", "success");
-			
 		} catch (Throwable e) {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
 
-	
+	/**
+	 * [certificate] certificateModAjax - 자격증  수정 ajax
+	 */
 	@RequestMapping(value = "/certificateModAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String certificateModlAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
+		// 세션 번호 취득
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		params.put("member_no", currentUser);
 		try {
-			
+			// 자격증 수정
 			int certificateModCnt = iProfileService.certificateMod(params);
-
 			if(certificateModCnt > 0) {
 				modelMap.put("result", "success");
 			} else {
@@ -944,24 +943,24 @@ public class ProfileController {
 			e.printStackTrace();
 			modelMap.put("result", "fail");
 		}
-		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
 
-	
+	/**
+	 * [certificate] certificateDelAjax - 자격증  삭제 ajax
+	 */
 	@RequestMapping(value = "/certificateDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String certificateDelAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
+		// 세션 번호 취득
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		params.put("member_no", currentUser);
 		try {
-			
+			// 자격증 삭제
 			int certificateDelCnt = iProfileService.certificateDel(params);
-
 			if(certificateDelCnt > 0) {
 				modelMap.put("result", "success");
 			} else {
@@ -974,5 +973,4 @@ public class ProfileController {
 		
 		return mapper.writeValueAsString(modelMap);
 	}
-	
 }
