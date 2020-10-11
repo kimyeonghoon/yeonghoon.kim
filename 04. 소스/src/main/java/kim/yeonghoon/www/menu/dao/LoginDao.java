@@ -12,10 +12,6 @@ public class LoginDao implements ILoginDao {
 	@Autowired
 	SqlSession sqlSession;
 	
-	@Override
-	public int getEmailExistCheck(HashMap<String, String> params) throws Throwable {
-		return sqlSession.selectOne("login.getEmailExistCheck", params);
-	}
 
 	@Override
 	public HashMap<String, String> getUserInfo(HashMap<String, String> params) throws Throwable {

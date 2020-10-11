@@ -25,8 +25,10 @@ public class CommonAOP {
 			+ "&&!execution(* kim.yeonghoon.www.menu.controller.BoardController.boardDetail(..))"
 			+ "&&!execution(* kim.yeonghoon.www..*Ajax*(..))")
 	
+	// loginCheckAOP 선언
 	public void loginCheckAOP() {}
 	
+	// 모든 시점에서 작동하도록 Around 처리
 	@Around("loginCheckAOP()")
 	public ModelAndView loginCheckAOP(ProceedingJoinPoint joinPoint) throws Throwable {
 		ModelAndView mav = new ModelAndView();

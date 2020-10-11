@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
+<!-- [getBoardListAjax] getBoardListCnt - 총 게시물 수 구하기 -->
+	<select id="getBoardListCnt" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(board_content_no) AS bCount
+		FROM board_content
+		WHERE board_no = 1
+		AND board_content_del_time IS NULL
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 1">
+					AND board_content_name LIKE CONCAT('%',#{searchTxt},'%')
+				</when>
+				<when test="searchGbn == 2">
+					AND REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%')
+				</when>
+				<when test="searchGbn == 3">
+					AND (board_content_name LIKE CONCAT('%',#{searchTxt},'%')
+						 OR REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%'))
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+<!-- [getBoardListAjax] getBoardList - 게시글 리스트 조회 -->
 	<select id="getBoardList" parameterType="hashmap" resultType="hashmap">
 			SELECT b.board_content_no AS content_no,
 			   b.board_content_name AS content_name,
@@ -36,26 +59,10 @@
 		ORDER BY b.board_content_no DESC
 		LIMIT ${limitStart}, ${limitCnt}
 	</select>
-	<select id="getBoardListCnt" parameterType="hashmap" resultType="Integer">
-		SELECT COUNT(board_content_no) AS bCount
-		FROM board_content
-		WHERE board_no = 1
-		AND board_content_del_time IS NULL
-		<if test="searchTxt != null and searchTxt != ''">
-			<choose>
-				<when test="searchGbn == 1">
-					AND board_content_name LIKE CONCAT('%',#{searchTxt},'%')
-				</when>
-				<when test="searchGbn == 2">
-					AND REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%')
-				</when>
-				<when test="searchGbn == 3">
-					AND (board_content_name LIKE CONCAT('%',#{searchTxt},'%')
-						 OR REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%'))
-				</when>
-			</choose>
-		</if>
-	</select>
+	
+	
+	
+<!-- [getBoardContentAjax] getBoardContent - 게시글 조회 -->
 	<select id="getBoardContent" parameterType="hashmap" resultType="hashmap">
 		SELECT m.member_name AS member_name,
 			   m.member_no AS member_no,		
@@ -76,6 +83,8 @@
 							 		 ON 1 = 1
 		WHERE b.board_content_no = #{boardNo}
 	</select>
+	
+<!-- [getBoardContentAjax] boardContentHit - 게시글 조회 -->
 	<update id="boardContentHit" parameterType="hashmap">
 		UPDATE board_content
 		SET board_content_hit = (SELECT board_content_hit
@@ -83,6 +92,10 @@
 								 WHERE board_content_no = #{boardNo}) + 1
 		WHERE board_content_no = #{boardNo}
 	</update>
+	
+	
+	
+<!-- [getCommentAjax] getComment - 상세보기 댓글 조회 -->
 	<select id="getComment" parameterType="hashmap" resultType="hashmap">
 	SELECT m.member_name AS member_name,
 		   m.member_no AS member_no,
@@ -100,17 +113,18 @@
 	</if>
 	ORDER BY reg_time ASC
 	</select>
+	
+	
+	
+<!-- [getCommentAjax] commentAdd - 댓글 추가 -->
 	<insert id="commentAdd" parameterType="hashmap">
 		INSERT INTO comment (board_content_no, member_no, comment_content, comment_reg_time)
 		VALUES (#{boardNo}, #{userNo}, #{comment}, NOW());
 	</insert>
-	<update id="commentDel" parameterType="hashmap">
-		UPDATE comment
-		SET comment_del_time = NOW()
-		WHERE board_content_no = #{bNo}
-		AND comment_no = #{coNo}
-		AND member_no = #{uNo}
-	</update>
+	
+	
+	
+<!-- [commentModAjax] commentMod - 댓글 수정 -->
 	<update id="commentMod" parameterType="hashmap">
 		UPDATE comment
 		SET comment_mod_time = NOW(),
@@ -120,12 +134,28 @@
 		AND member_no = #{uNo}
 	</update>
 	
+	
+	
+<!-- [commentDelAjax] commentDel - 댓글 삭제 -->	
+	<update id="commentDel" parameterType="hashmap">
+		UPDATE comment
+		SET comment_del_time = NOW()
+		WHERE board_content_no = #{bNo}
+		AND comment_no = #{coNo}
+		AND member_no = #{uNo}
+	</update>
+
+	
+	
+<!-- [boardAddAjax] getBoardContentNo - autoIncrement 값 조회 -->		
 	<select id="getBoardContentNo" resultType="Integer">
 		SELECT AUTO_INCREMENT AS autoIncrement
 		FROM information_schema.tables
 		WHERE table_name = 'board_content'
 		AND table_schema = DATABASE()
 	</select>
+	
+<!-- [boardAddAjax] boardAdd - 게시글 등록 -->			
 	<insert id="boardAdd" parameterType="hashmap">
 		INSERT INTO board_content (board_no, member_no, board_content_name, board_content_detail, board_content_reg_time)
 		VALUES (#{boardNo}, #{userNo}, #{contentName}, #{contentDetail}, NOW())
@@ -137,12 +167,16 @@
 		</if>
 	</insert>
 
-	<update id="contentDel" parameterType="hashmap">
-		UPDATE board_content
-		SET board_content_del_time = NOW()
-		WHERE board_content_no = #{bNo}
-		AND member_no = #{uNo}
-	</update>
+
+
+<!-- [boardModAjax] contentFileCheck - 첨부파일 체크 -->
+	<select id="contentFileCheck" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(*)
+		FROM board_content_file
+		WHERE board_content_no = #{boardNo}
+	</select>
+	
+<!-- [boardModAjax] boardMod - 글 수정 -->
 	<update id="boardMod" parameterType="hashmap">
 		UPDATE board_content
 		SET board_content_name = #{contentName}, board_content_detail = #{contentDetail}, board_content_mod_time = NOW()
@@ -162,9 +196,14 @@
 	   </choose>
 		;
 	</update>
-	<select id="contentFileCheck" parameterType="hashmap" resultType="Integer">
-		SELECT COUNT(*)
-		FROM board_content_file
-		WHERE board_content_no = #{boardNo}
-	</select>
+
+
+	
+<!-- [boardModAjax] contentDelAjax - 글 삭제 -->
+	<update id="contentDel" parameterType="hashmap">
+		UPDATE board_content
+		SET board_content_del_time = NOW()
+		WHERE board_content_no = #{bNo}
+		AND member_no = #{uNo}
+	</update>
 </mapper>

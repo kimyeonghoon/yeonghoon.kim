@@ -46,6 +46,7 @@ function redrawList(boardList) {
 			html += "<tr data-bNo=\"" + boardList[i].content_no + "\"data-authNo=\"" + boardList[i].auth_no + "\">";
 			html += "<td class=\"d-none d-xl-table-cell\">" + boardList[i].content_no + "</td>";
 			html += "<td class=\"text-left\">" + boardList[i].content_name;
+			// 해당 게시물에 댓글이 있을 경우
 			if(boardList[i].commentCnt != undefined) {
 				html += " [<b>" + boardList[i].commentCnt + "</b>]";
 			}
