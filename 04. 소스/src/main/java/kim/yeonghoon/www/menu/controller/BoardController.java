@@ -46,7 +46,7 @@ public class BoardController {
 	/**
 	 * [board] getBoardListAjax - board 접속 시 게시물 리스트를 불러오는 ajax
 	 */
-	@RequestMapping(value = "getBoardListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/getBoardListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String getBoardListAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
@@ -54,12 +54,10 @@ public class BoardController {
 		// 세션 번호 취득 후 현재 유저의 값을 member_no 키에 넣음
 		String currentUser = String.valueOf(session.getAttribute("sMember_no"));
 		params.put("member_no", currentUser);
-		
 		// 페이지값을 못받아올 경우 1페이지로 지정(최초 접속)
 		if(params.get("page") == null) {
 			params.put("page", "1");
 		}
-		
 		// 글 내용 및 페이징 조회
 		try {
 			// [paging - 1] 현재 페이지 취득
@@ -125,7 +123,7 @@ public class BoardController {
 	/**
 	 * [board] getBoardListCntAjax - board 접속 시 총 게시물 수를 불러오는 ajax
 	 */
-	@RequestMapping(value = "getBoardListCntAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/getBoardListCntAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String getBoardListCntAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
@@ -173,7 +171,7 @@ public class BoardController {
 	/**
 	 * [boardDetail] getBoardContentAjax - 상세보기 글 내용 조회 ajax
 	 */
-	@RequestMapping(value = "getBoardContentAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/getBoardContentAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String getBoardContentAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
@@ -197,7 +195,7 @@ public class BoardController {
 	/**
 	 * [boardDetail] getCommentAjax - 상세보기 댓글 조회 ajax(commentNo가 넘어오지 않을 경우 전체 조회, commentNo가 넘어올 경우 단건조회<댓글 수정>)
 	 */
-	@RequestMapping(value = "getCommentAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/getCommentAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String getCommentAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
@@ -218,7 +216,7 @@ public class BoardController {
 	/**
 	 * [boardDetail] commentAddAjax - 댓글 추가 ajax
 	 */
-	@RequestMapping(value = "commentAddAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/commentAddAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String commentAddAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
@@ -251,7 +249,7 @@ public class BoardController {
 	/**
 	 * [boardDetail] commentModAjax - 댓글 수정 ajax
 	 */
-	@RequestMapping(value = "commentModAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/commentModAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String commentModAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
@@ -283,7 +281,7 @@ public class BoardController {
 	/**
 	 * [boardDetail] commentDelAjax - 댓글 삭제 ajax
 	 */
-	@RequestMapping(value = "commentDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/commentDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String commentDelAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
@@ -315,7 +313,7 @@ public class BoardController {
 	/**
 	 * [boardDetail] contentDelAjax - 게시글 삭제 버튼 클릭 시 동작
 	 */
-	@RequestMapping(value = "contentDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/contentDelAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String contentDelAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
@@ -368,7 +366,7 @@ public class BoardController {
 	/**
 	 * [boardAdd] boardAddAjax - 게시글 등록 버튼 클릭 시 동작
 	 */
-	@RequestMapping(value = "boardAddAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/boardAddAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String boardAddAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
@@ -441,7 +439,7 @@ public class BoardController {
 	/**
 	 * [boardMod] boardModAjax - 게시글 수정 버튼 클릭 시 동작
 	 */
-	@RequestMapping(value = "boardModAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/boardModAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String boardModAjax(@RequestParam HashMap<String,String> params, HttpSession session) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();

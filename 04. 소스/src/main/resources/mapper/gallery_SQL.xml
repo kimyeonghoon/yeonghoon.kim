@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gallery">
+<!-- [getGalleryListAjax] getGalleryListCnt - 총 게시물 수 구하기 -->
+	<select id="getGalleryListCnt" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(board_content_no) AS bCount
+		FROM board_content
+		WHERE board_no = 2
+		AND board_content_del_time IS NULL
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 1">
+					AND board_content_name LIKE CONCAT('%',#{searchTxt},'%')
+				</when>
+				<when test="searchGbn == 2">
+					AND REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%')
+				</when>
+				<when test="searchGbn == 3">
+					AND (board_content_name LIKE CONCAT('%',#{searchTxt},'%')
+						 OR REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%'))
+				</when>
+			</choose>
+		</if>
+	</select>
+
+<!-- [getGalleryListAjax] getGalleryList - 게시글 리스트 조회 -->
 	<select id="getGalleryList" parameterType="hashmap" resultType="hashmap">
 			SELECT b.board_content_no AS content_no,
 			   b.board_content_name AS content_name,
@@ -40,26 +63,10 @@
 		ORDER BY b.board_content_no DESC
 		LIMIT ${limitStart}, ${limitCnt}
 	</select>
-	<select id="getGalleryListCnt" parameterType="hashmap" resultType="Integer">
-		SELECT COUNT(board_content_no) AS bCount
-		FROM board_content
-		WHERE board_no = 2
-		AND board_content_del_time IS NULL
-		<if test="searchTxt != null and searchTxt != ''">
-			<choose>
-				<when test="searchGbn == 1">
-					AND board_content_name LIKE CONCAT('%',#{searchTxt},'%')
-				</when>
-				<when test="searchGbn == 2">
-					AND REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%')
-				</when>
-				<when test="searchGbn == 3">
-					AND (board_content_name LIKE CONCAT('%',#{searchTxt},'%')
-						 OR REGEXP_REPLACE(board_content_detail, <![CDATA['<[^>]*>|\&([^;])*;']]>, '') LIKE CONCAT('%',#{searchTxt},'%'))
-				</when>
-			</choose>
-		</if>
-	</select>
+
+
+
+<!-- [getGalleryContentAjax] getGalleryContent - 게시글 조회 -->
 	<select id="getGalleryContent" parameterType="hashmap" resultType="hashmap">
 		SELECT m.member_name AS member_name,
 			   m.member_no AS member_no,		
@@ -76,6 +83,8 @@
 							 			  ON b.board_content_no = t.board_content_no
 		WHERE b.board_content_no = #{boardNo}
 	</select>
+	
+<!-- [getGalleryContentAjax] galleryContentHit - 히트 수 증가 -->
 	<update id="galleryContentHit" parameterType="hashmap">
 		UPDATE board_content
 		SET board_content_hit = (SELECT board_content_hit
@@ -83,6 +92,10 @@
 								 WHERE board_content_no = #{boardNo}) + 1
 		WHERE board_content_no = #{boardNo}
 	</update>
+	
+	
+	
+<!-- [getCommentAjax] getComment - 상세보기 댓글 조회 ajax -->	
 	<select id="getComment" parameterType="hashmap" resultType="hashmap">
 	SELECT m.member_name AS member_name,
 		   m.member_no AS member_no,
@@ -100,17 +113,17 @@
 	</if>
 	ORDER BY reg_time ASC
 	</select>
+	
+	
+	
+<!-- [commentAddAjax] commentAdd - 상세보기 댓글 조회 ajax -->		
 	<insert id="commentAdd" parameterType="hashmap">
 		INSERT INTO comment (board_content_no, member_no, comment_content, comment_reg_time)
 		VALUES (#{boardNo}, #{userNo}, #{comment}, NOW());
 	</insert>
-	<update id="commentDel" parameterType="hashmap">
-		UPDATE comment
-		SET comment_del_time = NOW()
-		WHERE board_content_no = #{bNo}
-		AND comment_no = #{coNo}
-		AND member_no = #{uNo}
-	</update>
+
+
+<!-- [commentModAjax] commentMod - 댓글 수정 ajax -->
 	<update id="commentMod" parameterType="hashmap">
 		UPDATE comment
 		SET comment_mod_time = NOW(),
@@ -120,23 +133,39 @@
 		AND member_no = #{uNo}
 	</update>
 	
+	
+<!-- [commentDelAjax] commentDel - 댓글 삭제 ajax -->
+	<update id="commentDel" parameterType="hashmap">
+		UPDATE comment
+		SET comment_del_time = NOW()
+		WHERE board_content_no = #{bNo}
+		AND comment_no = #{coNo}
+		AND member_no = #{uNo}
+	</update>
+	
+	
+	
+<!-- [galleryAddAjax] getGalleryContentNo - autoIncrement값 조회 -->	
 	<select id="getGalleryContentNo" resultType="Integer">
 		SELECT AUTO_INCREMENT AS autoIncrement
 		FROM information_schema.tables
 		WHERE table_name = 'board_content'
 		AND table_schema = DATABASE()
 	</select>
+	
+<!-- [galleryAddAjax] getGalleryContentNo - autoIncrement값 조회 -->		
 	<insert id="galleryAdd" parameterType="hashmap">
 		INSERT INTO board_content (board_no, member_no, board_content_name, board_content_detail, board_content_reg_time)
 		VALUES (#{boardNo}, #{userNo}, #{contentName}, #{contentDetail}, NOW())
 	</insert>
 
-	<update id="contentDel" parameterType="hashmap">
-		UPDATE board_content
-		SET board_content_del_time = NOW()
-		WHERE board_content_no = #{bNo}
-		AND member_no = #{uNo}
-	</update>
+<!-- [galleryAddAjax] addThumbnail - 썸네일 추가 -->	
+	<insert id="addThumbnail" parameterType="hashmap">
+		INSERT INTO gallery_thumbnail(board_content_no, gallery_thumbnail_path)
+		VALUES (#{autoIncrement}, #{thumbnailPath});
+	</insert>
+	
+<!-- [galleryModAjax] galleryMod - 게시글 수정 버튼 클릭 시 동작 -->		
 	<update id="galleryMod" parameterType="hashmap">
 		UPDATE board_content
 		SET board_content_name = #{contentName}, board_content_detail = #{contentDetail}, board_content_mod_time = NOW()
@@ -148,21 +177,21 @@
 				UPDATE gallery_thumbnail
 				SET gallery_thumbnail_path = #{thumbnailPath} 
 				WHERE board_content_no = #{boardNo}
+				;
 		   </when>
 		   <when test="fileStatus == 'newFile'">
 				INSERT INTO gallery_thumbnail(board_content_no, gallery_thumbnail_path)
-				VALUES (#{boardNo}, #{thumbnailPath});
+				VALUES (#{boardNo}, #{thumbnailPath})
+				;
 		   </when>
 	   </choose>
-		;
 	</update>
-	<select id="contentFileCheck" parameterType="hashmap" resultType="Integer">
-		SELECT COUNT(*)
-		FROM board_content_file
-		WHERE board_content_no = #{boardNo}
-	</select>
-	<insert id="addThumbnail" parameterType="hashmap">
-		INSERT INTO gallery_thumbnail(board_content_no, gallery_thumbnail_path)
-		VALUES (#{autoIncrement}, #{thumbnailPath});
-	</insert>
+	
+<!-- [galleryContentDelAjax] contentDel - 게시글 삭제 버튼 클릭 시 동작 -->	
+	<update id="contentDel" parameterType="hashmap">
+		UPDATE board_content
+		SET board_content_del_time = NOW()
+		WHERE board_content_no = #{bNo}
+		AND member_no = #{uNo}
+	</update>
 </mapper>

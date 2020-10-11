@@ -10,9 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class BoardDao implements IBoardDao {
-	/**
-	 * 의존성 주입
-	 */
+
 	@Autowired
 	SqlSession sqlSession;
 
