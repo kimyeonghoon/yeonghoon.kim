@@ -8,7 +8,7 @@
  * 
  */
 function galleryAdd() {
-	$("#actionForm").attr("action", "boardAddAjax");
+	$("#actionForm").attr("action", "galleryAddAjax");
 	var params = $("#actionForm").serialize();
 	$.ajax({
 		type : "post",			  

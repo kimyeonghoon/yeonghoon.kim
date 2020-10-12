@@ -67,7 +67,7 @@ $(document).ready(function() {
 				</tr>
 				<tr class="table-secondary">
 					<td class="p-3 cursor-defualt" colspan="2">
-						썸네일로 사용할 이미지 주소 입력 : <input type="text" id="thumbnail" name="thumbnail" /><br/>					
+						썸네일로 사용할 이미지 주소 입력 : <input type="text" id="thumbnail" name="thumbnail" placeholder="${thumbAddress}" /><br/>					
 						<span class="text-danger">(*업로드된 이미지 우클릭 해서 파일명 확인)</span>
 					</td>
 				</tr>

@@ -36,9 +36,6 @@ import kim.yeonghoon.www.menu.service.IGalleryService;
 
 @Controller
 public class FileUploadController {
-
-	@Autowired
-	IGalleryService iGalleryService;
 	
 	@RequestMapping(value = "/fileUploadAjax", method = RequestMethod.POST,  produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -51,7 +48,7 @@ public class FileUploadController {
 		// 업로드 허용 확장자 지정
 		final String uploadExt = "show|zip|xls|ppt|doc|xlsx|pptx|docx|hwp|csv|jpg|jpeg|png|gif|bmp|txt|pdf";
 		// 업로드 경로
-		String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
+		String uploadPath = "/usr/local/tomcat-8.5.55/webapps/yeonghoonkim/yeonghoonkim/resources/upload/";
 		// fileFullName 초기화
 		String fileFullName = "";
 		
@@ -99,7 +96,7 @@ public class FileUploadController {
 				        final AmazonS3 s3 = AmazonS3ClientBuilder.standard()
 				        .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
 				        		"kr.object.iwinv.kr", "default"))
-				        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("D3TASI07A7SINONC023P", "gMGepzuwX1a2e6AnrsHOWQMtQ9EnPc7goxGnQ3sN")))
+				        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("AccessKey", "SecretKey")))
 				        .build();
 						
 						
@@ -130,7 +127,7 @@ public class FileUploadController {
 		
 		try {
 			String uploadExts = "jpg|jpeg|png|gif|bmp"; // 확장자
-			String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
+			String uploadPath = "/usr/local/tomcat-8.5.55/webapps/yeonghoonkim/yeonghoonkim/resources/upload/";
 			String fileFullName = "";
 
 			File fileDir = new File(uploadPath);
@@ -153,7 +150,7 @@ public class FileUploadController {
 			        final AmazonS3 s3 = AmazonS3ClientBuilder.standard()
 			        .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
 			        		"kr.object.iwinv.kr", "default"))
-			        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("D3TASI07A7SINONC023P", "gMGepzuwX1a2e6AnrsHOWQMtQ9EnPc7goxGnQ3sN")))
+			        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("AccessKey", "SecretKey")))
 			        .build();
 					
 					

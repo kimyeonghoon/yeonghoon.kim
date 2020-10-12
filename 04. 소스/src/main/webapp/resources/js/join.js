@@ -45,6 +45,9 @@ function validateCheck() {
 	// 기지국을 제외한 전화번호 자리수 체크
 	} else if($("#telNo").val().length < 7) {
 		joinModalPopup(11);
+	// 이름 글자 수 제한(5자)
+	} else if($("#nameInput").val().length > 5) {
+		joinModalPopup(12);
 	} else {
 		// 주소 disabled 속성 제거
 		$("#addressInput").removeAttr("disabled");
@@ -93,6 +96,8 @@ function joinModalPopup(no) {
 		case 10: html += "전화번호 뒷자리를 입력해주세요.";
 				  break;
 		case 11: html += "전화번호를 정확히 입력해주세요.";
+				  break;
+		case 12: html += "이름은 5자까지만 입력가능합니다.";
 				  break;
 		case 97 : html += "기지국 번호를 받아올 수 없습니다. 관리자에게 문의하세요.";
 				  break;

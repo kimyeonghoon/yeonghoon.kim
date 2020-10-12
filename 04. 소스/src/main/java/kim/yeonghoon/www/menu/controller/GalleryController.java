@@ -439,6 +439,8 @@ public class GalleryController {
 			try {
 				// 수정할 게시글의 내용 조회 후 해당 내용을 view로 넘김
 				HashMap<String, String> contentMap = iGalleryService.getGalleryContent(params);
+				// 썸네일명을 placeholder 처리하기 위해 값 변형
+				contentMap.put("thumbAddress", contentMap.get("thumbnail_path").replace("resources/upload/s_", ""));
 				mav.addAllObjects(contentMap);
 				mav.setViewName("galleryMod");
 			} catch (Throwable e) {
@@ -460,16 +462,13 @@ public class GalleryController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		try {
-			// 썸네일 변경 X
-			if (params.get("prevThumbnail") == params.get("thumbnail")) {
-				params.put("fileStatus", "notModified"); 
-			// 썸네일 수정을 안했을 경우
-			} else if(params.get("thumnail") == null) {
-				params.put("fileStatus", "thumnailDelete");
+			// 썸네일 변경X
+			if(params.get("thumbnail") == null || params.get("thumbnail") == "") {
+				params.put("fileStatus", "thumㅠnailNotModify");
 			// 썸네일 등록/수정
 			} else {
 				// 썸네일 업로드 경로 및 파일명 지정
-				String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
+				String uploadPath = "/usr/local/tomcat-8.5.55/webapps/yeonghoonkim/yeonghoonkim/resources/upload/";
 				String uploadFileName = params.get("thumbnail");
 				String fileInput = uploadPath + uploadFileName;
 				String fileExt = fileInput.substring(fileInput.length()-3, fileInput.length());
@@ -478,18 +477,18 @@ public class GalleryController {
 				// 이미지 리사이즈
 				BufferedImage thumnailImage = Scalr.resize(sourceImage, 200, 200);
 				// 썸네일 파일명 지정
-				String thumnailImgName = "s_" + fileInput;
+				String thumbnailImgName = "s_" + uploadFileName;
 				// 파일 생성
-				File newFile = new File(uploadPath + thumnailImgName);
+				File newFile = new File(uploadPath + thumbnailImgName);
 				ImageIO.write(thumnailImage, fileExt, newFile);
-				// 썸네일 등록
+				// 썸네일 수정
 				if(params.get("prevThumbnail") != null && params.get("prevThumbnail") != "") {
 					params.put("fileStatus", "modFile");
-				// 썸네일 수정
+				// 썸네일 신규등록
 				} else {
 					params.put("fileStatus", "newFile");
 				}
-				params.put("thumbnailPath", "resources/upload/" + thumnailImgName);
+				params.put("thumbnailPath", "resources/upload/" + thumbnailImgName);
 			}
 			// 게시글 수정 
 			int galleryModCnt = iGalleryService.galleryMod(params);
