@@ -396,7 +396,7 @@ public class GalleryController {
 			// 썸네일 등록
 			if(params.get("thumbnail") != null && params.get("thumbnail") != "") {
 				// 썸네일 업로드 경로 및 파일명 지정
-				String uploadPath = "/usr/local/tomcat-8.5.55/webapps/yeonghoonkim/yeonghoonkim/resources/upload/";
+				String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
 				String uploadFileName = params.get("thumbnail");
 				String fileInput = uploadPath + uploadFileName;
 				String fileExt = uploadFileName.substring(uploadFileName.length()-3, uploadFileName.length());
