@@ -49,27 +49,36 @@ function getBriefHistory() {
  * [약력] 약력 수정
  */
 function briefHistoryModify() {
-	$("#actionForm").attr("action", "briefHistoryModifyAjax");
-	var params = $("#actionForm").serialize();
-	$.ajax({
-		type : "post",			  
-		url : "briefHistoryModifyAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			if(res.result == "success") {
-				// 정상적으로 수행될 경우 팝업창 닫고, 약력을 다시 그림
-				$("#notifyModal").modal("hide");
-				redrawBriefHistory();
-			} else {
-				modalPopup("x");
-			}
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
+	// 유효성 체크 후 문제가 없을 경우 ajax 동작
+	if($("#nameInput").val() == null || $("#nameInput").val() == '') {
+		alert("이름을 입력해주세요");
+	} else if ($("#yearInput").val() == null || $("#yearInput").val() == '' || $("#yearInput").val() == "0") {
+		alert("생년을 입력해주세요.");
+	} else if($("#yearInput").val().length > 5) {
+		alert("생년은 4자리만 입력가능합니다.");
+	} else {
+		$("#actionForm").attr("action", "briefHistoryModifyAjax");
+		var params = $("#actionForm").serialize();
+		$.ajax({
+			type : "post",			  
+			url : "briefHistoryModifyAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				if(res.result == "success") {
+					// 정상적으로 수행될 경우 팝업창 닫고, 약력을 다시 그림
+					$("#notifyModal").modal("hide");
+					redrawBriefHistory();
+				} else {
+					modalPopup("x");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
 }
 
 
@@ -568,35 +577,35 @@ function techCategoryList() {
  * 보유기술 추가
  */
 function techAdd() {
-	// 유효성 검사(0, 공백이 값이 아니라면 함수 종료)
+	// 유효성 검사(카테고리 선택)
 	if($("#categoryName").val() == 0 || $("#categoryName").val() == '' || $("#categoryName").val() == null) {
-		return false;
-	}   
+		alert("카테고리를 선택해주세요.");
 	// 유효성 검사(스킬명이 비어있거나, 카테고리명이 비어있다면 함수 종료)
-	if($("#skillNameInput").val() == '' || $("#categoryName").val() == null) {
-		return false;
+	} else if($("#skillNameInput").val() == '' || $("#skillNameInput").val() == null) {
+		alert("스킬을 입력해주세요.");
+	} else {
+		$("#actionForm").attr("action", "techAddAjax");
+		var params = $("#actionForm").serialize();
+		$.ajax({
+			type : "post",			  
+			url : "techAddAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				if(res.result == "success") {
+					// 스킬 추가가 정상적으로 진행되면 팝업창 닫고, 스킬을 다시 그림
+					$("#notifyModal").modal("hide");
+					redrawTech();
+				} else {
+					modalPopup("x");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
 	}
-	$("#actionForm").attr("action", "techAddAjax");
-	var params = $("#actionForm").serialize();
-	$.ajax({
-		type : "post",			  
-		url : "techAddAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			if(res.result == "success") {
-				// 스킬 추가가 정상적으로 진행되면 팝업창 닫고, 스킬을 다시 그림
-				$("#notifyModal").modal("hide");
-				redrawTech();
-			} else {
-				modalPopup("x");
-			}
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
 }
 
 
@@ -606,33 +615,33 @@ function techAdd() {
 function techDel() {
 	// 유효성 검사(0, 공백이 값이 아니라면 함수 종료)
 	if($("#categoryName").val() == 0 || $("#categoryName").val() == '' || $("#categoryName").val() == null) {
-		return false;
-	}   
+		alert("카테고리를 선택해주세요.");
 	// 유효성 검사(스킬명이 비어있거나, 카테고리명이 비어있다면 함수 종료)
-	if($("#skillName").val() == '' || $("#skillName").val() == null) {
-		return false;
-	}   
-	$("#actionForm").attr("action", "techDelAjax");
-	var params = $("#actionForm").serialize();
-	$.ajax({
-		type : "post",			  
-		url : "techDelAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			if(res.result == "success") {
-				// 보유기술 삭제가 정상적으로 진행되면 팝업창 닫고, 보유기술을 다시 그림
-				$("#notifyModal").modal("hide");
-				redrawTech();
-			} else {
-				modalPopup("x");
-			}
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
+	} else if($("#skillName").val() == '' || $("#skillName").val() == null || $("#skillName").val() == 0) {
+		alert("스킬을 선택해주세요.");
+	} else {
+		$("#actionForm").attr("action", "techDelAjax");
+		var params = $("#actionForm").serialize();
+		$.ajax({
+			type : "post",			  
+			url : "techDelAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				if(res.result == "success") {
+					// 보유기술 삭제가 정상적으로 진행되면 팝업창 닫고, 보유기술을 다시 그림
+					$("#notifyModal").modal("hide");
+					redrawTech();
+				} else {
+					modalPopup("x");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
 }
 
 
@@ -681,28 +690,43 @@ function techList() {
 function academyAdd() {
 	// name 속성에 status를 넣었음에도 불구하고 name값이 안들어가서 서버에 값 전달하기전에 강제로 할당
 	$("#status").attr("name", "status");
-	$("#actionForm").attr("action", "academyAddAjax");
-	var params = $("#actionForm").serialize();
-	// 서버로 값 전송
-	$.ajax({
-		type : "post",			  
-		url : "academyAddAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			if(res.result == "success") {
-				// 교육 추가가 정상적으로 진행되면 팝업창 닫고, 교육을 다시 그림
-				$("#notifyModal").modal("hide");
-				redrawAcademy();
-			} else {
-				modalPopup("x");
-			}
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
+	// 유효성 체크 후 문제가 없을 경우 ajax 동작
+	if($("#nameInput").val() == null || $("#nameInput").val() == '') {
+		alert("학원명을 입력해주세요");
+	} else if ($("#startInput").val() == null || $("#startInput").val() == '') {
+		alert("시작년월을 입력해주세요.");
+	} else if ($("#endInput").val() == null || $("#endInput").val() == '') {
+		alert("종료년월을 입력해주세요.");
+	} else if($("#status").val() == null || $("#status").val() == '' || $("#status").val() == '-1') {
+		alert("상태를 선택해주세요.");
+	} else if ($("#curriculumInput").val() == null || $("#curriculumInput").val() == '') {
+		alert("교육과정을 입력해주세요.");
+	} else if ($("#contentInput").val() == null || $("#contentInput").val() == '') {
+		alert("교육내용을 입력해주세요.");
+	} else {
+		$("#actionForm").attr("action", "academyAddAjax");
+		var params = $("#actionForm").serialize();
+		// 서버로 값 전송
+		$.ajax({
+			type : "post",			  
+			url : "academyAddAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				if(res.result == "success") {
+					// 교육 추가가 정상적으로 진행되면 팝업창 닫고, 교육을 다시 그림
+					$("#notifyModal").modal("hide");
+					redrawAcademy();
+				} else {
+					modalPopup("x");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
 }
 
 
@@ -754,29 +778,44 @@ function academyOneView() {
 function academyMod() {
 	// name 속성에 status를 넣었음에도 불구하고 name값이 안들어가서 서버에 값 전달하기전에 강제로 할당
 	$("#status").attr("name", "status");
-	$("#academyNo").val($("#pickAcademy").val());
-	$("#actionForm").attr("action", "academyModAjax");
-	var params = $("#actionForm").serialize();
-	// 서버에 값 전달
-	$.ajax({
-		type : "post",			  
-		url : "academyModAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			if(res.result == "success") {
-				// 교육 수정이 정상적으로 진행되면 팝업창 닫고, 교육을 다시 그림
-				$("#notifyModal").modal("hide");
-				redrawAcademy();
-			} else {
-				modalPopup("x");
-			}
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
+	// 유효성 체크 후 문제가 없을 경우 ajax 동작
+	if($("#nameInput").val() == null || $("#nameInput").val() == '') {
+		alert("학원명을 입력해주세요");
+	} else if ($("#startInput").val() == null || $("#startInput").val() == '') {
+		alert("시작년월을 입력해주세요.");
+	} else if ($("#endInput").val() == null || $("#endInput").val() == '') {
+		alert("종료년월을 입력해주세요.");
+	} else if($("#status").val() == null || $("#status").val() == '' || $("#status").val() == '-1') {
+		alert("상태를 선택해주세요.");
+	} else if ($("#curriculumInput").val() == null || $("#curriculumInput").val() == '') {
+		alert("교육과정을 입력해주세요.");
+	} else if ($("#contentInput").val() == null || $("#contentInput").val() == '') {
+		alert("교육내용을 입력해주세요.");
+	} else {
+		$("#academyNo").val($("#pickAcademy").val());
+		$("#actionForm").attr("action", "academyModAjax");
+		var params = $("#actionForm").serialize();
+		// 서버에 값 전달
+		$.ajax({
+			type : "post",			  
+			url : "academyModAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				if(res.result == "success") {
+					// 교육 수정이 정상적으로 진행되면 팝업창 닫고, 교육을 다시 그림
+					$("#notifyModal").modal("hide");
+					redrawAcademy();
+				} else {
+					modalPopup("x");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
 }
 
 
@@ -816,28 +855,39 @@ function academyDel() {
 function certificateAdd() {
 	// name 속성에 status를 넣었음에도 불구하고 name값이 안들어가서 서버에 값 전달하기전에 강제로 할당
 	$("#status").attr("name", "status");
-	$("#actionForm").attr("action", "certificateAddAjax");
-	var params = $("#actionForm").serialize();
-	// 서버에 값 전달
-	$.ajax({
-		type : "post",			  
-		url : "certificateAddAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			if(res.result == "success") {
-				// 자격증 추가가 정상적으로 진행되면 팝업창 닫고, 자격증을 다시 그림
-				$("#notifyModal").modal("hide");
-				redrawCertificate();
-			} else {
-				modalPopup("x");
-			}
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
+	// 유효성 체크 후 문제가 없을 경우 ajax 동작
+	if($("#nameInput").val() == null || $("#nameInput").val() == '') {
+		alert("자격증을 입력해주세요");
+	} else if ($("#certAutorityInput").val() == null || $("#certAutorityInput").val() == '') {
+		alert("발급기관을 입력해주세요.");
+	} else if($("#status").val() == null || $("#status").val() == '' || $("#status").val() == '-1') {
+		alert("합격여부를 선택해주세요.");
+	} else if ($("#dateInput").val() == null || $("#dateInput").val() == '') {
+		alert("발급일자를 입력해주세요.");
+	} else {
+		$("#actionForm").attr("action", "certificateAddAjax");
+		var params = $("#actionForm").serialize();
+		// 서버에 값 전달
+		$.ajax({
+			type : "post",			  
+			url : "certificateAddAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				if(res.result == "success") {
+					// 자격증 추가가 정상적으로 진행되면 팝업창 닫고, 자격증을 다시 그림
+					$("#notifyModal").modal("hide");
+					redrawCertificate();
+				} else {
+					modalPopup("x");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});	
+	}
 }
 
 
@@ -888,29 +938,40 @@ function certificateOneView() {
 function certificateMod() {
 	// name 속성에 status를 넣었음에도 불구하고 name값이 안들어가서 서버에 값 전달하기전에 강제로 할당
 	$("#status").attr("name", "status");
-	$("#certificateNo").val($("#pickCertificate").val());
-	$("#actionForm").attr("action", "certificateModAjax");
-	var params = $("#actionForm").serialize();
-	// 서버에 값 전달
-	$.ajax({
-		type : "post",			  
-		url : "certificateModAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			if(res.result == "success") {
-				// 자격증 수정이 정상적으로 진행되면 팝업창 닫고, 자격증을 다시 그림
-				$("#notifyModal").modal("hide");
-				redrawCertificate();
-			} else {
-				modalPopup("x");
-			}
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
+	// 유효성 체크 후 문제가 없을 경우 ajax 동작
+	if($("#nameInput").val() == null || $("#nameInput").val() == '') {
+		alert("자격증을 입력해주세요");
+	} else if ($("#certAutorityInput").val() == null || $("#certAutorityInput").val() == '') {
+		alert("발급기관을 입력해주세요.");
+	} else if($("#status").val() == null || $("#status").val() == '' || $("#status").val() == '-1') {
+		alert("합격여부를 선택해주세요.");
+	} else if ($("#dateInput").val() == null || $("#dateInput").val() == '') {
+		alert("발급일자를 입력해주세요.");
+	} else {
+		$("#certificateNo").val($("#pickCertificate").val());
+		$("#actionForm").attr("action", "certificateModAjax");
+		var params = $("#actionForm").serialize();
+		// 서버에 값 전달
+		$.ajax({
+			type : "post",			  
+			url : "certificateModAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				if(res.result == "success") {
+					// 자격증 수정이 정상적으로 진행되면 팝업창 닫고, 자격증을 다시 그림
+					$("#notifyModal").modal("hide");
+					redrawCertificate();
+				} else {
+					modalPopup("x");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
 }
 
 
