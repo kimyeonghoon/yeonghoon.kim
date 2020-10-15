@@ -8,27 +8,33 @@
  * 
  */
 function boardAdd() {
-	$("#actionForm").attr("action", "boardAddAjax");
-	var params = $("#actionForm").serialize();
-	$.ajax({
-		type : "post",			  
-		url : "boardAddAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			// 성공하면 작성글 확인할 수 있는 페이지로 이동.
-			if(res.result == "success") {
-				$("#bNo").val(res.boardNo);
-				$("#prevPage").submit();
-			} else if(res.result == "fail") {
-				alert("error");
-			}
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
+	// 유효성 검사
+	if($("#contentName").val() == "" || $("#contentName").val() == null) {
+		alert("제목을 입력해주세요.");
+	} else {
+		$("#actionForm").attr("action", "boardAddAjax");
+		var params = $("#actionForm").serialize();
+		$.ajax({
+			type : "post",			  
+			url : "boardAddAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				// 성공하면 작성글 확인할 수 있는 페이지로 이동.
+				if(res.result == "success") {
+					$("#bNo").val(res.boardNo);
+					$("#prevPage").submit();
+				} else if(res.result == "fail") {
+					alert("error");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
+	
 }
 
 
@@ -69,26 +75,31 @@ function buttonEvent(no) {
  * 
  */
 function boardMod() {
-	$("#actionForm").attr("action", "boardModAjax");
-	var params = $("#actionForm").serialize();
-	$.ajax({
-		type : "post",			  
-		url : "boardModAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			// 성공하면 작성글 확인할 수 있는 페이지로 이동.
-			if(res.result == "success") {
-				$("#prevPage").submit();
-			} else if(res.result == "fail") {
-				alert("error");
-			}
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
+	// 유효성 검사
+	if($("#contentName").val() == "" || $("#contentName").val() == null) {
+		alert("제목을 입력해주세요.");
+	} else {
+		$("#actionForm").attr("action", "boardModAjax");
+		var params = $("#actionForm").serialize();
+		$.ajax({
+			type : "post",			  
+			url : "boardModAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				// 성공하면 작성글 확인할 수 있는 페이지로 이동.
+				if(res.result == "success") {
+					$("#prevPage").submit();
+				} else if(res.result == "fail") {
+					alert("error");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
 }
 
 

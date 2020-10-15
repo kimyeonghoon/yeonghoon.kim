@@ -99,7 +99,7 @@ function redrawComment() {
 				html += "</td></tr><tr><td colspan=\"2\" class=\"bg-secondary\"><div>";
 				// 유저가 로그인한 상태면 댓글을 등록할 수 있지만, 로그인하지 않은 상태라면 로그인하라고 안내
 				if($("#userNo").val() != '') {
-					html += "<textarea name=\"comment\" rows=\"3\" style=\"width: 100%\"></textarea>";
+					html += "<textarea id=\"commentInput\" name=\"comment\" rows=\"3\" style=\"width: 100%\"></textarea>";
 					html += "<div id=\"commentAdd\" class=\"btn btn-danger float-right\">댓글 등록</div>";
 				} else {
 					html += "<textarea disabled rows=\"3\" style=\"width: 100%\">로그인 후 댓글 쓰기가 가능합니다.</textarea>";
@@ -186,22 +186,26 @@ function contentDel() {
  * 
  */
 function commentAdd() {
-	$("#actionForm").attr("action", "commentAddAjax");
-	var params = $("#actionForm").serialize();
-	$.ajax({
-		type : "post",			  
-		url : "commentAddAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			// 댓글 추가 결과 반환 시 동작
-			commentResult(res);
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
+	if($("#commentInput").val() == "" || $("#commentInput").val() == null) {
+		alert("내용을 입력해주세요.");
+	} else {
+		$("#actionForm").attr("action", "commentAddAjax");
+		var params = $("#actionForm").serialize();
+		$.ajax({
+			type : "post",			  
+			url : "commentAddAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				// 댓글 추가 결과 반환 시 동작
+				commentResult(res);
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
 }
 
 
@@ -210,22 +214,26 @@ function commentAdd() {
  * 
  */
 function commentMod() {
-	var params = $("#contentForm").serialize();
-	$.ajax({
-		type : "post",			  
-		url : "commentModAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			// 댓글 수정 결과 반환 시 동작
-			commentResult(res);
-			$("#notifyModal").modal("hide");
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
+	if($("#modCommentTextarea").val() == "" || $("#modCommentTextarea").val() == null) {
+		alert("내용을 입력해주세요.");
+	} else {
+		var params = $("#contentForm").serialize();
+		$.ajax({
+			type : "post",			  
+			url : "commentModAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				// 댓글 수정 결과 반환 시 동작
+				commentResult(res);
+				$("#notifyModal").modal("hide");
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
 }
 
 

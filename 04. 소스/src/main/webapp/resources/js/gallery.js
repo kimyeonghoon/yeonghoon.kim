@@ -61,7 +61,8 @@ function redrawList(galleryList) {
 			html += "</span></div></div></div>";
 		}
 	} else {
-		alert("갤러리를 불러올 수 없습니다.");
+		alert("게시글이 존재하지 않습니다.");
+		return false;
 	}
 	
 	// 변수에 담긴 내용을 가지고 html 게시글 부분 재생성

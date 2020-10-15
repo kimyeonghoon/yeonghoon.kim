@@ -8,28 +8,33 @@
  * 
  */
 function galleryAdd() {
-	$("#actionForm").attr("action", "galleryAddAjax");
-	var params = $("#actionForm").serialize();
-	$.ajax({
-		type : "post",			  
-		url : "galleryAddAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			if(res.result == "success") {
-				// 성공하면 작성글 확인할 수 있는 페이지로 이동.
-				$("#boardNo").val(res.boardNo);
-				$("#actionForm").attr("action", "galleryDetail");
-				$("#actionForm").submit();
-			} else if(res.result == "fail") {
-				alert("error");
-			}
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
+	// 유효성 검사
+	if($("#contentName").val() == "" || $("#contentName").val() == null) {
+		alert("제목을 입력해주세요.");
+	} else {
+		$("#actionForm").attr("action", "galleryAddAjax");
+		var params = $("#actionForm").serialize();
+		$.ajax({
+			type : "post",			  
+			url : "galleryAddAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				if(res.result == "success") {
+					// 성공하면 작성글 확인할 수 있는 페이지로 이동.
+					$("#boardNo").val(res.boardNo);
+					$("#actionForm").attr("action", "galleryDetail");
+					$("#actionForm").submit();
+				} else if(res.result == "fail") {
+					alert("error");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
 }
 
 
@@ -70,25 +75,30 @@ function buttonEvent(no) {
  * 
  */
 function galleryMod() {
-	$("#actionForm").attr("action", "galleryModAjax");
-	var params = $("#actionForm").serialize();
-	$.ajax({
-		type : "post",			  
-		url : "galleryModAjax", 
-		dataType : "json",
-		data : params,
-		success : function(res) {
-			if(res.result == "success") {
-				// 성공하면 작성글 확인할 수 있는 페이지로 이동.
-				$("#actionForm").attr("action", "galleryDetail");
-				$("#actionForm").submit();
-			} else if(res.result == "fail") {
-				alert("error");
-			}
-		},
-		error : function(request, status, error) {
-			console.log("text : " + request.responseTxt);
-			console.log("error : " + error);
-		}			
-	});
+	// 유효성 검사
+	if($("#contentName").val() == "" || $("#contentName").val() == null) {
+		alert("제목을 입력해주세요.");
+	} else {
+		$("#actionForm").attr("action", "galleryModAjax");
+		var params = $("#actionForm").serialize();
+		$.ajax({
+			type : "post",			  
+			url : "galleryModAjax", 
+			dataType : "json",
+			data : params,
+			success : function(res) {
+				if(res.result == "success") {
+					// 성공하면 작성글 확인할 수 있는 페이지로 이동.
+					$("#actionForm").attr("action", "galleryDetail");
+					$("#actionForm").submit();
+				} else if(res.result == "fail") {
+					alert("error");
+				}
+			},
+			error : function(request, status, error) {
+				console.log("text : " + request.responseTxt);
+				console.log("error : " + error);
+			}			
+		});
+	}
 }

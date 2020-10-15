@@ -66,7 +66,7 @@
 				</tr>
 				<tr>
 					<td class="font-weight-bold cursor-defualt">제목</td>
-					<td><input type="text" name="contentName" class="form-control"></td>
+					<td><input type="text" id="contentName" name="contentName" class="form-control"></td>
 				</tr>
 				<tr class="table-secondary">
 					<td class="p-3" colspan="2">
