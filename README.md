@@ -49,7 +49,8 @@
     + 데이터 모델링을 기반으로 테이블 정의서 작성
 3. Framework 설계
     + Spring 4.3.28 - Annotation Driven을 통한 컨트롤러 호출, Resource Mapping을 통한 리소스 폴더 관리, AOP, jstl, aws-java-sdk(Object Storage), imgscalr-lib(thumbnail), Spring Security(bcrypt 암호화)
-    + Mybatis 3.5.5
+    + Mybatis 3.5.5 - Mybatis와 MariaDB 연동
+    + bootstrap 4.5.2
 4. 서버 구성
     + WebServer - CentOS8, nginx 1.14.1(리버스 프록시 구성), let's encrypt(SSL)
     + WasServer & DBServer - CentOS7, tomcat 8.5.55, jdk 1.8.0_251, MariaDB 10.4.13
@@ -57,3 +58,6 @@
     + Ajax를 통한 동적 WEB 구현 : 로딩된 페이지 상에서 동적으로 웹을 구현.
     + bootstrap을 이용해서 반응형 웹페이지 구현.
     + git을 통한 버전 관리
+6. 테스트
+    + UI테스트(테스트 수행 - 2회, 테스트 항목 - 204건, 정상완료 169건, 오류발생 35건, 조치 35건) 
+    + 애플리케이션 테스트(테스트 수행 - 1회, 테스트 항목 - 145건, 정상완료 145건)
