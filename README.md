@@ -6,6 +6,8 @@
 2. 개발기간 : 2020/08/12 ~ 2020/10/17
 3. 참여인원 : 1명
 4. 담당업무 : 기획, 설계, 디자인, 개발, 테스트, 인프라구축
+5. 실제 페이지 : https://yeonghoon.kim
+5. 데모 페이지 : https://demo.yeonghoon.kim - demo@yeonghoon.kim / demo
 
 
 ### 개발환경
