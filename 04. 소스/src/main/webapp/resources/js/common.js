@@ -93,7 +93,7 @@ function redrawPaging(pagingMap) {
 	$("#paging").html(html);
 	
 	// 페이징 버튼 동작
-	$("#paging").on("click", ".page-link", function() {
+	$(".page-link").on("click", function() {
 		$("#page").val($(this).attr("data-no"));
 		reloadList();
 	});
