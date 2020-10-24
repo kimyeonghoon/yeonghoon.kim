@@ -33,7 +33,7 @@ function redrawContent() {
 				// 변수에 담긴 내용을 가지고 html 게시글 부분 재생성
 				$("#galleryDetail").prepend(html);
 				// 브라우저 제목 변경
-				document.title = "yeonghoon.kim :: 게시판 - " + res.getGalleryContent.content_name; 
+				document.title = "yeonghoon.kim :: 갤러리 - " + res.getGalleryContent.content_name; 
 			} else if(res.result == "fail") {
 				// 게시글을 불러오지 못할 경우 이전 페이지인 gallery로 이동
 				alert("게시물을 불러올 수 없습니다");
