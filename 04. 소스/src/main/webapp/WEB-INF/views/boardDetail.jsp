@@ -42,7 +42,7 @@
 		
 		// 목록 버튼 클릭 이벤트
 		$("#listBtn").on("click", function() {
-			location.href="board.html";
+			location.href="board";
 		});
 		
 		// nav메뉴에서 현재 위치 표시(게시판)

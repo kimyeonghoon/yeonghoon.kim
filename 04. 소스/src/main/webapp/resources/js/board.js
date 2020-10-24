@@ -65,6 +65,15 @@ function redrawList(boardList) {
 	
 	// 게시글 클릭 이벤트 걸어줌
 	$("#boardList > tr").on("click", function() {
+		// 비로그인의 경우 글 번호만 넘김
+		if($("#userNo").val() == "") {
+			$("#userNo").removeAttr("name");
+			$("#authNo").removeAttr("name");
+			$("#searchTxt").removeAttr("name");
+			$("#searchGbn").removeAttr("name");
+			$("#actionForm").attr("method", "get");
+			$("#page").removeAttr("name");
+		}
 		if($(this).attr("data-bNo") != null) {
 			$("#boardNo").val($(this).attr("data-bNo"));
 			$("#authNo").val($(this).attr("data-authNo"));
