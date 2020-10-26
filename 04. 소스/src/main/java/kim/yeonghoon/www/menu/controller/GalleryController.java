@@ -182,7 +182,7 @@ public class GalleryController {
 	 *  [galleryDetail] galleryDetail - PathVariable이용해서 접속 할 경우(검색엔진 표시용)
 	 */
 	@RequestMapping(value = "/galleryDetail/{boardNo}")
-	public ModelAndView boardDetail(@PathVariable String boardNo, @RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {
+	public ModelAndView galleryDetail(@PathVariable String boardNo, @RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {
 		params.put("boardNo", boardNo);
 		mav.addAllObjects(params);
 		mav.setViewName("redirect:/galleryDetail");

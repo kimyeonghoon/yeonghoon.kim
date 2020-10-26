@@ -48,7 +48,7 @@ public class FileUploadController {
 		// 업로드 허용 확장자 지정
 		final String uploadExt = "show|zip|xls|ppt|doc|xlsx|pptx|docx|hwp|csv|jpg|jpeg|png|gif|bmp|txt|pdf";
 		// 업로드 경로
-		String uploadPath = "/usr/local/tomcat-8.5.55/webapps/yeonghoonkim/yeonghoonkim/resources/upload/";
+		String uploadPath = "/usr/local/tomcat/webapps/yeonghoonkim/yeonghoonkim/resources/upload/";
 		// fileFullName 초기화
 		String fileFullName = "";
 		
@@ -96,7 +96,7 @@ public class FileUploadController {
 				        final AmazonS3 s3 = AmazonS3ClientBuilder.standard()
 				        .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
 				        		"kr.object.iwinv.kr", "default"))
-				        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("AccessKey", "SecretKey")))
+				        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("RT4D4O34UWBZZR80K6HP", "1yo0yacJrE6iGuk8S1TliNKaoKrP7VqyfOCftlFX")))
 				        .build();
 						
 						
@@ -127,7 +127,7 @@ public class FileUploadController {
 		
 		try {
 			String uploadExts = "jpg|jpeg|png|gif|bmp"; // 확장자
-			String uploadPath = "/usr/local/tomcat-8.5.55/webapps/yeonghoonkim/yeonghoonkim/resources/upload/";
+			String uploadPath = "/usr/local/tomcat/webapps/yeonghoonkim/yeonghoonkim/resources/upload/";
 			String fileFullName = "";
 
 			File fileDir = new File(uploadPath);
@@ -150,7 +150,7 @@ public class FileUploadController {
 			        final AmazonS3 s3 = AmazonS3ClientBuilder.standard()
 			        .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
 			        		"kr.object.iwinv.kr", "default"))
-			        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("AccessKey", "SecretKey")))
+			        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("RT4D4O34UWBZZR80K6HP", "1yo0yacJrE6iGuk8S1TliNKaoKrP7VqyfOCftlFX")))
 			        .build();
 					
 					
