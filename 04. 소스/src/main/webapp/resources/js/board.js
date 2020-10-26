@@ -45,7 +45,7 @@ function redrawList(boardList) {
 		for(var i = 0; i < boardList.length; i++) {
 			html += "<tr data-bNo=\"" + boardList[i].content_no + "\"data-authNo=\"" + boardList[i].auth_no + "\">";
 			html += "<td class=\"d-none d-xl-table-cell\">" + boardList[i].content_no + "</td>";
-			html += "<td class=\"text-left\">" + boardList[i].content_name;
+			html += "<td class=\"text-left\"><a href=\"boardDetail/" + boardList[i].content_no + "\">" + boardList[i].content_name + "</a>";
 			// 해당 게시물에 댓글이 있을 경우
 			if(boardList[i].commentCnt != undefined) {
 				html += " [<b>" + boardList[i].commentCnt + "</b>]";

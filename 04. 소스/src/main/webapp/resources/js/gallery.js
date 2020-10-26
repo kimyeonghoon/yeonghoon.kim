@@ -48,11 +48,11 @@ function redrawList(galleryList) {
 			html += "<img style=\"width:100%\" class=\"justify-content-center\" src=\"";
 			html += galleryList[i].thumbnail_path + "\" />";
 			html += "</div><div class=\"card-body bg-dark text-light\">";
-			html += galleryList[i].content_name;
+			html += "<a href=\"galleryList/" + galleryList[i].content_no + "\">" + galleryList[i].content_name + "</a>";
 			if(galleryList[i].commentCnt != undefined) {
 				html += " [<b>" + galleryList[i].commentCnt + "</b>]";
 			}
-			html += "</div><div class=\"card-footer font-weight-bold\"><span class=\"mr-2\">";
+			html += "</div><div class=\"card-footer font-weight-bold bg-secondary text-white\"><span class=\"mr-2\">";
 			html += galleryList[i].member_name;
 			html += "</span>&nbsp;<span class=\"mr-2\">";
 			html += galleryList[i].reg_time;

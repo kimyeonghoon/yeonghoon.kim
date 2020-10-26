@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -154,6 +155,7 @@ public class BoardController {
 	/**
 	 * [boardDetail] boardDetail - boardDetail Request
 	 */
+	
 	@RequestMapping(value = "/boardDetail")
 	public ModelAndView boardDetail(@RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {
 		// 세션번호 취득
@@ -164,6 +166,18 @@ public class BoardController {
 			mav.addObject("delBtn", "<div class='btn btn-secondary  float-right' style='display: inline-block;' id='deleteBtn'>삭제</div>");
 		}
 		mav.setViewName("boardDetail");
+		return mav;
+	}
+	
+	
+	/**
+	 *  [boardDetail] boardDetail - PathVariable이용해서 접속 할 경우(검색엔진 표시용)
+	 */
+	@RequestMapping(value = "/boardDetail/{boardNo}")
+	public ModelAndView boardDetail(@PathVariable String boardNo, @RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {
+		params.put("boardNo", boardNo);
+		mav.addAllObjects(params);
+		mav.setViewName("redirect:/boardDetail");
 		return mav;
 	}
 	
