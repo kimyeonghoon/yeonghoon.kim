@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -173,6 +174,18 @@ public class GalleryController {
 			mav.addObject("delBtn", "<div class='btn btn-secondary  float-right' style='display: inline-block;' id='deleteBtn'>삭제</div>");
 		}
 		mav.setViewName("galleryDetail");
+		return mav;
+	}
+	
+	
+	/**
+	 *  [galleryDetail] galleryDetail - PathVariable이용해서 접속 할 경우(검색엔진 표시용)
+	 */
+	@RequestMapping(value = "/galleryDetail/{boardNo}")
+	public ModelAndView boardDetail(@PathVariable String boardNo, @RequestParam HashMap<String,String> params, ModelAndView mav, HttpSession session) {
+		params.put("boardNo", boardNo);
+		mav.addAllObjects(params);
+		mav.setViewName("redirect:/galleryDetail");
 		return mav;
 	}
 	
@@ -396,7 +409,7 @@ public class GalleryController {
 			// 썸네일 등록
 			if(params.get("thumbnail") != null && params.get("thumbnail") != "") {
 				// 썸네일 업로드 경로 및 파일명 지정
-				String uploadPath = "C:\\\\Devel\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\www\\resources\\upload\\";
+				String uploadPath = "/usr/local/tomcat/webapps/yeonghoonkim/yeonghoonkim/resources/upload/";
 				String uploadFileName = params.get("thumbnail");
 				String fileInput = uploadPath + uploadFileName;
 				String fileExt = uploadFileName.substring(uploadFileName.length()-3, uploadFileName.length());
@@ -468,7 +481,7 @@ public class GalleryController {
 			// 썸네일 등록/수정
 			} else {
 				// 썸네일 업로드 경로 및 파일명 지정
-				String uploadPath = "/usr/local/tomcat-8.5.55/webapps/yeonghoonkim/yeonghoonkim/resources/upload/";
+				String uploadPath = "/usr/local/tomcat/webapps/yeonghoonkim/yeonghoonkim/resources/upload/";
 				String uploadFileName = params.get("thumbnail");
 				String fileInput = uploadPath + uploadFileName;
 				String fileExt = fileInput.substring(fileInput.length()-3, fileInput.length());
