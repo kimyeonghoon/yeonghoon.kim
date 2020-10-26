@@ -12,11 +12,11 @@
 					<tbody>
 						<tr>
 							<td class="font-weight-bold">[Mail]</td>
-							<td><a href="mailto:me@yeonghoon.kim">me@yeonghoon.kim</a></td>
+							<td><a class="text-dark" href="mailto:me@yeonghoon.kim">me@yeonghoon.kim</a></td>
 						</tr>
 						<tr>
 							<td class="font-weight-bold">[GitHub]</td>
-							<td><a href="https://github.com/kimyeonghoon" target="_blank">https://github.com/kimyeonghoon</a></td>
+							<td><a class="text-dark" href="https://github.com/kimyeonghoon" target="_blank">https://github.com/kimyeonghoon</a></td>
 						</tr>
 					</tbody>
 				</table>
