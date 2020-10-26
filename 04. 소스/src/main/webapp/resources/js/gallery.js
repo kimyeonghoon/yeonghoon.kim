@@ -48,7 +48,13 @@ function redrawList(galleryList) {
 			html += "<img style=\"width:100%\" class=\"justify-content-center\" src=\"";
 			html += galleryList[i].thumbnail_path + "\" />";
 			html += "</div><div class=\"card-body bg-dark text-light\">";
-			html += "<a href=\"galleryDetail/" + galleryList[i].content_no + "\">" + galleryList[i].content_name + "</a>";
+			// 로그인한 사용자는 앵커태그 미표시
+			if($("#addBtn").length < 1) {
+				html += "<a href=\"galleryDetail/" + galleryList[i].content_no + "\">" + galleryList[i].content_name + "</a>";
+			} else {
+				html += galleryList[i].content_name;
+			}
+			// 해당 게시물에 댓글이 있을 경우
 			if(galleryList[i].commentCnt != undefined) {
 				html += " [<b>" + galleryList[i].commentCnt + "</b>]";
 			}
